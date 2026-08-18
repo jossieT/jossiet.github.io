@@ -89,3 +89,74 @@ export function getFeaturedArticles(): Promise<Article[]> {
 export function getArticle(slug: string): Promise<Article | null> {
   return fetchJson<Article | null>(`/api/v1/articles/${slug}`);
 }
+
+// AI Chat Streaming
+export async function* streamChat(
+  messages: Array<{ role: string; content: string }>,
+  signal?: AbortSignal,
+): AsyncGenerator<string, void, unknown> {
+  const response = await fetch(`${API_BASE_URL}/api/v1/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "text/event-stream",
+    },
+    body: JSON.stringify({ messages }),
+    signal,
+  });
+
+  if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error("Rate limit reached. Please wait a moment before sending more messages.");
+    }
+    const errBody = await response.json().catch(() => null);
+    const detail = errBody?.detail || `Chat request failed (${response.status})`;
+    throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
+  }
+
+  if (!response.body) {
+    throw new Error("ReadableStream is not supported by the browser or response body was empty.");
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() || "";
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || !trimmed.startsWith("data:")) continue;
+
+        const dataStr = trimmed.replace(/^data:\s*/, "");
+        if (dataStr === "[DONE]") {
+          return;
+        }
+
+        try {
+          const parsed = JSON.parse(dataStr);
+          if (parsed.error) {
+            throw new Error(parsed.error);
+          }
+          if (parsed.token) {
+            yield parsed.token;
+          }
+        } catch (e) {
+          if (e instanceof Error && e.message !== "Unexpected end of JSON input") {
+            if (!dataStr.startsWith("{")) continue;
+            throw e;
+          }
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}

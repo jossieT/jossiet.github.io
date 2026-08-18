@@ -7,6 +7,7 @@ JSON error bodies. Deliberately minimal: no custom exception hierarchy.
 import logging
 
 from fastapi import FastAPI, Request, status
+from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -17,7 +18,7 @@ logger = logging.getLogger(__name__)
 def _error_response(status_code: int, detail: object) -> JSONResponse:
     return JSONResponse(
         status_code=status_code,
-        content={"detail": detail},
+        content={"detail": jsonable_encoder(detail)},
     )
 
 

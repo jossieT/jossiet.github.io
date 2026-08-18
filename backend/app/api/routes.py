@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from app.api.v1 import articles, experience, projects, services, skills
+from app.api.v1 import articles, chat, experience, projects, services, skills
 from app.core.config import settings
 from app.schemas.health import HealthResponse, ReadinessResponse
 from app.services.health import get_readiness
@@ -28,3 +28,4 @@ api_router.include_router(experience.router)
 api_router.include_router(skills.router)
 api_router.include_router(services.router)
 api_router.include_router(articles.router)
+api_router.include_router(chat.router)

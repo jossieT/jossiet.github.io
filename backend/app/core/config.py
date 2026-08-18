@@ -39,6 +39,24 @@ class Settings(BaseSettings):
         alias="CORS_ORIGINS",
     )
 
+    # --- AI / LLM Configuration -------------------------------------------
+    # Provider: "gemini" (default). Architecture allows swapping providers.
+    llm_provider: str = Field(default="gemini", alias="LLM_PROVIDER")
+    llm_model: str = Field(default="gemini-2.0-flash", alias="LLM_MODEL")
+    llm_api_key: str = Field(default="", alias="LLM_API_KEY")
+
+    # Limits (cost protection & abuse prevention)
+    ai_max_input_length: int = Field(default=2000, alias="AI_MAX_INPUT_LENGTH")
+    ai_max_history_messages: int = Field(default=10, alias="AI_MAX_HISTORY_MESSAGES")
+    ai_max_output_tokens: int = Field(default=1024, alias="AI_MAX_OUTPUT_TOKENS")
+    ai_timeout_seconds: int = Field(default=30, alias="AI_TIMEOUT_SECONDS")
+
+    # Rate limiting: anonymous requests per hour per IP (uses Redis)
+    ai_rate_limit_per_hour: int = Field(default=20, alias="AI_RATE_LIMIT_PER_HOUR")
+
+    # Portfolio context cache TTL in seconds
+    ai_context_cache_ttl: int = Field(default=300, alias="AI_CONTEXT_CACHE_TTL")
+
     @property
     def cors_origin_list(self) -> list[str]:
         """CORS origins as a list of normalized origins."""
@@ -47,6 +65,11 @@ class Settings(BaseSettings):
     @property
     def is_production(self) -> bool:
         return self.app_env.lower() == "production"
+
+    @property
+    def ai_enabled(self) -> bool:
+        """True when an LLM API key is configured."""
+        return bool(self.llm_api_key)
 
 
 @lru_cache
