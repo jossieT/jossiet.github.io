@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Bot, User, Copy, Check } from "lucide-react";
+import { Bot, User, Copy, Check, Database } from "lucide-react";
 import { ChatMessageItem } from "@/types/chat";
 
 interface ChatMessageProps {
@@ -129,7 +129,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
           <div className="space-y-0.5 text-left">{renderFormattedContent(message.content)}</div>
         </div>
 
-        {/* Copy button on hover for assistant messages */}
+        {/* Copy + timestamp row */}
         {!isUser && (
           <div className="flex items-center gap-1.5 mt-1 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
@@ -152,6 +152,55 @@ export function ChatMessage({ message }: ChatMessageProps) {
             <span className="text-[10px] text-zinc-400 font-mono">
               • {message.timestamp}
             </span>
+          </div>
+        )}
+
+        {/* RAG source badges */}
+        {!isUser && message.sources && message.sources.length > 0 && (
+          <div className="mt-2 ml-1 flex flex-wrap gap-1.5">
+            <span className="inline-flex items-center gap-1 text-[10px] text-zinc-400 font-mono shrink-0">
+              <Database className="w-2.5 h-2.5" />
+              Sources:
+            </span>
+            {message.sources.map((src, idx) => {
+              const label = src.source_title || src.source_type;
+              const badge = (
+                <span
+                  key={idx}
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 hover:border-sky-400 dark:hover:border-sky-500 transition-colors"
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                      src.source_type === "project"
+                        ? "bg-sky-500"
+                        : src.source_type === "experience"
+                        ? "bg-violet-500"
+                        : src.source_type === "skill"
+                        ? "bg-emerald-500"
+                        : src.source_type === "service"
+                        ? "bg-amber-500"
+                        : src.source_type === "article"
+                        ? "bg-rose-500"
+                        : "bg-zinc-400"
+                    }`}
+                  />
+                  {label}
+                </span>
+              );
+              return src.source_url ? (
+                <a
+                  key={idx}
+                  href={src.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={src.section || src.source_title}
+                >
+                  {badge}
+                </a>
+              ) : (
+                badge
+              );
+            })}
           </div>
         )}
       </div>

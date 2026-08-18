@@ -10,6 +10,7 @@ interface ChatMessagesProps {
   messages: ChatMessageItem[];
   isLoading: boolean;
   error: string | null;
+  agentStatus?: string | null;
   onSelectSuggestion: (text: string) => void;
 }
 
@@ -17,6 +18,7 @@ export function ChatMessages({
   messages,
   isLoading,
   error,
+  agentStatus,
   onSelectSuggestion,
 }: ChatMessagesProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -24,7 +26,7 @@ export function ChatMessages({
   // Auto-scroll on new message / token
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isLoading, error]);
+  }, [messages, isLoading, error, agentStatus]);
 
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-4 text-sm">
@@ -52,13 +54,15 @@ export function ChatMessages({
         <ChatMessage key={msg.id} message={msg} />
       ))}
 
-      {/* Generating indicator (typing dots) */}
+      {/* Generating indicator / Agent Tool Status */}
       {isLoading && (
         <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 pl-10">
           <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
           <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse delay-75" />
           <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse delay-150" />
-          <span className="ml-1 text-[11px]">Synthesizing portfolio response...</span>
+          <span className="ml-1 text-[11px] text-sky-600 dark:text-sky-400 font-medium">
+            {agentStatus || "Synthesizing portfolio response..."}
+          </span>
         </div>
       )}
 

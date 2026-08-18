@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { Bot, RotateCcw, X, Sparkles } from "lucide-react";
-import { ChatMessageItem } from "@/types/chat";
+import { ChatMessageItem, SourceRef } from "@/types/chat";
 import { streamChat } from "@/lib/api";
 import { ChatMessages } from "./ChatMessages";
 import { ChatInput } from "./ChatInput";
@@ -15,6 +15,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessageItem[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [agentStatus, setAgentStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -26,6 +27,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
     setMessages([]);
     setInput("");
     setError(null);
+    setAgentStatus(null);
     setIsLoading(false);
   };
 
@@ -34,6 +36,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
     if (!query || isLoading) return;
 
     setError(null);
+    setAgentStatus(null);
     setInput("");
 
     // Create user message
@@ -70,10 +73,33 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
       }));
 
       let accumulatedText = "";
+      let capturedSources: SourceRef[] | undefined;
       const stream = streamChat(apiMessages, controller.signal);
 
-      for await (const token of stream) {
+      for await (const event of stream) {
+        // Status event from agent tool execution
+        if (typeof event === "object" && "status" in event) {
+          setAgentStatus(event.status);
+          continue;
+        }
+
+        // Sources metadata
+        if (typeof event === "object" && "sources" in event) {
+          capturedSources = event.sources;
+          // Clear tool execution status once sources/tokens begin
+          setAgentStatus(null);
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === assistantId ? { ...m, sources: capturedSources } : m
+            )
+          );
+          continue;
+        }
+
+        // Plain string token
+        const token = event as string;
         accumulatedText += token;
+        setAgentStatus(null);
         setMessages((prev) =>
           prev.map((m) =>
             m.id === assistantId ? { ...m, content: accumulatedText } : m
@@ -91,6 +117,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
       setMessages((prev) => prev.filter((m) => m.id !== assistantId || m.content.length > 0));
     } finally {
       setIsLoading(false);
+      setAgentStatus(null);
       abortControllerRef.current = null;
     }
   };
@@ -116,12 +143,12 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
           <div>
             <div className="flex items-center gap-1.5">
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 leading-tight">
-                AI Portfolio Assistant
+                AI Portfolio Concierge
               </h3>
               <Sparkles className="w-3 h-3 text-sky-500" />
             </div>
             <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
-              Powered by Live Portfolio Context
+              Controlled AI Agent • Tool-Grounded
             </span>
           </div>
         </div>
@@ -155,6 +182,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
         messages={messages}
         isLoading={isLoading}
         error={error}
+        agentStatus={agentStatus}
         onSelectSuggestion={(qText) => handleSendMessage(qText)}
       />
 

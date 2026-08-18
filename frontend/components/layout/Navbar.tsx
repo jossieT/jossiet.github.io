@@ -114,7 +114,7 @@ export function Navbar() {
             <LinkedinIcon className="w-4 h-4" />
           </a>
           <a
-            href="/resume.pdf"
+            href="/resume"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-2.5 py-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
@@ -193,7 +193,7 @@ export function Navbar() {
             </div>
 
             <a
-              href="/resume.pdf"
+              href="/resume"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full text-center py-2.5 text-sm font-mono font-semibold rounded-lg bg-sky-600 text-white hover:bg-sky-500 transition-colors"

@@ -13,6 +13,7 @@ import type {
   ServiceItem,
   Article,
 } from "@/types/portfolio";
+import type { SourceRef } from "@/types/chat";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
 
@@ -91,10 +92,11 @@ export function getArticle(slug: string): Promise<Article | null> {
 }
 
 // AI Chat Streaming
+// Yields either a plain string token, an object `{ sources: SourceRef[] }`, or `{ status: string }`.
 export async function* streamChat(
   messages: Array<{ role: string; content: string }>,
   signal?: AbortSignal,
-): AsyncGenerator<string, void, unknown> {
+): AsyncGenerator<string | { sources: SourceRef[] } | { status: string }, void, unknown> {
   const response = await fetch(`${API_BASE_URL}/api/v1/chat`, {
     method: "POST",
     headers: {
@@ -144,6 +146,16 @@ export async function* streamChat(
           const parsed = JSON.parse(dataStr);
           if (parsed.error) {
             throw new Error(parsed.error);
+          }
+          // Agent status event — e.g. "Searching projects..."
+          if (parsed.status) {
+            yield { status: parsed.status as string };
+            continue;
+          }
+          // RAG source attribution event — yield as structured object
+          if (parsed.sources) {
+            yield { sources: parsed.sources as SourceRef[] };
+            continue;
           }
           if (parsed.token) {
             yield parsed.token;

@@ -24,7 +24,7 @@ export default async function ExperiencePage() {
             description="Detailed record of engineering roles, system outcomes, technical responsibilities, and infrastructure achievements."
           />
           <Button
-            href="/resume.pdf"
+            href="/resume"
             external
             variant="outline"
             size="md"
