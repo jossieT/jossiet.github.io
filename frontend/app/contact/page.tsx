@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Mail, MapPin, Clock } from "lucide-react";
+import { Mail, MapPin, Clock, Phone } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -40,10 +40,25 @@ export default function ContactPage() {
                   <div>
                     <span className="text-zinc-500 block">EMAIL</span>
                     <a
-                      href="mailto:yosefteshome.eng@gmail.com"
+                      href="mailto:joseteshe2017@gmail.com"
                       className="text-white hover:text-sky-400 font-bold transition-colors"
                     >
-                      yosefteshome.eng@gmail.com
+                      joseteshe2017@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-zinc-500 block">PHONE</span>
+                    <a
+                      href="tel:+251977784658"
+                      className="text-white hover:text-sky-400 font-bold transition-colors"
+                    >
+                      +251 977 784 658
                     </a>
                   </div>
                 </div>
@@ -71,7 +86,7 @@ export default function ContactPage() {
 
               <div className="pt-4 border-t border-zinc-800 flex items-center gap-4 text-xs font-mono">
                 <a
-                  href="https://github.com/yosefteshome"
+                  href="https://github.com/jossieTand"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-zinc-400 hover:text-sky-400 transition-colors"
@@ -80,7 +95,7 @@ export default function ContactPage() {
                   GitHub
                 </a>
                 <a
-                  href="https://linkedin.com/in/yosefteshome"
+                  href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-zinc-400 hover:text-sky-400 transition-colors"

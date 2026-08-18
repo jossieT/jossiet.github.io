@@ -282,7 +282,8 @@ def chunk_biography() -> ChunkPayload:
         "Availability: Available for senior backend / AI engineering roles, technical consulting, and contract projects.\n"
         "Contact Information:\n"
         "• Email: joseteshe2017@gmail.com\n"
-        "• GitHub: https://github.com/yosefteshome\n"
+        "• Phone: +251 977 784 658\n"
+        "• GitHub: https://github.com/jossieTand\n"
         "• Portfolio Website: https://yosefteshome.dev\n"
     )
     return ChunkPayload(

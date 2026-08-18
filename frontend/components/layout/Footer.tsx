@@ -24,7 +24,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://github.com/yosefteshome"
+                href="https://github.com/jossieTand"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
@@ -33,7 +33,7 @@ export function Footer() {
                 <GithubIcon className="w-4 h-4" />
               </a>
               <a
-                href="https://linkedin.com/in/yosefteshome"
+                href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
@@ -101,12 +101,12 @@ export function Footer() {
               Primary Stack
             </h3>
             <ul className="space-y-2 text-xs font-mono text-zinc-500 dark:text-zinc-400">
-              <li>• Python 3.12 / FastAPI</li>
-              <li>• PostgreSQL 17 / pgvector</li>
-              <li>• Docker / Kubernetes / OpenShift</li>
-              <li>• Redis Caching & Queues</li>
-              <li>• LLMs / RAG / AI Agents</li>
-              <li>• Next.js / TypeScript</li>
+              <li>• Python / FastAPI</li>
+              <li>• AI / RAG / LLM Applications</li>
+              <li>• TypeScript / NestJS</li>
+              <li>• PostgreSQL / Redis</li>
+              <li>• Next.js / React / Flutter</li>
+              <li>• Docker / Kubernetes / AWS</li>
             </ul>
           </div>
         </div>

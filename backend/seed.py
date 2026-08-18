@@ -52,7 +52,7 @@ PROJECTS = [
             "94.2% semantic precision score",
             "Zero data leak across role partitions",
         ],
-        "github_url": "https://github.com/yosefteshome",
+        "github_url": "https://github.com/jossieTand",
         "live_url": None,
         "overview": (
             "The Enterprise AI Knowledge Platform was engineered to solve knowledge fragmentation "
@@ -268,7 +268,7 @@ PROJECTS = [
             "Sub-50ms API response time with Redis caching",
             "Zero database deadlocks during peak live streaming events",
         ],
-        "github_url": "https://github.com/yosefteshome",
+        "github_url": "https://github.com/jossieTand",
         "live_url": None,
         "overview": (
             "A cloud-native backend platform designed to distribute digital books, audio teachings, theological articles, "
@@ -453,7 +453,7 @@ PROJECTS = [
             "100% prevention of double-booking race conditions",
             "99.8% on-time automated notification dispatch",
         ],
-        "github_url": "https://github.com/yosefteshome",
+        "github_url": "https://github.com/jossieTand",
         "live_url": None,
         "overview": (
             "The Intelligent Booking Engine is a backend service engineered to solve high-contention scheduling challenges "
@@ -635,7 +635,7 @@ PROJECTS = [
             "88% reduction in manual multi-system lookup tasks",
             "Automated fallback recovery on API timeout",
         ],
-        "github_url": "https://github.com/yosefteshome",
+        "github_url": "https://github.com/jossieTand",
         "live_url": None,
         "overview": (
             "An agentic framework designed to bridge natural language operational requests with strict backend REST APIs. "

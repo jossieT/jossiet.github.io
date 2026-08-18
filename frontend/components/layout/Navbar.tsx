@@ -96,7 +96,7 @@ export function Navbar() {
         {/* Desktop Right Actions */}
         <div className="hidden lg:flex items-center gap-2">
           <a
-            href="https://github.com/yosefteshome"
+            href="https://github.com/jossieTand"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
@@ -105,7 +105,7 @@ export function Navbar() {
             <GithubIcon className="w-4 h-4" />
           </a>
           <a
-            href="https://linkedin.com/in/yosefteshome"
+            href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
@@ -173,7 +173,7 @@ export function Navbar() {
           <div className="pt-6 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-4">
             <div className="flex items-center justify-around">
               <a
-                href="https://github.com/yosefteshome"
+                href="https://github.com/jossieTand"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-500"
@@ -182,7 +182,7 @@ export function Navbar() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com/in/yosefteshome"
+                href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-500"

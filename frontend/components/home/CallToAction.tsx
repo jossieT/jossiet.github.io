@@ -25,12 +25,12 @@ export function CallToAction() {
             Start a Conversation
           </Button>
           <Button
-            href="mailto:yosefteshome.eng@gmail.com"
+            href="mailto:joseteshe2017@gmail.com"
             variant="outline"
             size="lg"
             icon={<Mail className="w-4 h-4" />}
           >
-            yosefteshome.eng@gmail.com
+            joseteshe2017@gmail.com
           </Button>
         </div>
       </div>
