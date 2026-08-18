@@ -86,7 +86,7 @@ export default function ContactPage() {
 
               <div className="pt-4 border-t border-zinc-800 flex items-center gap-4 text-xs font-mono">
                 <a
-                  href="https://github.com/jossieTand"
+                  href="https://github.com/jossieT"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-zinc-400 hover:text-sky-400 transition-colors"

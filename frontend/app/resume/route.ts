@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
@@ -6,7 +6,7 @@ import path from "path";
 const GOOGLE_DRIVE_DIRECT_URL =
   "https://drive.google.com/uc?export=download&id=1ZHVwzrStKN4wvbYe-GYTJ6AWo1HsUSVz";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const localPdfPath = path.join(process.cwd(), "public", "resume.pdf");
 

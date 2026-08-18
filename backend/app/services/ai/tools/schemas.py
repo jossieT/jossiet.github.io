@@ -215,7 +215,7 @@ class ContactOutput(BaseModel):
     title: str = "AI Backend & Platform Engineer"
     email: str = "joseteshe2017@gmail.com"
     phone: str = "+251 977 784 658"
-    github: str = "https://github.com/jossieTand"
+    github: str = "https://github.com/jossieT"
     linkedin: str = "https://www.linkedin.com/in/yosef-teshome-96516b188/"
     location: str = "Addis Ababa, Ethiopia (Available Globally / Remote)"
     availability: str = "Open for Senior AI Backend, RAG Platform, and Distributed Systems roles & select consulting engagements."

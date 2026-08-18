@@ -84,13 +84,13 @@ export function Hero() {
             {/* Social Proof & Quick Links */}
             <div className="flex items-center gap-6 pt-4 text-sm text-zinc-500 dark:text-zinc-400">
               <a
-                href="https://github.com/jossieTand"
+                href="https://github.com/jossieT"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
                 <GithubIcon className="w-4 h-4" />
-                <span className="font-mono">github/jossieTand</span>
+                <span className="font-mono">github/jossieT</span>
               </a>
               <a
                 href="https://www.linkedin.com/in/yosef-teshome-96516b188/"

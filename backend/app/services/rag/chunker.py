@@ -283,7 +283,7 @@ def chunk_biography() -> ChunkPayload:
         "Contact Information:\n"
         "• Email: joseteshe2017@gmail.com\n"
         "• Phone: +251 977 784 658\n"
-        "• GitHub: https://github.com/jossieTand\n"
+        "• GitHub: https://github.com/jossieT\n"
         "• Portfolio Website: https://yosefteshome.dev\n"
     )
     return ChunkPayload(

@@ -68,7 +68,7 @@ def build_portfolio_context(db: Session, force_refresh: bool = False) -> str:
         "Core Focus: Production RAG architectures, high-concurrency FastAPI microservices, "
         "pgvector/PostgreSQL hybrid vector search, containerized workflows (Docker, Kubernetes, OpenShift), "
         "and autonomous multi-step AI agents.\n"
-        "Contact: joseteshe2017@gmail.com | Phone: +251 977 784 658 | GitHub: https://github.com/jossieTand | LinkedIn: https://www.linkedin.com/in/yosef-teshome-96516b188/ | Portfolio: https://yosefteshome.dev\n"
+        "Contact: joseteshe2017@gmail.com | Phone: +251 977 784 658 | GitHub: https://github.com/jossieT | LinkedIn: https://www.linkedin.com/in/yosef-teshome-96516b188/ | Portfolio: https://yosefteshome.dev\n"
         "Availability: Open to high-impact senior engineering roles, consulting, and contract engagements."
     )
 
