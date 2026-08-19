@@ -3,13 +3,17 @@
 from __future__ import annotations
 
 import logging
+import time
 from dataclasses import dataclass
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.models.knowledge import KnowledgeChunk
+from app.schemas.activity import ActivityType
+from app.services.activity import publish_activity
 from app.services.rag.embedding import BaseEmbeddingService, get_embedding_service
+
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +89,10 @@ def retrieve_relevant_chunks(
             "top_k": top_k,
         }
 
+    start_time = time.perf_counter()
+
     results = db.execute(text(query_sql), params).fetchall()
+    duration_ms = (time.perf_counter() - start_time) * 1000.0
 
     retrieved: list[RetrievedChunk] = []
     for row in results:
@@ -103,6 +110,12 @@ def retrieve_relevant_chunks(
             )
         )
 
+    publish_activity(
+        ActivityType.DB,
+        f"pgvector hybrid search ({len(retrieved)} results)",
+        duration_ms=duration_ms,
+    )
+
     logger.info(
         "Semantic retrieval for '%s': found %d chunks (threshold=%.2f, top_k=%d)",
         query[:50],
@@ -111,3 +124,4 @@ def retrieve_relevant_chunks(
         top_k,
     )
     return retrieved
+

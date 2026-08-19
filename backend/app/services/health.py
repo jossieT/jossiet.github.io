@@ -10,6 +10,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from app.core.config import settings
 from app.db.session import engine
 from app.schemas.health import DependencyStatus, ReadinessResponse
+from app.services.activity import publish_activity
+from app.schemas.activity import ActivityType
 
 logger = logging.getLogger(__name__)
 
@@ -42,4 +44,10 @@ def get_readiness() -> ReadinessResponse:
     redis = check_redis()
 
     overall = "ok" if (database.status == "ok" and redis.status == "ok") else "degraded"
+    publish_activity(
+        ActivityType.SYSTEM,
+        f"System health check: {overall}",
+        status="success" if overall == "ok" else "error",
+    )
     return ReadinessResponse(status=overall, database=database, redis=redis)
+

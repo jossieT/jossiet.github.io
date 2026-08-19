@@ -33,11 +33,12 @@ class Settings(BaseSettings):
     database_url: str = Field(alias="DATABASE_URL")
     redis_url: str = Field(alias="REDIS_URL")
 
-    # Comma-separated list, e.g. "http://localhost:3000,https://yosef.dev"
+    # Comma-separated list, e.g. "http://localhost:3000,http://127.0.0.1:3000"
     cors_origins: str = Field(
-        default="http://localhost:3000",
+        default="http://localhost:3000,http://127.0.0.1:3000",
         alias="CORS_ORIGINS",
     )
+
 
     # --- AI / LLM Configuration -------------------------------------------
     # Provider: "gemini" (default). Architecture allows swapping providers.

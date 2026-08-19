@@ -14,6 +14,8 @@ from app.schemas.chat import ChatMessage
 from app.services.ai.llm_client import BaseLLMClient, get_llm_client
 from app.services.ai.observability import AgentMetricsCollector
 from app.services.ai.tools.registry import ToolRegistry, get_tool_registry
+from app.services.activity import publish_activity
+from app.schemas.activity import ActivityType
 
 logger = logging.getLogger(__name__)
 
@@ -144,6 +146,12 @@ class AgentOrchestrator:
                             duration_ms=dur_ms,
                             success=result.success,
                             error=result.error,
+                        )
+                        publish_activity(
+                            ActivityType.RAG if tc.name == "search_knowledge_rag" else ActivityType.AGENT,
+                            "Hybrid retrieval completed" if tc.name == "search_knowledge_rag" else "Agent tool execution completed",
+                            status="success" if result.success else "error",
+                            duration_ms=dur_ms,
                         )
 
                         # Collect sources for client attribution

@@ -12,8 +12,11 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.db.session import get_db
+from app.schemas.activity import ActivityType
 from app.schemas.chat import ChatRequest
+from app.services.activity import publish_activity
 from app.services.ai.chat_service import stream_chat_response
+
 
 logger = logging.getLogger(__name__)
 
@@ -57,15 +60,18 @@ def check_rate_limit(request: Request) -> None:
 
         if current_count > settings.ai_rate_limit_per_hour:
             logger.warning("Rate limit exceeded for IP %s (count: %d)", client_ip, current_count)
+            publish_activity(ActivityType.CACHE, "Redis rate limit threshold reached", status="error")
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 detail="Rate limit exceeded. Please wait a bit before sending more messages.",
             )
+        publish_activity(ActivityType.CACHE, "Redis rate limit check passed")
     except HTTPException:
         raise
     except Exception as e:
         logger.warning("Redis rate limit check error: %s", e)
         return  # Fail open on unexpected redis error
+
 
 
 @router.post(
