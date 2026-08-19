@@ -801,72 +801,72 @@ PROJECTS = [
 # ---------------------------------------------------------------------------
 EXPERIENCES = [
     {
-        "slug": "ai-backend-engineer",
-        "role": "AI Backend & Platform Engineer",
-        "company": "Independent / AI Systems Engineering",
-        "location": "Addis Ababa, Ethiopia",
-        "period": "2024 — Present",
+        "slug": "infrastructure-support-cbe",
+        "role": "Infrastructure Support",
+        "company": "Commercial Bank of Ethiopia",
+        "location": "Addis Ababa, AA",
+        "period": "May 2025 — Present",
         "is_current": True,
-        "category": "ai",
+        "category": "infrastructure",
         "summary": (
-            "Architecting production RAG applications, FastAPI microservices, pgvector vector search "
-            "pipelines, and cloud-native containerized platforms."
+            "Configuring, tuning, and maintaining high-availability web server environments, enterprise application deployments, "
+            "and mission-critical banking infrastructure operations."
         ),
         "highlights": [
-            "Engineered an Enterprise AI Knowledge RAG Platform combining pgvector similarity search, BM25 hybrid ranking, and document-level RBAC filters.",
-            "Built production-ready FastAPI backends using Python 3.12, SQLAlchemy 2.x async, and Pydantic v2 schemas.",
-            "Designed autonomous AI agent task orchestrators with strict Pydantic tool call validation and self-healing execution loops.",
-            "Containerized microservice platforms using Docker, Docker Compose, and Kubernetes/OpenShift deployment patterns.",
+            "Configured and optimized enterprise web servers (Nginx, Apache, IIS) to maximize uptime, streamline throughput, and improve system reliability across banking services.",
+            "Deployed and maintained enterprise web applications through standardized, reproducible deployment workflows, minimizing environment drift.",
+            "Diagnosed and resolved complex server, network, and configuration incidents, implementing root-cause remedies that prevented recurring issues.",
+            "Monitored server health, resource utilization, and infrastructure metrics to ensure stable, secure, and uninterrupted 24/7 banking operations.",
         ],
         "technologies": [
-            "Python", "FastAPI", "PostgreSQL", "pgvector", "Redis",
-            "Docker", "Kubernetes", "OpenShift", "RAG", "AI Agents", "AWS",
+            "Nginx", "Linux", "Web Servers", "Infrastructure", "Monitoring", "CI/CD", "Bash", "System Reliability", "Security",
         ],
         "sort_order": 0,
     },
     {
-        "slug": "senior-backend-engineer",
-        "role": "Backend & Systems Engineer",
-        "company": "Digital Content Platform",
-        "location": "Addis Ababa, Ethiopia",
-        "period": "2023 — 2024",
-        "is_current": False,
+        "slug": "freelance-backend-developer",
+        "role": "Freelance Backend Developer",
+        "company": "Self-Employed",
+        "location": "Remote",
+        "period": "Jan 2024 — Present",
+        "is_current": True,
         "category": "backend",
         "summary": (
-            "Designed and optimized high-concurrency backend API services, relational database models, "
-            "caching strategies, and asset streaming pipelines."
+            "Architecting and delivering tailored backend architectures, high-performance RESTful APIs, database solutions, "
+            "and cloud deployments for diverse client business requirements."
         ),
         "highlights": [
-            "Developed stateless FastAPI media catalog APIs serving over 5,000 concurrent requests with sub-50ms p95 latency.",
-            "Optimized complex PostgreSQL query execution plans, GIN indexes, and Alembic database migration pipelines.",
-            "Integrated Redis caching layer for hot catalog data, reducing primary database query pressure by 75%.",
-            "Implemented secure CDN media signed URL token generation for audio and video streaming protection.",
+            "Designed and developed scalable backend systems and architectures for web-based applications customized to client domain requirements.",
+            "Built, documented, and maintained high-throughput RESTful APIs with automated data validation, robust error handling, and optimized endpoints.",
+            "Deployed production applications and managed cloud server environments (AWS, Linux, Docker) to guarantee reliability, high availability, and optimal response times.",
+            "Collaborated directly with founders and technical stakeholders to analyze requirements, scope architecture, and deliver practical solutions addressing real business challenges.",
+            "Integrated third-party APIs, authentication providers, payment services, and relational/NoSQL data stores (PostgreSQL, Redis) to expand application capability.",
         ],
         "technologies": [
-            "Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Redis", "Docker", "REST APIs", "Alembic",
+            "Python", "FastAPI", "TypeScript", "NestJS", "Node.js", "PostgreSQL", "Redis", "Docker", "REST APIs", "SQLAlchemy", "AWS", "Git",
         ],
         "sort_order": 1,
     },
     {
-        "slug": "cloud-infrastructure-engineer",
-        "role": "Cloud & Infrastructure Engineer",
-        "company": "Enterprise IT & Infrastructure",
-        "location": "Addis Ababa, Ethiopia",
-        "period": "2021 — 2023",
+        "slug": "it-support-sysadmin-cbe",
+        "role": "Technical IT Support and System Administrator",
+        "company": "Commercial Bank of Ethiopia",
+        "location": "Addis Ababa, AA",
+        "period": "Dec 2022 — May 2025",
         "is_current": False,
         "category": "infrastructure",
         "summary": (
-            "Managed Linux systems, network architecture, container orchestration, CI/CD pipelines, "
-            "and cloud deployment environments."
+            "Administered nationwide enterprise IT systems, directory infrastructure, network operations, hardware lifecycle, "
+            "and identity access management for 50,000+ users."
         ),
         "highlights": [
-            "Provisioned containerized application infrastructure using Docker, Kubernetes, and OpenShift clusters.",
-            "Configured automated CI/CD build and test pipelines reducing deployment verification time by 50%.",
-            "Managed Linux system administration, firewall policies, networking, monitoring, and security hardening.",
-            "Established foundational infrastructure patterns that informed future cloud-native backend architecture work.",
+            "Administered enterprise Active Directory for 50,000+ banking personnel, managing role-based access control (RBAC), security policies, and seamless cross-department permissions.",
+            "Managed enterprise system maintenance schedules, critical OS/software updates, and infrastructure enhancements, boosting overall performance and compliance.",
+            "Resolved multi-tiered hardware, operating system, and network software incidents with high efficiency, substantially decreasing mean time to resolution (MTTR).",
+            "Enhanced proactive system monitoring, alert triage, and health reporting frameworks, significantly reducing unplanned service outages across branch networks.",
         ],
         "technologies": [
-            "Linux", "Docker", "Kubernetes", "OpenShift", "Bash", "CI/CD", "Networking", "PostgreSQL", "AWS",
+            "Active Directory", "Windows Server", "Linux", "System Administration", "Network Infrastructure", "RBAC", "Hardware Maintenance", "Incident Management",
         ],
         "sort_order": 2,
     },
@@ -1190,6 +1190,8 @@ def seed_projects(session) -> None:
 
 def seed_experience(session) -> None:
     print("Seeding experience...")
+    current_slugs = [d["slug"] for d in EXPERIENCES]
+    session.query(Experience).filter(~Experience.slug.in_(current_slugs)).delete(synchronize_session=False)
     for data in EXPERIENCES:
         stmt = (
             pg_insert(Experience)
