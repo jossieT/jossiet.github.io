@@ -110,7 +110,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs font-semibold shadow-sm ${
           isUser
             ? "bg-sky-600 text-white"
-            : "bg-zinc-900 dark:bg-zinc-800 text-sky-400 border border-zinc-200 dark:border-zinc-700"
+            : "bg-zinc-200 dark:bg-zinc-800 text-sky-700 dark:text-sky-400 border border-zinc-300 dark:border-zinc-700"
         }`}
         aria-label={isUser ? "You" : "AI Assistant"}
       >
@@ -123,7 +123,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
           className={`px-4 py-3 rounded-2xl shadow-sm border ${
             isUser
               ? "bg-sky-600 text-white border-sky-600 rounded-tr-xs"
-              : "bg-white dark:bg-zinc-900/90 text-zinc-800 dark:text-zinc-200 border-zinc-200/80 dark:border-zinc-800 rounded-tl-xs"
+              : "bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border-zinc-200 dark:border-zinc-700 rounded-tl-xs"
           }`}
         >
           <div className="space-y-0.5 text-left">{renderFormattedContent(message.content)}</div>
@@ -134,7 +134,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
           <div className="flex items-center gap-1.5 mt-1 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               onClick={handleCopy}
-              className="text-[11px] font-mono text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 inline-flex items-center gap-1 cursor-pointer"
+              className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 inline-flex items-center gap-1 cursor-pointer"
               title="Copy message"
             >
               {copied ? (
@@ -158,7 +158,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         {/* RAG source badges */}
         {!isUser && message.sources && message.sources.length > 0 && (
           <div className="mt-2 ml-1 flex flex-wrap gap-1.5">
-            <span className="inline-flex items-center gap-1 text-[10px] text-zinc-400 font-mono shrink-0">
+            <span className="inline-flex items-center gap-1 text-[10px] text-zinc-500 dark:text-zinc-400 font-mono shrink-0">
               <Database className="w-2.5 h-2.5" />
               Sources:
             </span>
@@ -167,7 +167,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
               const badge = (
                 <span
                   key={idx}
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 hover:border-sky-400 dark:hover:border-sky-500 transition-colors"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-300 dark:border-zinc-700 hover:border-sky-400 dark:hover:border-sky-500 transition-colors"
                 >
                   <span
                     className={`w-1.5 h-1.5 rounded-full shrink-0 ${

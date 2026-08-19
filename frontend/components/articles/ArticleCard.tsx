@@ -13,7 +13,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Card className="flex flex-col justify-between h-full group">
       <div className="space-y-3">
-        <div className="flex items-center justify-between text-xs font-mono text-zinc-500">
+        <div className="flex items-center justify-between text-xs font-mono text-zinc-600 dark:text-zinc-400">
           <span className="flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5" />
             {article.publishedAt}
@@ -41,7 +41,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         </div>
       </div>
 
-      <div className="pt-4 mt-6 border-t border-zinc-100 dark:border-zinc-800/80">
+      <div className="pt-4 mt-6 border-t border-zinc-200 dark:border-zinc-800/80">
         <Link
           href={`/articles/${article.slug}`}
           className="inline-flex items-center gap-1 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline"

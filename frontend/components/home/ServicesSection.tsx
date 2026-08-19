@@ -50,7 +50,7 @@ export async function ServicesSection() {
                 </p>
 
                 <div className="space-y-2 pt-2">
-                  <span className="text-xs font-mono font-semibold text-zinc-500 uppercase tracking-wider block">
+                  <span className="text-xs font-mono font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block">
                     Core Deliverables
                   </span>
                   <ul className="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
@@ -64,7 +64,7 @@ export async function ServicesSection() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800/80 flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap gap-1.5">
                   {service.technologies.slice(0, 5).map((tech) => (
                     <Badge key={tech} variant="subtle" size="sm">

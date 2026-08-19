@@ -131,7 +131,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
   return (
     <div className="flex flex-col h-full bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-2xl rounded-2xl overflow-hidden backdrop-blur-md">
       {/* Header */}
-      <div className="px-4 py-3.5 bg-zinc-50/90 dark:bg-zinc-900/90 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+      <div className="px-4 py-3.5 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="relative">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-sm">
@@ -147,7 +147,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
               </h3>
               <Sparkles className="w-3 h-3 text-sky-500" />
             </div>
-            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 block">
+            <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 block">
               Controlled AI Agent • Tool-Grounded
             </span>
           </div>

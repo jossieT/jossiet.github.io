@@ -103,7 +103,7 @@ export function TechStrip() {
   return (
     <section
       aria-labelledby="core-engineering-stack-title"
-      className="py-12 border-y border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/60 dark:bg-zinc-950/40 backdrop-blur-sm"
+      className="py-12 border-y border-zinc-200 dark:border-zinc-800/80 bg-slate-100/80 dark:bg-zinc-950/40 backdrop-blur-sm"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Section Header */}

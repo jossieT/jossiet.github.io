@@ -63,7 +63,7 @@ export function ChallengesAndSolutions({ challenges }: ChallengesAndSolutionsPro
             </div>
 
             {/* Impact */}
-            <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800/80 flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-400">
+            <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800/80 flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-400">
               <TrendingUp className="w-4 h-4 text-sky-500 shrink-0 mt-0.5" />
               <div>
                 <strong className="text-zinc-800 dark:text-zinc-200">Outcome: </strong>

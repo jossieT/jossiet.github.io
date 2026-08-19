@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
+/* Tailwind's dark utilities must follow the portfolio toggle, not the OS. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
+  --header-bg: rgba(255, 255, 255, 0.82);
+  --footer-bg: #f1f5f9;
   --accent: #0284c7;
   --accent-light: #38bdf8;
   --accent-glow: rgba(2, 132, 199, 0.15);
@@ -24,19 +29,79 @@
   --subtle-bg: #1e293b;
 }
 
+/*
+ * Light-mode readability guardrails.
+ *
+ * Most components use Tailwind's neutral utilities directly. Zinc 400/500 is
+ * appropriate as a supporting color on dark surfaces, but is too faint for
+ * small text, icons, and placeholders on the light canvas. Keep the existing
+ * dark theme untouched and strengthen only those light-mode defaults here.
+ */
+.light {
+  color-scheme: light;
+}
+
+/* Light-mode surface hierarchy: neutral canvas, raised cards, and quiet chrome. */
+.light .theme-header {
+  background-color: var(--header-bg);
+  border-color: rgba(226, 232, 240, 0.8);
+  backdrop-filter: blur(12px);
+}
+
+.light .theme-header.theme-header-scrolled {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: var(--card-border);
+}
+
+.light .theme-footer {
+  background-color: var(--footer-bg);
+  border-color: var(--card-border);
+}
+
+.light .theme-card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.025);
+}
+
+.light .text-zinc-400,
+.light .text-zinc-500 {
+  color: #52525b;
+}
+
+.light .placeholder-zinc-500::placeholder {
+  color: #52525b;
+  opacity: 1;
+}
+
+.light .border-zinc-200 {
+  border-color: var(--card-border);
+}
+
+/* Preserve deliberate terminal/code surfaces that stay dark in both themes. */
+.light .theme-dark-surface .text-zinc-400 {
+  color: #a1a1aa;
+}
+
+.light .theme-dark-surface .text-zinc-500 {
+  color: #71717a;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: 'Inter', system-ui, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Technical grid background pattern */
+/* Technical grid background pattern - calibrated for light & dark mode */
 .bg-tech-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
 
 .dark .bg-tech-grid {
@@ -49,7 +114,12 @@ body {
 .tech-card {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.dark .tech-card {
+  box-shadow: none;
 }
 
 .tech-card:hover {

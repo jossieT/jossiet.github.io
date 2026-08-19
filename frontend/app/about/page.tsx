@@ -86,7 +86,7 @@ export default function AboutPage() {
 
           {/* Core Highlights Card */}
           <div className="lg:col-span-5 w-full">
-            <Card className="space-y-6 bg-zinc-900 text-zinc-100 border-zinc-800 p-8 shadow-xl">
+            <Card className="theme-dark-surface space-y-6 bg-zinc-900 text-zinc-100 border-zinc-800 p-8 shadow-xl">
               <div className="flex items-center gap-3 border-b border-zinc-800 pb-4">
                 <ShieldCheck className="w-6 h-6 text-sky-400" />
                 <h4 className="font-bold text-lg text-white">Engineering Values</h4>

@@ -79,7 +79,7 @@ export function ArchitectureVisualizer({ steps, mermaidCode }: ArchitectureVisua
 
       {/* Architecture Definition Box */}
       {mermaidCode && (
-        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-950 text-zinc-100 border border-zinc-800/90 shadow-xl space-y-4 font-mono text-xs">
+        <div className="theme-dark-surface p-6 sm:p-8 rounded-2xl bg-zinc-950 text-zinc-100 border border-zinc-800/90 shadow-xl space-y-4 font-mono text-xs">
           <div className="flex items-center justify-between border-b border-zinc-800 pb-3 text-zinc-400">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />

@@ -3,7 +3,6 @@ import { Mail, MapPin, Clock, Phone } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { Card } from "@/components/ui/Card";
 
 export const metadata: Metadata = {
   title: "Contact Yosef Teshome — AI Backend & Platform Engineer",
@@ -24,7 +23,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Direct Info Cards */}
           <div className="lg:col-span-5 space-y-6">
-            <Card className="space-y-4 bg-zinc-900 text-zinc-100 border-zinc-800 p-8 shadow-xl">
+            <div className="theme-dark-surface p-8 rounded-xl border border-zinc-800 bg-zinc-900 dark:bg-zinc-900 shadow-xl space-y-4">
               <h3 className="text-xl font-bold text-white">
                 Direct Contact Channels
               </h3>
@@ -104,7 +103,7 @@ export default function ContactPage() {
                   LinkedIn
                 </a>
               </div>
-            </Card>
+            </div>
 
             <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 space-y-2 text-xs">
               <span className="font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider block">

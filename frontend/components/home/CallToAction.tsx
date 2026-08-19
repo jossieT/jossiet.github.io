@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 
 export function CallToAction() {
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-zinc-100 dark:from-zinc-900/40 dark:to-zinc-950">
+    <section className="py-20 bg-slate-100/80 dark:bg-zinc-950">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <span className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-widest block">
           Let&apos;s Build Together

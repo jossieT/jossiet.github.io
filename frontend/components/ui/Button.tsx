@@ -21,17 +21,17 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 cursor-pointer disabled:opacity-50 disabled:pointer-events-none";
 
   const variants = {
     primary:
       "bg-sky-600 hover:bg-sky-500 text-white shadow-md shadow-sky-600/20 active:translate-y-0.5",
     secondary:
-      "bg-zinc-800 hover:bg-zinc-700 text-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-100 active:translate-y-0.5",
+      "bg-zinc-800 hover:bg-zinc-700 text-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:text-zinc-100 active:translate-y-0.5",
     outline:
-      "border border-zinc-300 dark:border-zinc-700 hover:border-sky-500 text-zinc-800 dark:text-zinc-200 hover:text-sky-600 dark:hover:text-sky-400 bg-transparent",
+      "border border-zinc-300 dark:border-zinc-600 hover:border-sky-500 dark:hover:border-sky-500 text-zinc-800 dark:text-zinc-200 hover:text-sky-600 dark:hover:text-sky-400 bg-transparent",
     ghost:
-      "text-zinc-600 dark:text-zinc-400 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/60",
+      "text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/60",
   };
 
   const sizes = {

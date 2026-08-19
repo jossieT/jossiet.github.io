@@ -70,7 +70,7 @@ export function TechStackBreakdown({ grouped, flatTechnologies }: TechStackBreak
               key={cat.key}
               className="p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 shadow-xs space-y-4"
             >
-              <div className="flex items-center gap-2 border-b border-zinc-100 dark:border-zinc-800/80 pb-3">
+              <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800/80 pb-3">
                 <div className="p-1 rounded-md bg-zinc-100 dark:bg-zinc-800">
                   {cat.icon}
                 </div>

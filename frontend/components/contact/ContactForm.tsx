@@ -91,9 +91,9 @@ export function ContactForm() {
             placeholder="e.g. Alex Mercer"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className={`w-full px-4 py-2.5 rounded-lg border bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none transition-colors ${
+            className={`w-full px-4 py-2.5 rounded-lg border bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-colors ${
               errors.name
-                ? "border-red-500 focus:border-red-500"
+                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
                 : "border-zinc-300 dark:border-zinc-700 focus:border-sky-500"
             }`}
           />
@@ -116,9 +116,9 @@ export function ContactForm() {
             placeholder="e.g. alex@company.com"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className={`w-full px-4 py-2.5 rounded-lg border bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none transition-colors ${
+            className={`w-full px-4 py-2.5 rounded-lg border bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-colors ${
               errors.email
-                ? "border-red-500 focus:border-red-500"
+                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
                 : "border-zinc-300 dark:border-zinc-700 focus:border-sky-500"
             }`}
           />
@@ -143,7 +143,7 @@ export function ContactForm() {
             placeholder="e.g. Acme Tech"
             value={formData.company}
             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-            className="w-full px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 focus:border-sky-500 focus:outline-none transition-colors"
+            className="w-full px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-colors"
           />
         </div>
 
@@ -156,7 +156,7 @@ export function ContactForm() {
             id="projectType"
             value={formData.projectType}
             onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-            className="w-full px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 focus:border-sky-500 focus:outline-none transition-colors cursor-pointer"
+            className="w-full px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-colors cursor-pointer"
           >
             <option value="AI & RAG Platforms">AI & RAG Knowledge Platforms</option>
             <option value="AI Agents & Automation">AI Agents & Workflow Automation</option>
@@ -179,9 +179,9 @@ export function ContactForm() {
           placeholder="Describe your project goals, timelines, tech stack, or engineering requirements..."
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className={`w-full px-4 py-2.5 rounded-lg border bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none transition-colors ${
+          className={`w-full px-4 py-2.5 rounded-lg border bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-colors ${
             errors.message
-              ? "border-red-500 focus:border-red-500"
+              ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
               : "border-zinc-300 dark:border-zinc-700 focus:border-sky-500"
           }`}
         />

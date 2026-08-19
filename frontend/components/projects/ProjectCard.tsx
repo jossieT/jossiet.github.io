@@ -44,7 +44,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             {getCategoryIcon(project.category)}
-            <span className="text-xs font-mono font-semibold text-zinc-600 dark:text-zinc-400">
+            <span className="text-xs font-mono font-semibold text-zinc-700 dark:text-zinc-400">
               {project.categoryLabel}
             </span>
           </div>
@@ -74,8 +74,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Impact Metrics (if present) */}
         {project.impactMetrics && project.impactMetrics.length > 0 && (
-          <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
-            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block mb-1">
+          <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800/80">
+            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-500 uppercase tracking-wider block mb-1">
               Key Metric
             </span>
             <p className="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">
@@ -100,7 +100,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Footer Actions */}
-      <div className="pt-5 mt-5 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between text-xs">
+      <div className="pt-5 mt-5 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-xs">
         <Link
           href={`/projects/${project.slug}`}
           className="inline-flex items-center gap-1 font-semibold text-sky-600 dark:text-sky-400 group-hover:translate-x-0.5 transition-transform"
@@ -115,7 +115,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+              className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
               aria-label={`GitHub for ${project.title}`}
             >
               <GithubIcon className="w-4 h-4" />

@@ -54,7 +54,7 @@ export function ChatInput({
       }}
       className="p-3 bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800"
     >
-      <div className="relative flex items-end gap-2 bg-zinc-50 dark:bg-zinc-800/80 rounded-2xl border border-zinc-200 dark:border-zinc-700/80 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-500/20 transition-all p-1.5">
+      <div className="relative flex items-end gap-2 bg-zinc-100 dark:bg-zinc-800/80 rounded-2xl border border-zinc-300 dark:border-zinc-700/80 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-500/20 transition-all p-1.5">
         <textarea
           ref={textareaRef}
           value={input}
@@ -64,7 +64,7 @@ export function ChatInput({
           disabled={isLoading}
           rows={1}
           maxLength={maxLength}
-          className="w-full resize-none bg-transparent px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none max-h-32 disabled:opacity-60"
+          className="w-full resize-none bg-transparent px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none max-h-32 disabled:opacity-60"
           aria-label="Chat input"
         />
 
@@ -92,7 +92,7 @@ export function ChatInput({
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-2 px-1 text-[11px] font-mono text-zinc-400">
+      <div className="flex items-center justify-between mt-2 px-1 text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
         <span>Press Enter to send, Shift+Enter for new line</span>
         <span className={remaining < 100 ? "text-amber-500 font-bold" : ""}>
           {input.length}/{maxLength}

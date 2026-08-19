@@ -24,7 +24,7 @@ export function ProjectNavigationFooter({ navigation, currentSlug }: ProjectNavi
             href={`/projects/${previous.slug}`}
             className="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-sky-500/50 dark:hover:border-sky-500/50 transition-all group flex flex-col justify-between space-y-3"
           >
-            <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-zinc-500 group-hover:text-sky-600 dark:group-hover:text-sky-400">
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-zinc-600 dark:text-zinc-400 group-hover:text-sky-600 dark:group-hover:text-sky-400">
               <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
               Previous Case Study
             </span>
@@ -46,7 +46,7 @@ export function ProjectNavigationFooter({ navigation, currentSlug }: ProjectNavi
             href={`/projects/${next.slug}`}
             className="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-sky-500/50 dark:hover:border-sky-500/50 transition-all group flex flex-col justify-between items-end text-right space-y-3"
           >
-            <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-zinc-500 group-hover:text-sky-600 dark:group-hover:text-sky-400">
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-zinc-600 dark:text-zinc-400 group-hover:text-sky-600 dark:group-hover:text-sky-400">
               Next Case Study
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </span>
@@ -101,7 +101,7 @@ export function ProjectNavigationFooter({ navigation, currentSlug }: ProjectNavi
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between">
+                <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between">
                   <div className="flex flex-wrap gap-1">
                     {rel.technologies.slice(0, 3).map((tech) => (
                       <Badge key={tech} variant="subtle" size="sm">

@@ -7,7 +7,7 @@ export function ArchitectureDiagram() {
   const [activeTab, setActiveTab] = useState<"architecture" | "terminal">("architecture");
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-900 text-zinc-100 shadow-2xl overflow-hidden font-sans">
+    <div className="theme-dark-surface rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-900 text-zinc-100 shadow-2xl overflow-hidden font-sans">
       {/* Top Window Bar */}
       <div className="bg-zinc-950 px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
         <div className="flex items-center gap-2">

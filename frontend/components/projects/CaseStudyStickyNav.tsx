@@ -68,7 +68,7 @@ export function CaseStudyStickyNav() {
       className="sticky top-20 z-30 hidden lg:block bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-y border-zinc-200 dark:border-zinc-800/80 py-2.5 my-8 shadow-sm transition-all"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between overflow-x-auto scrollbar-none gap-2">
-        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 shrink-0 mr-2">
+        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-500 shrink-0 mr-2">
           Case Study Nav:
         </span>
         <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1">

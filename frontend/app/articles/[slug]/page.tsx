@@ -60,11 +60,11 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             <Badge variant="accent" size="md">
               {article.category}
             </Badge>
-            <span className="flex items-center gap-1 text-xs font-mono text-zinc-500">
+            <span className="flex items-center gap-1 text-xs font-mono text-zinc-600 dark:text-zinc-400">
               <Calendar className="w-3.5 h-3.5" />
               {article.publishedAt}
             </span>
-            <span className="flex items-center gap-1 text-xs font-mono text-zinc-500">
+            <span className="flex items-center gap-1 text-xs font-mono text-zinc-600 dark:text-zinc-400">
               <Clock className="w-3.5 h-3.5" />
               {article.readTime}
             </span>

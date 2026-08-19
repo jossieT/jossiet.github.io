@@ -45,7 +45,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-200 border-b ${
+      className={`theme-header ${scrolled ? "theme-header-scrolled" : ""} sticky top-0 z-50 transition-all duration-200 border-b ${
         scrolled
           ? "bg-white/85 dark:bg-zinc-950/85 backdrop-blur-md border-zinc-200 dark:border-zinc-800 shadow-sm"
           : "bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm border-transparent"
@@ -144,9 +144,9 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay */}
+        {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 bg-zinc-950/60 backdrop-blur-md z-40 flex flex-col justify-between p-6 animate-in fade-in duration-200">
+        <div className="lg:hidden fixed inset-0 top-16 bg-white/97 dark:bg-zinc-950/97 backdrop-blur-md z-40 flex flex-col justify-between p-6 animate-in fade-in duration-200 border-t border-zinc-200 dark:border-zinc-800">
           <nav className="flex flex-col gap-2">
             {NAV_ITEMS.map((item) => {
               const isActive =
@@ -161,7 +161,7 @@ export function Navbar() {
                   className={`px-4 py-3 text-base font-semibold rounded-lg transition-colors ${
                     isActive
                       ? "text-sky-600 dark:text-sky-400 bg-sky-500/10"
-                      : "text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/60"
+                      : "text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 hover:text-zinc-950 dark:hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -176,7 +176,7 @@ export function Navbar() {
                 href="https://github.com/jossieT"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-500"
+                className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
                 <GithubIcon className="w-5 h-5" />
                 GitHub
@@ -185,7 +185,7 @@ export function Navbar() {
                 href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-500"
+                className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
                 <LinkedinIcon className="w-5 h-5" />
                 LinkedIn
