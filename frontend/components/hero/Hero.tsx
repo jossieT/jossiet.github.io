@@ -4,6 +4,7 @@ import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ArchitectureDiagram } from "@/components/hero/ArchitectureDiagram";
+import { SystemStatusCard } from "@/components/hero/SystemStatusCard";
 
 export function Hero() {
   return (
@@ -104,12 +105,14 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Visual Architecture Element */}
-          <div className="lg:col-span-5 w-full">
+          {/* Right Column: Visual Architecture Element & System Status */}
+          <div className="lg:col-span-5 w-full space-y-4">
             <ArchitectureDiagram />
+            <SystemStatusCard />
           </div>
         </div>
       </div>
     </section>
   );
 }
+
