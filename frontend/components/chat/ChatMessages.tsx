@@ -36,11 +36,10 @@ export function ChatMessages({
           <div className="p-4 rounded-2xl bg-sky-500/5 dark:bg-sky-500/10 border border-sky-500/20 text-zinc-800 dark:text-zinc-200 space-y-2">
             <div className="flex items-center gap-2 font-semibold text-sky-600 dark:text-sky-400">
               <Bot className="w-5 h-5" />
-              <span>AI Portfolio Concierge</span>
+              <span>Ask Yosef AI</span>
             </div>
             <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Hello! I am Yosef’s AI assistant. Ask me anything about his production RAG systems,
-              FastAPI architectures, engineering case studies, skills, or availability.
+              Hi! I&apos;m Yosef&apos;s AI assistant. Ask me about my projects, AI/RAG systems, engineering experience, technical expertise, or how I can help with your next project.
             </p>
           </div>
 

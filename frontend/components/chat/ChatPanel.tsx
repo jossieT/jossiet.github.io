@@ -143,12 +143,12 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
           <div>
             <div className="flex items-center gap-1.5">
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 leading-tight">
-                AI Portfolio Concierge
+                Ask Yosef AI
               </h3>
               <Sparkles className="w-3 h-3 text-sky-500" />
             </div>
             <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 block">
-              Controlled AI Agent • Tool-Grounded
+              AI-Powered • Grounded in Yosef&apos;s Work
             </span>
           </div>
         </div>

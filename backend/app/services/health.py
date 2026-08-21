@@ -2,6 +2,9 @@
 
 import logging
 
+import time
+from datetime import datetime, timezone
+
 import redis as redis_lib
 from redis.exceptions import RedisError
 from sqlalchemy import text
@@ -9,7 +12,13 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.core.config import settings
 from app.db.session import engine
-from app.schemas.health import DependencyStatus, ReadinessResponse
+from app.schemas.health import (
+    DependencyStatus,
+    ReadinessResponse,
+    ServiceStatusItem,
+    ServicesStatusDict,
+    SystemStatusResponse,
+)
 from app.services.activity import publish_activity
 from app.schemas.activity import ActivityType
 
@@ -50,4 +59,42 @@ def get_readiness() -> ReadinessResponse:
         status="success" if overall == "ok" else "error",
     )
     return ReadinessResponse(status=overall, database=database, redis=redis)
+
+
+def get_system_status() -> SystemStatusResponse:
+    """Return detailed public health status for all system services."""
+    start_time = time.perf_counter()
+
+    db_dep = check_database()
+    db_status = "up" if db_dep.status == "ok" else "down"
+
+    redis_dep = check_redis()
+    redis_status = "up" if redis_dep.status == "ok" else "down"
+
+    ai_status = "ready" if settings.ai_enabled else "unavailable"
+    sse_status = "up"
+
+    api_latency_ms = round((time.perf_counter() - start_time) * 1000.0, 1)
+
+    services = ServicesStatusDict(
+        api=ServiceStatusItem(status="up", latency_ms=api_latency_ms),
+        database=ServiceStatusItem(status=db_status),
+        redis=ServiceStatusItem(status=redis_status),
+        ai=ServiceStatusItem(status=ai_status),
+        sse=ServiceStatusItem(status=sse_status),
+    )
+
+    if db_status == "up" and redis_status == "up" and ai_status == "ready":
+        overall = "healthy"
+    elif db_status == "down" and redis_status == "down":
+        overall = "down"
+    else:
+        overall = "degraded"
+
+    return SystemStatusResponse(
+        status=overall,
+        services=services,
+        timestamp=datetime.now(timezone.utc),
+    )
+
 

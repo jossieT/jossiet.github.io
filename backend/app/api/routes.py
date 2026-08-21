@@ -4,8 +4,8 @@ from fastapi import APIRouter
 
 from app.api.v1 import activity, articles, chat, experience, projects, services, skills
 from app.core.config import settings
-from app.schemas.health import HealthResponse, ReadinessResponse
-from app.services.health import get_readiness
+from app.schemas.health import HealthResponse, ReadinessResponse, SystemStatusResponse
+from app.services.health import get_readiness, get_system_status
 
 api_router = APIRouter()
 
@@ -20,6 +20,13 @@ def health() -> HealthResponse:
 def readiness() -> ReadinessResponse:
     """Readiness probe: core dependencies (database, Redis) are reachable."""
     return get_readiness()
+
+
+@api_router.get("/health/status", response_model=SystemStatusResponse, tags=["health"])
+def system_status() -> SystemStatusResponse:
+    """Detailed public system status for application components and dependencies."""
+    return get_system_status()
+
 
 
 # Domain routers

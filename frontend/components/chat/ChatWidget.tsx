@@ -35,7 +35,7 @@ export function ChatWidget() {
             </div>
 
             <span className="text-xs font-semibold tracking-wide hidden sm:inline-block">
-              Ask AI Assistant
+              Yosef Assistant
             </span>
 
             <Sparkles className="w-3.5 h-3.5 text-sky-200 group-hover:rotate-12 transition-transform" />
@@ -45,7 +45,7 @@ export function ChatWidget() {
 
       {/* Floating Chat Modal / Panel */}
       {isOpen && (
-        <div className="fixed inset-0 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[420px] sm:h-[620px] z-50 flex flex-col animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 h-[100dvh] sm:h-[600px] sm:max-h-[calc(100dvh-3rem)] sm:w-[400px] sm:bottom-6 sm:right-6 sm:top-auto sm:left-auto z-50 flex flex-col animate-in fade-in zoom-in-95 duration-200">
           <ChatPanel onClose={() => setIsOpen(false)} />
         </div>
       )}

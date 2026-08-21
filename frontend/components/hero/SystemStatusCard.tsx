@@ -219,6 +219,7 @@ export function SystemStatusCard() {
           <button
             onClick={fetchStatus}
             disabled={loading}
+            suppressHydrationWarning
             title="Refresh status"
             className="p-1 rounded hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer disabled:opacity-50"
           >
