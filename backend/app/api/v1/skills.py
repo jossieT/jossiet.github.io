@@ -8,10 +8,10 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.schemas.activity import ActivityType
 from app.schemas.skill import SkillCategoryDetail
 from app.services import skill as skill_service
 from app.services.activity import publish_activity
-from app.schemas.activity import ActivityType
 
 router = APIRouter(prefix="/skills", tags=["skills"])
 
@@ -24,4 +24,3 @@ def list_skills(db: DbDep) -> list[SkillCategoryDetail]:
     result = skill_service.list_skill_categories(db)
     publish_activity(ActivityType.API, "Skill matrix retrieved")
     return result
-

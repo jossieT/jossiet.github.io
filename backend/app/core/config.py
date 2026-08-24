@@ -39,7 +39,6 @@ class Settings(BaseSettings):
         alias="CORS_ORIGINS",
     )
 
-
     # --- AI / LLM Configuration -------------------------------------------
     # Provider: "gemini" (default). Architecture allows swapping providers.
     llm_provider: str = Field(default="gemini", alias="LLM_PROVIDER")

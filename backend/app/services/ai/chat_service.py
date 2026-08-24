@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import AsyncIterator
+
 from sqlalchemy.orm import Session
 
 from app.schemas.chat import ChatMessage

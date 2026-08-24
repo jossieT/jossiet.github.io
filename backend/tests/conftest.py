@@ -8,7 +8,9 @@ env flag so the suite passes without Docker running.
 import os
 
 # Must be set before importing the application.
-os.environ.setdefault("DATABASE_URL", "postgresql+psycopg://yosef:yosef_dev_password@localhost:5433/yosef_portfolio")
+os.environ.setdefault(
+    "DATABASE_URL", "postgresql+psycopg://yosef:yosef_dev_password@localhost:5433/yosef_portfolio"
+)
 os.environ.setdefault("REDIS_URL", "redis://localhost:6379/0")
 os.environ.setdefault("APP_ENV", "test")
 os.environ.setdefault("DEBUG", "false")

@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 import asyncio
-import json
 import logging
 from collections import deque
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import redis
 
@@ -34,13 +33,15 @@ def publish_activity(
         type=event_type,
         message=message,
         status=status,
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
         duration_ms=round(duration_ms) if duration_ms is not None else None,
     )
     _memory_history.append(event)
     payload = event.model_dump_json()
     try:
-        client = redis.from_url(settings.redis_url, decode_responses=True, socket_connect_timeout=0.2)
+        client = redis.from_url(
+            settings.redis_url, decode_responses=True, socket_connect_timeout=0.2
+        )
         client.lpush(_HISTORY_KEY, payload)
         client.ltrim(_HISTORY_KEY, 0, _HISTORY_LIMIT - 1)
         client.publish(_CHANNEL, payload)
@@ -55,7 +56,9 @@ def publish_activity(
 
 def recent_activity() -> list[PublicActivityEvent]:
     try:
-        client = redis.from_url(settings.redis_url, decode_responses=True, socket_connect_timeout=0.2)
+        client = redis.from_url(
+            settings.redis_url, decode_responses=True, socket_connect_timeout=0.2
+        )
         entries = client.lrange(_HISTORY_KEY, 0, _HISTORY_LIMIT - 1)
         client.close()
         if entries:
@@ -78,9 +81,7 @@ async def stream_activity():
             try:
                 event = await asyncio.wait_for(queue.get(), timeout=15)
                 yield f"data: {event.model_dump_json()}\n\n"
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 yield ": keepalive\n\n"
     finally:
         _subscribers.discard(queue)
-
-

@@ -5,9 +5,9 @@ from __future__ import annotations
 import logging
 from typing import Annotated
 
+import redis
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.responses import StreamingResponse
-import redis
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -16,7 +16,6 @@ from app.schemas.activity import ActivityType
 from app.schemas.chat import ChatRequest
 from app.services.activity import publish_activity
 from app.services.ai.chat_service import stream_chat_response
-
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +41,7 @@ def get_redis() -> redis.Redis | None:
 def check_rate_limit(request: Request) -> None:
     """Check anonymous IP rate limit using Redis sliding window counter."""
     client_ip = request.client.host if request.client else "unknown"
-    
+
     # Check X-Forwarded-For header if behind a reverse proxy
     forwarded_for = request.headers.get("x-forwarded-for")
     if forwarded_for:
@@ -60,7 +59,9 @@ def check_rate_limit(request: Request) -> None:
 
         if current_count > settings.ai_rate_limit_per_hour:
             logger.warning("Rate limit exceeded for IP %s (count: %d)", client_ip, current_count)
-            publish_activity(ActivityType.CACHE, "Redis rate limit threshold reached", status="error")
+            publish_activity(
+                ActivityType.CACHE, "Redis rate limit threshold reached", status="error"
+            )
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 detail="Rate limit exceeded. Please wait a bit before sending more messages.",
@@ -71,7 +72,6 @@ def check_rate_limit(request: Request) -> None:
     except Exception as e:
         logger.warning("Redis rate limit check error: %s", e)
         return  # Fail open on unexpected redis error
-
 
 
 @router.post(

@@ -8,10 +8,10 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.schemas.activity import ActivityType
 from app.schemas.service import ServiceItem
 from app.services import service_item as service_svc
 from app.services.activity import publish_activity
-from app.schemas.activity import ActivityType
 
 router = APIRouter(prefix="/services", tags=["services"])
 
@@ -24,4 +24,3 @@ def list_services(db: DbDep) -> list[ServiceItem]:
     result = service_svc.list_services(db)
     publish_activity(ActivityType.API, "Services portfolio retrieved")
     return result
-

@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass, field
-from sqlalchemy.orm import Session
+
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from app.models.article import Article
 from app.models.experience import Experience
@@ -63,7 +64,11 @@ def chunk_project(project: Project) -> list[ChunkPayload]:
             source_type="project",
             source_title=project.title,
             source_url=base_url,
-            metadata_json={"slug": project.slug, "category": project.category, "technologies": project.technologies},
+            metadata_json={
+                "slug": project.slug,
+                "category": project.category,
+                "technologies": project.technologies,
+            },
         )
     )
 
@@ -126,7 +131,10 @@ def chunk_project(project: Project) -> list[ChunkPayload]:
         ]
     )
     security_text = "\n".join(
-        [f"• Security Safeguard: {s.get('title')} — {s.get('description')}" for s in (project.security_reliability or [])]
+        [
+            f"• Security Safeguard: {s.get('title')} — {s.get('description')}"
+            for s in (project.security_reliability or [])
+        ]
     )
     sec_content = (
         f"Project: {project.title}\n\n"
@@ -203,7 +211,10 @@ def chunk_experience(exp: Experience, index: int) -> ChunkPayload:
 def chunk_skills(cat: SkillCategory, skills: list[Skill], index: int) -> ChunkPayload:
     """Convert a skill category into a structured knowledge chunk."""
     skill_items = "\n".join(
-        [f"• {s.name} [Proficiency: {s.level}]{' (Core Specialization)' if s.is_core else ''}" for s in skills]
+        [
+            f"• {s.name} [Proficiency: {s.level}]{' (Core Specialization)' if s.is_core else ''}"
+            for s in skills
+        ]
     )
     content = (
         f"Skill Category: {cat.title}\n"
@@ -313,14 +324,20 @@ def generate_all_chunks(db: Session) -> list[ChunkPayload]:
         all_chunks.extend(chunk_project(p))
 
     # 3. Experience
-    experience_list = db.scalars(select(Experience).order_by(Experience.sort_order, Experience.id)).all()
+    experience_list = db.scalars(
+        select(Experience).order_by(Experience.sort_order, Experience.id)
+    ).all()
     for idx, exp in enumerate(experience_list):
         all_chunks.append(chunk_experience(exp, idx))
 
     # 4. Skills
-    skill_categories = db.scalars(select(SkillCategory).order_by(SkillCategory.sort_order, SkillCategory.id)).all()
+    skill_categories = db.scalars(
+        select(SkillCategory).order_by(SkillCategory.sort_order, SkillCategory.id)
+    ).all()
     for idx, cat in enumerate(skill_categories):
-        skills = db.scalars(select(Skill).where(Skill.category_id == cat.id).order_by(Skill.sort_order, Skill.id)).all()
+        skills = db.scalars(
+            select(Skill).where(Skill.category_id == cat.id).order_by(Skill.sort_order, Skill.id)
+        ).all()
         all_chunks.append(chunk_skills(cat, list(skills), idx))
 
     # 5. Services

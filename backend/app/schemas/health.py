@@ -51,4 +51,3 @@ class SystemStatusResponse(BaseModel):
     status: Literal["healthy", "degraded", "down"]
     services: ServicesStatusDict
     timestamp: datetime
-

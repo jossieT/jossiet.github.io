@@ -1,10 +1,9 @@
 """Tests for RAG pipeline: chunking, embedding, and semantic retrieval."""
 
-from sqlalchemy.orm import Session
 
 from app.db.session import SessionLocal
 from app.services.rag.chunker import generate_all_chunks
-from app.services.rag.embedding import MockEmbeddingService, get_embedding_service
+from app.services.rag.embedding import MockEmbeddingService
 from app.services.rag.retriever import retrieve_relevant_chunks
 
 

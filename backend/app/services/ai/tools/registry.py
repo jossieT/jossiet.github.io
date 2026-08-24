@@ -5,8 +5,10 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable, Type
+from typing import Any
+
 from pydantic import BaseModel, ValidationError
 from sqlalchemy.orm import Session
 
@@ -41,7 +43,7 @@ class ToolDefinition:
 
     name: str
     description: str
-    input_schema: Type[BaseModel]
+    input_schema: type[BaseModel]
     handler: Callable[[Session, Any], BaseModel]
     status_message: str  # User-friendly message for UI status event (e.g. "Searching projects...")
 
@@ -68,7 +70,7 @@ class ToolRegistry:
         self,
         name: str,
         description: str,
-        input_schema: Type[BaseModel],
+        input_schema: type[BaseModel],
         handler: Callable[[Session, Any], BaseModel],
         status_message: str,
     ) -> None:
@@ -169,7 +171,7 @@ class ToolRegistry:
                 sources=sources,
             )
 
-        except asyncio.TimeoutError:
+        except TimeoutError:
             logger.error("Tool '%s' timed out after %.1fs", name, timeout_seconds)
             return ToolExecutionResult(
                 tool_name=name,

@@ -76,7 +76,11 @@ class OpenRouterEmbeddingService(BaseEmbeddingService):
                     # Sort by index
                     sorted_data = sorted(data["data"], key=lambda x: x["index"])
                     return [item["embedding"] for item in sorted_data]
-                logger.warning("Embedding API error (%d): %s, using Mock fallback", response.status_code, response.text)
+                logger.warning(
+                    "Embedding API error (%d): %s, using Mock fallback",
+                    response.status_code,
+                    response.text,
+                )
         except Exception as e:
             logger.warning("Embedding request failed: %s, using Mock fallback", e)
 
@@ -95,6 +99,7 @@ class GeminiEmbeddingService(BaseEmbeddingService):
     def _get_client(self) -> Any:
         if self._client is None:
             from google import genai
+
             self._client = genai.Client(api_key=self.api_key)
         return self._client
 
@@ -133,7 +138,7 @@ class MockEmbeddingService(BaseEmbeddingService):
 
     def _generate_vector(self, text: str) -> list[float]:
         raw_hash = hashlib.sha256(text.encode("utf-8")).digest()
-        
+
         vec: list[float] = []
         for i in range(self.dimension):
             h = hashlib.sha256(raw_hash + struct.pack("<I", i)).digest()

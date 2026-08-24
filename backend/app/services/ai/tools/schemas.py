@@ -2,24 +2,23 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional
 from pydantic import BaseModel, Field
 
-
 # ─── Tool 1: search_projects ──────────────────────────────────────────────────
+
 
 class SearchProjectsInput(BaseModel):
     """Input parameters for searching projects."""
 
-    query: Optional[str] = Field(
+    query: str | None = Field(
         default=None,
         description="Search keyword or topic, e.g. 'RAG', 'booking', 'streaming', 'agent'.",
     )
-    category: Optional[str] = Field(
+    category: str | None = Field(
         default=None,
         description="Optional category filter: 'ai', 'backend', 'fullstack', 'cloud'.",
     )
-    technology: Optional[str] = Field(
+    technology: str | None = Field(
         default=None,
         description="Optional technology tag to filter by, e.g. 'FastAPI', 'PostgreSQL', 'Docker'.",
     )
@@ -48,6 +47,7 @@ class SearchProjectsOutput(BaseModel):
 
 # ─── Tool 2: get_project ──────────────────────────────────────────────────────
 
+
 class GetProjectInput(BaseModel):
     """Input parameters for retrieving a single project case study."""
 
@@ -65,25 +65,26 @@ class ArchitectureComponent(BaseModel):
 
 class ProjectDetailOutput(BaseModel):
     found: bool
-    slug: Optional[str] = None
-    title: Optional[str] = None
-    summary: Optional[str] = None
-    category: Optional[str] = None
+    slug: str | None = None
+    title: str | None = None
+    summary: str | None = None
+    category: str | None = None
     technologies: list[str] = []
-    github_url: Optional[str] = None
-    live_url: Optional[str] = None
-    overview: Optional[str] = None
-    problem_statement: Optional[str] = None
-    solution_overview: Optional[str] = None
+    github_url: str | None = None
+    live_url: str | None = None
+    overview: str | None = None
+    problem_statement: str | None = None
+    solution_overview: str | None = None
     key_features: list[str] = []
     engineering_decisions: list[str] = []
     challenges_and_solutions: list[str] = []
     metrics: list[str] = []
     architecture_overview: list[ArchitectureComponent] = []
-    url: Optional[str] = None
+    url: str | None = None
 
 
 # ─── Tool 3: find_projects_by_technology ──────────────────────────────────────
+
 
 class FindByTechnologyInput(BaseModel):
     """Input parameters for finding projects by technology."""
@@ -108,18 +109,19 @@ class FindByTechnologyOutput(BaseModel):
 
 # ─── Tool 4: get_experience ───────────────────────────────────────────────────
 
+
 class GetExperienceInput(BaseModel):
     """Input parameters for querying Yosef's professional work experience."""
 
-    technology: Optional[str] = Field(
+    technology: str | None = Field(
         default=None,
         description="Filter experience where specific technology was utilized.",
     )
-    role: Optional[str] = Field(
+    role: str | None = Field(
         default=None,
         description="Filter by role title keyword, e.g. 'Backend', 'AI', 'Infrastructure'.",
     )
-    organization: Optional[str] = Field(
+    organization: str | None = Field(
         default=None,
         description="Filter by company or organization name.",
     )
@@ -143,10 +145,11 @@ class GetExperienceOutput(BaseModel):
 
 # ─── Tool 5: get_services ─────────────────────────────────────────────────────
 
+
 class GetServicesInput(BaseModel):
     """Input parameters for querying Yosef's consulting and engineering services."""
 
-    category: Optional[str] = Field(
+    category: str | None = Field(
         default=None,
         description="Optional category filter: 'ai', 'backend', 'cloud', 'architecture'.",
     )
@@ -169,14 +172,15 @@ class GetServicesOutput(BaseModel):
 
 # ─── Tool 6: search_articles ──────────────────────────────────────────────────
 
+
 class SearchArticlesInput(BaseModel):
     """Input parameters for searching published technical articles and thought leadership."""
 
-    query: Optional[str] = Field(
+    query: str | None = Field(
         default=None,
         description="Search keyword, e.g. 'FastAPI', 'RAG', 'Kubernetes', 'OpenShift'.",
     )
-    category: Optional[str] = Field(
+    category: str | None = Field(
         default=None,
         description="Optional category filter.",
     )
@@ -205,8 +209,10 @@ class SearchArticlesOutput(BaseModel):
 
 # ─── Tool 7: get_contact_information ──────────────────────────────────────────
 
+
 class GetContactInput(BaseModel):
     """Input parameters for retrieving public contact information (no arguments required)."""
+
     pass
 
 
@@ -223,6 +229,7 @@ class ContactOutput(BaseModel):
 
 
 # ─── Tool 8: search_knowledge_rag ────────────────────────────────────────────
+
 
 class SearchKnowledgeRagInput(BaseModel):
     """Input parameters for deep semantic knowledge retrieval over portfolio case studies."""

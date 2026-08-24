@@ -1,6 +1,7 @@
 """SQLAlchemy ORM model for RAG knowledge chunks."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import DateTime, Integer, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB
@@ -25,7 +26,7 @@ class KnowledgeChunk(Base):
     source_title: Mapped[str] = mapped_column(String(255), nullable=False)
     source_url: Mapped[str] = mapped_column(String(500), nullable=False)
     metadata_json: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
-    
+
     # 768-dimensional embedding vector matching Gemini text-embedding-004
     embedding: Mapped[list[float]] = mapped_column(Vector(768), nullable=False)
 
@@ -36,7 +37,7 @@ class KnowledgeChunk(Base):
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now(),
-        onupdate=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(UTC),
     )
 
     def __repr__(self) -> str:

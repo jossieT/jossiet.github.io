@@ -7,14 +7,13 @@ declarative Base metadata; import future model modules here.
 
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import engine_from_config, pool
-
-from app.core.config import settings
-from app.db.base import Base
 
 # Import all domain models so Alembic registers their tables on Base.metadata.
 import app.models  # noqa: F401 — triggers __init__ imports of all ORM models
+from alembic import context
+from app.core.config import settings
+from app.db.base import Base
 
 config = context.config
 

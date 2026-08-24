@@ -18,7 +18,9 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Application lifecycle: configure logging and log startup/shutdown."""
     configure_logging()
-    logger.info("Starting %s (env=%s, debug=%s)", settings.app_name, settings.app_env, settings.debug)
+    logger.info(
+        "Starting %s (env=%s, debug=%s)", settings.app_name, settings.app_env, settings.debug
+    )
     yield
     logger.info("Shutting down %s", settings.app_name)
 

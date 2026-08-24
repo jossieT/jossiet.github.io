@@ -22,4 +22,3 @@ def test_system_status_returns_valid_structure(client: TestClient) -> None:
     assert "redis" in payload["services"]
     assert "ai" in payload["services"]
     assert "sse" in payload["services"]
-

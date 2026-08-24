@@ -1,6 +1,6 @@
 """SQLAlchemy ORM model for technical articles / blog posts."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import ARRAY, Boolean, DateTime, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
@@ -30,7 +30,7 @@ class Article(Base):
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now(),
-        onupdate=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(UTC),
     )
 
     def __repr__(self) -> str:

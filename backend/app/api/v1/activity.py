@@ -3,8 +3,8 @@
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
-from app.services.activity import publish_activity, stream_activity
 from app.schemas.activity import ActivityType
+from app.services.activity import publish_activity, stream_activity
 
 router = APIRouter(prefix="/activity", tags=["activity"])
 
@@ -15,5 +15,9 @@ async def activity_stream() -> StreamingResponse:
     return StreamingResponse(
         stream_activity(),
         media_type="text/event-stream",
-        headers={"Cache-Control": "no-cache", "Connection": "keep-alive", "X-Accel-Buffering": "no"},
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
     )

@@ -114,7 +114,9 @@ class OpenRouterLLMClient(BaseLLMClient):
             if response.status_code != 200:
                 err_text = response.text
                 logger.error("OpenRouter API error (%d): %s", response.status_code, err_text)
-                return LLMTurnResponse(content="I encountered an error connecting to the AI provider. Please try again.")
+                return LLMTurnResponse(
+                    content="I encountered an error connecting to the AI provider. Please try again."
+                )
 
             data = response.json()
             choice = data.get("choices", [{}])[0]
@@ -129,7 +131,9 @@ class OpenRouterLLMClient(BaseLLMClient):
                     fn_name = fn.get("name", "")
                     fn_args_raw = fn.get("arguments", "{}")
                     try:
-                        args = json.loads(fn_args_raw) if isinstance(fn_args_raw, str) else fn_args_raw
+                        args = (
+                            json.loads(fn_args_raw) if isinstance(fn_args_raw, str) else fn_args_raw
+                        )
                     except Exception:
                         args = {}
                     parsed_calls.append(
@@ -173,7 +177,11 @@ class OpenRouterLLMClient(BaseLLMClient):
             ) as response:
                 if response.status_code != 200:
                     err_text = await response.aread()
-                    logger.error("OpenRouter API error (status %d): %s", response.status_code, err_text.decode("utf-8"))
+                    logger.error(
+                        "OpenRouter API error (status %d): %s",
+                        response.status_code,
+                        err_text.decode("utf-8"),
+                    )
                     yield "I encountered an error connecting to the AI provider. Please try again in a moment."
                     return
 
@@ -207,6 +215,7 @@ class GeminiLLMClient(BaseLLMClient):
     def _get_client(self) -> Any:
         if self._client is None:
             from google import genai
+
             self._client = genai.Client(api_key=self.api_key)
         return self._client
 
@@ -235,8 +244,8 @@ class GeminiLLMClient(BaseLLMClient):
         messages: list[dict[str, Any]],
         max_tokens: int = 1024,
     ) -> AsyncIterator[str]:
-        from google.genai import types
         import anyio
+        from google.genai import types
 
         client = self._get_client()
 
@@ -310,7 +319,12 @@ class MockLLMClient(BaseLLMClient):
                     )
                 ]
             )
-        elif "christian" in user_query or "booking" in user_query or "agent" in user_query or "rag platform" in user_query:
+        elif (
+            "christian" in user_query
+            or "booking" in user_query
+            or "agent" in user_query
+            or "rag platform" in user_query
+        ):
             slug = (
                 "christian-digital-content-platform"
                 if "christian" in user_query
@@ -357,7 +371,12 @@ class MockLLMClient(BaseLLMClient):
                     )
                 ]
             )
-        elif "challenge" in user_query or "decision" in user_query or "architecture" in user_query or "how was" in user_query:
+        elif (
+            "challenge" in user_query
+            or "decision" in user_query
+            or "architecture" in user_query
+            or "how was" in user_query
+        ):
             return LLMTurnResponse(
                 tool_calls=[
                     ToolCall(

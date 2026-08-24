@@ -3,16 +3,15 @@
 from __future__ import annotations
 
 import logging
-from sqlalchemy import select, or_, func
+
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.models.article import Article
 from app.models.experience import Experience
 from app.models.project import Project
 from app.models.service import Service
-from app.models.skill import Skill, SkillCategory
 from app.services.ai.tools.schemas import (
-    ArchitectureComponent,
     ArticleItemOutput,
     ContactOutput,
     ExperienceItemOutput,
@@ -42,6 +41,7 @@ logger = logging.getLogger(__name__)
 
 # ─── Tool 1: search_projects ──────────────────────────────────────────────────
 
+
 def search_projects(db: Session, args: SearchProjectsInput) -> SearchProjectsOutput:
     """Search portfolio projects by query keyword, category, or technology."""
     query = select(Project).order_by(Project.sort_order, Project.id)
@@ -61,7 +61,9 @@ def search_projects(db: Session, args: SearchProjectsInput) -> SearchProjectsOut
     for p in projects:
         matches = True
         if q_lower:
-            searchable = f"{p.title} {p.summary} {p.category} {' '.join(p.technologies or [])}".lower()
+            searchable = (
+                f"{p.title} {p.summary} {p.category} {' '.join(p.technologies or [])}".lower()
+            )
             if q_lower not in searchable:
                 matches = False
         if tech_lower and matches:
@@ -89,6 +91,7 @@ def search_projects(db: Session, args: SearchProjectsInput) -> SearchProjectsOut
 
 # ─── Tool 2: get_project ──────────────────────────────────────────────────────
 
+
 def get_project(db: Session, args: GetProjectInput) -> ProjectDetailOutput:
     """Retrieve full technical case study for a single project by slug."""
     slug_clean = args.slug.strip().lower()
@@ -109,11 +112,15 @@ def get_project(db: Session, args: GetProjectInput) -> ProjectDetailOutput:
         for f in (project.key_features or [])
     ]
     decisions = [
-        f"{d.get('decision', '')} — Rationale: {d.get('rationale', '')}" if isinstance(d, dict) else str(d)
+        f"{d.get('decision', '')} — Rationale: {d.get('rationale', '')}"
+        if isinstance(d, dict)
+        else str(d)
         for d in (project.engineering_decisions or [])
     ]
     challenges = [
-        f"Challenge: {c.get('challenge', '')} -> Solution: {c.get('solution', '')}" if isinstance(c, dict) else str(c)
+        f"Challenge: {c.get('challenge', '')} -> Solution: {c.get('solution', '')}"
+        if isinstance(c, dict)
+        else str(c)
         for c in (project.challenges or [])
     ]
 
@@ -139,6 +146,7 @@ def get_project(db: Session, args: GetProjectInput) -> ProjectDetailOutput:
 
 
 # ─── Tool 3: find_projects_by_technology ──────────────────────────────────────
+
 
 def find_projects_by_technology(db: Session, args: FindByTechnologyInput) -> FindByTechnologyOutput:
     """Find all projects built using a given technology."""
@@ -170,9 +178,12 @@ def find_projects_by_technology(db: Session, args: FindByTechnologyInput) -> Fin
 
 # ─── Tool 4: get_experience ───────────────────────────────────────────────────
 
+
 def get_experience(db: Session, args: GetExperienceInput) -> GetExperienceOutput:
     """Retrieve Yosef's professional roles and work history."""
-    items = list(db.scalars(select(Experience).order_by(Experience.sort_order, Experience.id)).all())
+    items = list(
+        db.scalars(select(Experience).order_by(Experience.sort_order, Experience.id)).all()
+    )
 
     filtered: list[ExperienceItemOutput] = []
     tech_filter = args.technology.lower().strip() if args.technology else None
@@ -210,6 +221,7 @@ def get_experience(db: Session, args: GetExperienceInput) -> GetExperienceOutput
 
 # ─── Tool 5: get_services ─────────────────────────────────────────────────────
 
+
 def get_services(db: Session, args: GetServicesInput) -> GetServicesOutput:
     """Retrieve Yosef's engineering and consulting services."""
     query = select(Service).order_by(Service.sort_order, Service.id)
@@ -233,6 +245,7 @@ def get_services(db: Session, args: GetServicesInput) -> GetServicesOutput:
 
 
 # ─── Tool 6: search_articles ──────────────────────────────────────────────────
+
 
 def search_articles(db: Session, args: SearchArticlesInput) -> SearchArticlesOutput:
     """Search published technical articles and thought leadership."""
@@ -266,12 +279,14 @@ def search_articles(db: Session, args: SearchArticlesInput) -> SearchArticlesOut
 
 # ─── Tool 7: get_contact_information ──────────────────────────────────────────
 
+
 def get_contact_information(db: Session, args: GetContactInput) -> ContactOutput:
     """Return only intentionally public contact information."""
     return ContactOutput()
 
 
 # ─── Tool 8: search_knowledge_rag ────────────────────────────────────────────
+
 
 def search_knowledge_rag(db: Session, args: SearchKnowledgeRagInput) -> SearchKnowledgeRagOutput:
     """Perform semantic cosine retrieval across portfolio knowledge chunks."""

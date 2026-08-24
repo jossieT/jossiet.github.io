@@ -28,7 +28,6 @@ def system_status() -> SystemStatusResponse:
     return get_system_status()
 
 
-
 # Domain routers
 api_router.include_router(projects.router)
 api_router.include_router(experience.router)

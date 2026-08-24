@@ -5,9 +5,7 @@ import sys
 
 from app.core.config import settings
 
-_LOGGING_FORMAT = (
-    "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-)
+_LOGGING_FORMAT = "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
 
 
 def configure_logging(level: int | None = None) -> None:

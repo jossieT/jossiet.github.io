@@ -15,9 +15,7 @@ def test_settings_load_required_values() -> None:
 
 def test_settings_parses_cors_origins() -> None:
     """CORS origins are parsed from a comma-separated string."""
-    settings = Settings(
-        CORS_ORIGINS="http://localhost:3000,https://example.com"
-    )
+    settings = Settings(CORS_ORIGINS="http://localhost:3000,https://example.com")
 
     assert settings.cors_origin_list == [
         "http://localhost:3000",

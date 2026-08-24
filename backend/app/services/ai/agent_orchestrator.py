@@ -7,15 +7,16 @@ import logging
 import time
 from collections.abc import AsyncIterator
 from typing import Any
+
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.schemas.activity import ActivityType
 from app.schemas.chat import ChatMessage
+from app.services.activity import publish_activity
 from app.services.ai.llm_client import BaseLLMClient, get_llm_client
 from app.services.ai.observability import AgentMetricsCollector
 from app.services.ai.tools.registry import ToolRegistry, get_tool_registry
-from app.services.activity import publish_activity
-from app.schemas.activity import ActivityType
 
 logger = logging.getLogger(__name__)
 
@@ -69,14 +70,15 @@ class AgentOrchestrator:
 
         provider = getattr(self.client, "model", "mock")
         model = getattr(self.client, "model", settings.llm_model)
-        metrics = AgentMetricsCollector(query=latest_query, provider=str(provider), model=str(model))
+        metrics = AgentMetricsCollector(
+            query=latest_query, provider=str(provider), model=str(model)
+        )
 
         # Prepare trimmed conversation history
         max_history = settings.ai_max_history_messages
         trimmed = messages[-max_history:]
         conversation: list[dict[str, Any]] = [
-            {"role": m.role, "content": m.content}
-            for m in trimmed
+            {"role": m.role, "content": m.content} for m in trimmed
         ]
 
         tools_schema = self.registry.get_openai_tools_schema()
@@ -111,7 +113,9 @@ class AgentOrchestrator:
                                 "type": "function",
                                 "function": {
                                     "name": tc.name,
-                                    "arguments": json.dumps(tc.arguments) if isinstance(tc.arguments, dict) else str(tc.arguments),
+                                    "arguments": json.dumps(tc.arguments)
+                                    if isinstance(tc.arguments, dict)
+                                    else str(tc.arguments),
                                 },
                             }
                             for tc in turn.tool_calls
@@ -127,7 +131,9 @@ class AgentOrchestrator:
 
                         total_tool_calls += 1
                         tool_def = self.registry.get_tool(tc.name)
-                        status_msg = tool_def.status_message if tool_def else f"Executing {tc.name}..."
+                        status_msg = (
+                            tool_def.status_message if tool_def else f"Executing {tc.name}..."
+                        )
 
                         # Emit real-time status event to frontend
                         yield f"data: {json.dumps({'status': status_msg})}\n\n"
@@ -148,8 +154,12 @@ class AgentOrchestrator:
                             error=result.error,
                         )
                         publish_activity(
-                            ActivityType.RAG if tc.name == "search_knowledge_rag" else ActivityType.AGENT,
-                            "Hybrid retrieval completed" if tc.name == "search_knowledge_rag" else "Agent tool execution completed",
+                            ActivityType.RAG
+                            if tc.name == "search_knowledge_rag"
+                            else ActivityType.AGENT,
+                            "Hybrid retrieval completed"
+                            if tc.name == "search_knowledge_rag"
+                            else "Agent tool execution completed",
                             status="success" if result.success else "error",
                             duration_ms=dur_ms,
                         )
@@ -206,7 +216,9 @@ class AgentOrchestrator:
                 return
 
             # If iterations exhausted without final text, generate fallback synthesis
-            logger.info("Agent iteration limit (%d) reached. Generating final synthesis.", max_iterations)
+            logger.info(
+                "Agent iteration limit (%d) reached. Generating final synthesis.", max_iterations
+            )
             if collected_sources:
                 yield f"data: {json.dumps({'sources': collected_sources})}\n\n"
 
@@ -223,6 +235,8 @@ class AgentOrchestrator:
         except Exception as exc:
             logger.exception("Error in AgentOrchestrator run: %s", exc)
             metrics.complete(source_count=len(collected_sources), success=False, error=str(exc))
-            err_data = json.dumps({"error": "An error occurred while generating the agent response."})
+            err_data = json.dumps(
+                {"error": "An error occurred while generating the agent response."}
+            )
             yield f"data: {err_data}\n\n"
             yield "data: [DONE]\n\n"

@@ -8,11 +8,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.schemas.activity import ActivityType
 from app.schemas.article import ArticleDetail, ArticleListItem
 from app.schemas.pagination import Page
 from app.services import article as article_service
 from app.services.activity import publish_activity
-from app.schemas.activity import ActivityType
 
 router = APIRouter(prefix="/articles", tags=["articles"])
 
@@ -47,7 +47,8 @@ def get_article(slug: str, db: DbDep) -> ArticleDetail:
     """Return a full article by slug."""
     article = article_service.get_article(db, slug)
     if article is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Article '{slug}' not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Article '{slug}' not found"
+        )
     publish_activity(ActivityType.API, "Technical article retrieved")
     return article
-

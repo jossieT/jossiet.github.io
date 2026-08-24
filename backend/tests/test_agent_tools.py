@@ -1,7 +1,6 @@
 """Unit tests for AI Agent Tools and ToolRegistry."""
 
 import pytest
-from sqlalchemy.orm import Session
 
 from app.db.session import SessionLocal
 from app.services.ai.tools.implementations import (
@@ -107,7 +106,9 @@ def test_search_articles_tool() -> None:
     with SessionLocal() as db:
         res = search_articles(db, SearchArticlesInput(query="FastAPI"))
         assert res.total >= 1
-        assert any("fastapi" in a.slug.lower() or "fastapi" in a.title.lower() for a in res.articles)
+        assert any(
+            "fastapi" in a.slug.lower() or "fastapi" in a.title.lower() for a in res.articles
+        )
 
 
 def test_get_contact_information_tool() -> None:

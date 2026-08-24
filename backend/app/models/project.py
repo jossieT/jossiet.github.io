@@ -1,6 +1,6 @@
 """SQLAlchemy ORM model for portfolio projects / case studies."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import ARRAY, Boolean, DateTime, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB
@@ -59,7 +59,7 @@ class Project(Base):
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now(),
-        onupdate=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(UTC),
     )
 
     def __repr__(self) -> str:

@@ -56,7 +56,7 @@ def get_featured_projects(db: Session, *, limit: int = 3) -> list[ProjectListIte
 def get_project(db: Session, slug: str) -> ProjectDetail | None:
     """Return a full project detail by slug with computed previous/next/related navigation."""
     all_projects = db.scalars(select(Project).order_by(Project.sort_order, Project.id)).all()
-    
+
     current_idx = None
     for idx, p in enumerate(all_projects):
         if p.slug == slug:
@@ -69,7 +69,9 @@ def get_project(db: Session, slug: str) -> ProjectDetail | None:
     row = all_projects[current_idx]
 
     prev_item = _list_item(all_projects[current_idx - 1]) if current_idx > 0 else None
-    next_item = _list_item(all_projects[current_idx + 1]) if current_idx < len(all_projects) - 1 else None
+    next_item = (
+        _list_item(all_projects[current_idx + 1]) if current_idx < len(all_projects) - 1 else None
+    )
 
     # Compute related projects
     related_items: list[ProjectListItem] = []

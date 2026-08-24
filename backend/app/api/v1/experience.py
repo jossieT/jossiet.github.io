@@ -8,10 +8,10 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.schemas.activity import ActivityType
 from app.schemas.experience import ExperienceItem
 from app.services import experience as experience_service
 from app.services.activity import publish_activity
-from app.schemas.activity import ActivityType
 
 router = APIRouter(prefix="/experience", tags=["experience"])
 
@@ -24,4 +24,3 @@ def list_experience(db: DbDep) -> list[ExperienceItem]:
     result = experience_service.list_experience(db)
     publish_activity(ActivityType.API, "Work history retrieved")
     return result
-

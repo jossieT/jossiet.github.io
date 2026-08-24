@@ -7,8 +7,9 @@ Caches the compiled context in memory with a configurable TTL.
 
 from __future__ import annotations
 
-import time
 import logging
+import time
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -42,17 +43,21 @@ def build_portfolio_context(db: Session, force_refresh: bool = False) -> str:
 
     # Fetch projects
     projects = db.scalars(select(Project).order_by(Project.sort_order, Project.id)).all()
-    
+
     # Fetch experience
-    experience_list = db.scalars(select(Experience).order_by(Experience.sort_order, Experience.id)).all()
-    
+    experience_list = db.scalars(
+        select(Experience).order_by(Experience.sort_order, Experience.id)
+    ).all()
+
     # Fetch skill categories
-    skill_categories = db.scalars(select(SkillCategory).order_by(SkillCategory.sort_order, SkillCategory.id)).all()
+    skill_categories = db.scalars(
+        select(SkillCategory).order_by(SkillCategory.sort_order, SkillCategory.id)
+    ).all()
     skills = db.scalars(select(Skill).order_by(Skill.category_id, Skill.sort_order, Skill.id)).all()
-    
+
     # Fetch services
     services = db.scalars(select(Service).order_by(Service.sort_order, Service.id)).all()
-    
+
     # Fetch articles
     articles = db.scalars(select(Article).order_by(Article.id)).all()
 
@@ -143,7 +148,7 @@ def build_portfolio_context(db: Session, force_refresh: bool = False) -> str:
     art_lines = ["=== PUBLISHED TECHNICAL ARTICLES ==="]
     for a in articles:
         art_lines.append(
-            f"• \"{a.title}\" (slug: {a.slug})\n"
+            f'• "{a.title}" (slug: {a.slug})\n'
             f"  Category: {a.category} | Read Time: {a.read_time}\n"
             f"  Summary: {a.excerpt}"
         )

@@ -1,6 +1,7 @@
 """Tests for the sanitized activity publisher, schemas, and SSE stream endpoint."""
 
 from fastapi.testclient import TestClient
+
 from app.schemas.activity import ActivityType, PublicActivityEvent
 from app.services.activity import publish_activity, recent_activity
 

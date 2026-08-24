@@ -8,11 +8,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.schemas.activity import ActivityType
 from app.schemas.pagination import Page
 from app.schemas.project import ProjectDetail, ProjectListItem
 from app.services import project as project_service
 from app.services.activity import publish_activity
-from app.schemas.activity import ActivityType
 
 router = APIRouter(prefix="/projects", tags=["projects"])
 
@@ -48,6 +48,8 @@ def get_project(slug: str, db: DbDep) -> ProjectDetail:
     """Return a full project case study by slug."""
     project = project_service.get_project(db, slug)
     if project is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Project '{slug}' not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"Project '{slug}' not found"
+        )
     publish_activity(ActivityType.API, "Project case study retrieved")
     return project

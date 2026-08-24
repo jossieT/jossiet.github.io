@@ -1,7 +1,9 @@
 """Integration tests for the AI Agent Orchestrator with mock tool calling."""
 
 import json
+
 import pytest
+
 from app.db.session import SessionLocal
 from app.schemas.chat import ChatMessage
 from app.services.ai.agent_orchestrator import AgentOrchestrator
@@ -68,7 +70,9 @@ async def test_agent_orchestrator_tool_invocation_and_sources() -> None:
 async def test_agent_orchestrator_project_lookup() -> None:
     """Project lookup triggers get_project tool and returns case study content."""
     client = MockLLMClient()
-    messages = [ChatMessage(role="user", content="Tell me about the Christian Digital Content Platform.")]
+    messages = [
+        ChatMessage(role="user", content="Tell me about the Christian Digital Content Platform.")
+    ]
 
     with SessionLocal() as db:
         orchestrator = AgentOrchestrator(db=db, client=client)

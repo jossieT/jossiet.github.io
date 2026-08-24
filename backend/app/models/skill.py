@@ -1,6 +1,6 @@
 """SQLAlchemy ORM models for skill categories and individual skills."""
 
-from sqlalchemy import ForeignKey, Integer, String, Text, Boolean
+from sqlalchemy import Boolean, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base

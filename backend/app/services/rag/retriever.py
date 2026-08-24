@@ -5,15 +5,14 @@ from __future__ import annotations
 import logging
 import time
 from dataclasses import dataclass
-from sqlalchemy import select, text
+
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
-from app.models.knowledge import KnowledgeChunk
 from app.schemas.activity import ActivityType
 from app.services.activity import publish_activity
 from app.services.rag.embedding import BaseEmbeddingService, get_embedding_service
-
 
 logger = logging.getLogger(__name__)
 
@@ -124,4 +123,3 @@ def retrieve_relevant_chunks(
         top_k,
     )
     return retrieved
-

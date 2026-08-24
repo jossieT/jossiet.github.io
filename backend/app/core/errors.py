@@ -26,9 +26,7 @@ def register_error_handlers(app: FastAPI) -> None:
     """Register structured error handlers on the application."""
 
     @app.exception_handler(StarletteHTTPException)
-    async def http_exception_handler(
-        request: Request, exc: StarletteHTTPException
-    ) -> JSONResponse:
+    async def http_exception_handler(request: Request, exc: StarletteHTTPException) -> JSONResponse:
         logger.warning("HTTP %s on %s: %s", exc.status_code, request.url.path, exc.detail)
         return _error_response(status_code=exc.status_code, detail=str(exc.detail))
 
@@ -43,9 +41,7 @@ def register_error_handlers(app: FastAPI) -> None:
         )
 
     @app.exception_handler(Exception)
-    async def unhandled_exception_handler(
-        request: Request, exc: Exception
-    ) -> JSONResponse:
+    async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
         logger.exception("Unhandled error on %s", request.url.path)
         return _error_response(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

@@ -1,9 +1,8 @@
 """Readiness checks for core infrastructure dependencies."""
 
 import logging
-
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import redis as redis_lib
 from redis.exceptions import RedisError
@@ -12,15 +11,15 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.core.config import settings
 from app.db.session import engine
+from app.schemas.activity import ActivityType
 from app.schemas.health import (
     DependencyStatus,
     ReadinessResponse,
-    ServiceStatusItem,
     ServicesStatusDict,
+    ServiceStatusItem,
     SystemStatusResponse,
 )
 from app.services.activity import publish_activity
-from app.schemas.activity import ActivityType
 
 logger = logging.getLogger(__name__)
 
@@ -94,7 +93,5 @@ def get_system_status() -> SystemStatusResponse:
     return SystemStatusResponse(
         status=overall,
         services=services,
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
     )
-
-
