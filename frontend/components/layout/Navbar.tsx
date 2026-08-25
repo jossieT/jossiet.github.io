@@ -133,7 +133,7 @@ export function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             type="button"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            className="p-2 text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+            className="p-2 text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? (
               <X className="w-6 h-6" />

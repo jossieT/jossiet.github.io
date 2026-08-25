@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { Bot, RotateCcw, X, Sparkles } from "lucide-react";
+import { Bot, ChevronDown, ChevronUp, RotateCcw, X, Sparkles } from "lucide-react";
 import { ChatMessageItem, SourceRef } from "@/types/chat";
 import { streamChat } from "@/lib/api";
 import { ChatMessages } from "./ChatMessages";
@@ -9,9 +9,17 @@ import { ChatInput } from "./ChatInput";
 
 interface ChatPanelProps {
   onClose: () => void;
+  /** When true, only the header is rendered; chat state stays intact. */
+  isMinimized?: boolean;
+  /** Toggles the minimized state (owned by ChatWidget so it can resize the container). */
+  onToggleMinimize?: () => void;
 }
 
-export function ChatPanel({ onClose }: ChatPanelProps) {
+export function ChatPanel({
+  onClose,
+  isMinimized = false,
+  onToggleMinimize,
+}: ChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessageItem[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -155,6 +163,21 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
 
         {/* Header Actions */}
         <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={onToggleMinimize}
+            aria-label={isMinimized ? "Expand AI Assistant" : "Minimize AI Assistant"}
+            aria-expanded={!isMinimized}
+            title={isMinimized ? "Expand AI Assistant" : "Minimize AI Assistant"}
+            className="p-1.5 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70"
+          >
+            {isMinimized ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
+          </button>
+
           {messages.length > 0 && (
             <button
               onClick={handleClear}
@@ -177,23 +200,29 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
         </div>
       </div>
 
-      {/* Messages Scroll Area */}
-      <ChatMessages
-        messages={messages}
-        isLoading={isLoading}
-        error={error}
-        agentStatus={agentStatus}
-        onSelectSuggestion={(qText) => handleSendMessage(qText)}
-      />
+      {/* Body — hidden while minimized; chat state lives above, so the
+          conversation and any in-flight stream survive the toggle. */}
+      {!isMinimized && (
+        <>
+          {/* Messages Scroll Area */}
+          <ChatMessages
+            messages={messages}
+            isLoading={isLoading}
+            error={error}
+            agentStatus={agentStatus}
+            onSelectSuggestion={(qText) => handleSendMessage(qText)}
+          />
 
-      {/* Input Area */}
-      <ChatInput
-        input={input}
-        setInput={setInput}
-        onSubmit={() => handleSendMessage()}
-        onStop={handleStop}
-        isLoading={isLoading}
-      />
+          {/* Input Area */}
+          <ChatInput
+            input={input}
+            setInput={setInput}
+            onSubmit={() => handleSendMessage()}
+            onStop={handleStop}
+            isLoading={isLoading}
+          />
+        </>
+      )}
     </div>
   );
 }

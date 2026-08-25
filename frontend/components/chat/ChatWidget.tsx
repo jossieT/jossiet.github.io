@@ -6,6 +6,9 @@ import { ChatPanel } from "./ChatPanel";
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  // Owned here (not inside ChatPanel) so the floating container can shrink
+  // to a compact header-only card while the conversation stays mounted.
+  const [isMinimized, setIsMinimized] = useState(false);
 
   // Close with Escape key
   useEffect(() => {
@@ -35,7 +38,7 @@ export function ChatWidget() {
             </div>
 
             <span className="text-xs font-semibold tracking-wide hidden sm:inline-block">
-              Yosef Assistant
+              Yosef&apos;s Assistant
             </span>
 
             <Sparkles className="w-3.5 h-3.5 text-sky-200 group-hover:rotate-12 transition-transform" />
@@ -45,8 +48,24 @@ export function ChatWidget() {
 
       {/* Floating Chat Modal / Panel */}
       {isOpen && (
-        <div className="fixed inset-0 h-[100dvh] sm:h-[600px] sm:max-h-[calc(100dvh-3rem)] sm:w-[400px] sm:bottom-6 sm:right-6 sm:top-auto sm:left-auto z-50 flex flex-col animate-in fade-in zoom-in-95 duration-200">
-          <ChatPanel onClose={() => setIsOpen(false)} />
+        <div className="fixed z-50 bottom-6 right-6 w-[calc(100vw-3rem)] max-w-[350px] flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-200">
+          {/* This wrapper's classes never change after mount — the open
+              animation plays exactly once and the widget width is identical
+              in both states, so toggling can never flash a screen-wide
+              layout. Only the height differs between expanded/minimized. */}
+          <div
+            className={
+              isMinimized
+                ? "flex flex-col"
+                : "flex flex-col h-[100dvh] sm:h-[550px] sm:max-h-[calc(100dvh-3rem)]"
+            }
+          >
+            <ChatPanel
+              onClose={() => setIsOpen(false)}
+              isMinimized={isMinimized}
+              onToggleMinimize={() => setIsMinimized((prev) => !prev)}
+            />
+          </div>
         </div>
       )}
     </>
