@@ -45,10 +45,12 @@ export function Navbar() {
 
   return (
     <header
-      className={`theme-header ${scrolled ? "theme-header-scrolled" : ""} sticky top-0 z-50 transition-all duration-200 border-b ${
-        scrolled
-          ? "bg-white/85 dark:bg-zinc-950/85 backdrop-blur-md border-zinc-200 dark:border-zinc-800 shadow-sm"
-          : "bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm border-transparent"
+      className={`theme-header ${scrolled ? "theme-header-scrolled" : ""} ${mobileMenuOpen ? "theme-header-open !bg-slate-50 dark:!bg-[#090d16]" : ""} sticky top-0 z-[100] transition-all duration-200 border-b ${
+        mobileMenuOpen
+          ? "bg-slate-50 dark:bg-[#090d16] border-slate-200 dark:border-zinc-800 shadow-md"
+          : scrolled
+          ? "bg-white dark:bg-[#090d16] border-slate-200/90 dark:border-zinc-800 shadow-sm"
+          : "bg-white dark:bg-[#090d16] border-slate-200/80 dark:border-zinc-800/80 shadow-xs"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -133,7 +135,7 @@ export function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             type="button"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            className="p-2 text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 transition-colors cursor-pointer"
+            className="p-2 text-slate-800 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 rounded-lg bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-700 shadow-xs hover:bg-slate-50 dark:hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? (
               <X className="w-6 h-6" />
@@ -144,10 +146,10 @@ export function Navbar() {
         </div>
       </div>
 
-        {/* Mobile Drawer Overlay */}
+      {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 bg-white/97 dark:bg-zinc-950/97 backdrop-blur-md z-40 flex flex-col justify-between p-6 animate-in fade-in duration-200 border-t border-zinc-200 dark:border-zinc-800">
-          <nav className="flex flex-col gap-2">
+        <div className="theme-mobile-menu lg:hidden fixed inset-0 top-16 bg-slate-50 dark:bg-[#090d16] z-[99] flex flex-col justify-between p-6 animate-in fade-in duration-200 border-t border-slate-200 dark:border-zinc-800 shadow-2xl overflow-y-auto">
+          <nav className="flex flex-col gap-2.5">
             {NAV_ITEMS.map((item) => {
               const isActive =
                 item.href === "/"
@@ -158,10 +160,10 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobileMenu}
-                  className={`px-4 py-3 text-base font-semibold rounded-lg transition-colors ${
+                  className={`px-4 py-3 text-base font-semibold rounded-xl transition-all border ${
                     isActive
-                      ? "text-sky-600 dark:text-sky-400 bg-sky-500/10"
-                      : "text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 hover:text-zinc-950 dark:hover:text-white"
+                      ? "text-sky-700 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/20 border-sky-300 dark:border-sky-500/40 shadow-xs font-bold"
+                      : "text-slate-800 dark:text-zinc-200 bg-white dark:bg-[#111827] border-slate-200/90 dark:border-zinc-800/80 shadow-xs hover:bg-slate-100 dark:hover:bg-[#1e293b] hover:text-sky-600 dark:hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -170,24 +172,24 @@ export function Navbar() {
             })}
           </nav>
 
-          <div className="pt-6 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-4">
-            <div className="flex items-center justify-around">
+          <div className="pt-6 mt-6 border-t border-slate-200 dark:border-zinc-800 flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <a
                 href="https://github.com/jossieT"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm font-semibold text-slate-800 dark:text-zinc-200 bg-white dark:bg-[#111827] border border-slate-200 dark:border-zinc-800 rounded-lg shadow-xs hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
-                <GithubIcon className="w-5 h-5" />
+                <GithubIcon className="w-4 h-4" />
                 GitHub
               </a>
               <a
                 href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm font-semibold text-slate-800 dark:text-zinc-200 bg-white dark:bg-[#111827] border border-slate-200 dark:border-zinc-800 rounded-lg shadow-xs hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
-                <LinkedinIcon className="w-5 h-5" />
+                <LinkedinIcon className="w-4 h-4" />
                 LinkedIn
               </a>
             </div>
@@ -196,7 +198,7 @@ export function Navbar() {
               href="/resume"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full text-center py-2.5 text-sm font-mono font-semibold rounded-lg bg-sky-600 text-white hover:bg-sky-500 transition-colors"
+              className="w-full text-center py-3 text-sm font-mono font-bold rounded-lg bg-sky-600 text-white hover:bg-sky-500 shadow-md shadow-sky-600/20 transition-all"
             >
               Download Resume / CV
             </a>

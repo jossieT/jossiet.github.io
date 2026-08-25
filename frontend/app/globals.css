@@ -43,19 +43,43 @@
 
 /* Light-mode surface hierarchy: neutral canvas, raised cards, and quiet chrome. */
 .light .theme-header {
-  background-color: var(--header-bg);
-  border-color: rgba(226, 232, 240, 0.8);
-  backdrop-filter: blur(12px);
+  background-color: #ffffff;
+  border-color: var(--card-border);
 }
 
 .light .theme-header.theme-header-scrolled {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #ffffff;
   border-color: var(--card-border);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
 }
 
 .light .theme-footer {
   background-color: var(--footer-bg);
   border-color: var(--card-border);
+}
+
+.theme-mobile-menu {
+  background-color: #f8fafc;
+}
+
+.light .theme-header.theme-header-open {
+  background-color: #f8fafc;
+  border-color: var(--card-border);
+}
+
+.dark .theme-mobile-menu {
+  background-color: #090d16;
+}
+
+.dark .theme-header {
+  background-color: rgba(9, 13, 22, 0.85);
+  border-color: rgba(30, 41, 59, 0.8);
+}
+
+.dark .theme-header.theme-header-scrolled,
+.dark .theme-header.theme-header-open {
+  background-color: #090d16;
+  border-color: #1e293b;
 }
 
 .light .theme-card {

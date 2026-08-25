@@ -137,9 +137,9 @@ export function ChatPanel({
   };
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-2xl rounded-2xl overflow-hidden backdrop-blur-md">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-2xl rounded-2xl overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-3.5 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+      <div className="px-4 py-3.5 bg-white dark:bg-zinc-900/90 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="relative">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-sm">

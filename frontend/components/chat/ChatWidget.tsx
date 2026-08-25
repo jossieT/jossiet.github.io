@@ -24,7 +24,7 @@ export function ChatWidget() {
   return (
     <>
       {/* Floating Launcher Button */}
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
@@ -48,16 +48,12 @@ export function ChatWidget() {
 
       {/* Floating Chat Modal / Panel */}
       {isOpen && (
-        <div className="fixed z-50 bottom-6 right-6 w-[calc(100vw-3rem)] max-w-[350px] flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-200">
-          {/* This wrapper's classes never change after mount — the open
-              animation plays exactly once and the widget width is identical
-              in both states, so toggling can never flash a screen-wide
-              layout. Only the height differs between expanded/minimized. */}
+        <div className="fixed z-50 inset-x-3 bottom-3 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[400px] flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div
             className={
               isMinimized
-                ? "flex flex-col"
-                : "flex flex-col h-[100dvh] sm:h-[550px] sm:max-h-[calc(100dvh-3rem)]"
+                ? "flex flex-col w-full"
+                : "flex flex-col w-full h-[calc(100dvh-5rem)] max-h-[620px] sm:h-[600px]"
             }
           >
             <ChatPanel

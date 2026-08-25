@@ -52,9 +52,9 @@ export function ChatInput({
           onSubmit();
         }
       }}
-      className="p-3 bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800"
+      className="p-3 bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800"
     >
-      <div className="relative flex items-end gap-2 bg-zinc-100 dark:bg-zinc-800/80 rounded-2xl border border-zinc-300 dark:border-zinc-700/80 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-500/20 transition-all p-1.5">
+      <div className="relative flex items-end gap-2 bg-slate-100 dark:bg-zinc-800/80 rounded-2xl border border-slate-300 dark:border-zinc-700/80 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-500/20 transition-all p-1.5">
         <textarea
           ref={textareaRef}
           value={input}
