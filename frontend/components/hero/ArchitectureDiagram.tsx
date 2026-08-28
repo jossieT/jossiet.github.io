@@ -199,9 +199,13 @@ export function ArchitectureDiagram() {
     connect();
     fetchHealthStatus();
 
+    // Re-poll health every 30s so service cards and sparkline stay live
+    const healthPollInterval = setInterval(fetchHealthStatus, 30_000);
+
     return () => {
       if (eventSource) eventSource.close();
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      clearInterval(healthPollInterval);
     };
   }, [triggerNodeHighlight, fetchHealthStatus]);
 
@@ -618,7 +622,9 @@ export function ArchitectureDiagram() {
                   </span>
                 </div>
                 <p className="text-[10px] text-zinc-400">
-                  FastAPI {healthData?.services?.api?.latency_ms ? `· ${healthData.services.api.latency_ms}ms` : "· <50ms"}
+                  FastAPI · {healthData?.services?.api?.latency_ms != null
+                    ? `${healthData.services.api.latency_ms}ms`
+                    : "<2ms"}
                 </p>
               </div>
 
