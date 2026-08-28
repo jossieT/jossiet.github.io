@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, FileText, Terminal } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
@@ -45,13 +45,12 @@ export function Navbar() {
 
   return (
     <header
-      className={`theme-header ${scrolled ? "theme-header-scrolled" : ""} ${mobileMenuOpen ? "theme-header-open !bg-slate-50 dark:!bg-[#090d16]" : ""} sticky top-0 z-[100] transition-all duration-200 border-b ${
-        mobileMenuOpen
+      className={`theme-header ${scrolled ? "theme-header-scrolled" : ""} ${mobileMenuOpen ? "theme-header-open !bg-slate-50 dark:!bg-[#090d16]" : ""} sticky top-0 z-[100] transition-all duration-200 border-b ${mobileMenuOpen
           ? "bg-slate-50 dark:bg-[#090d16] border-slate-200 dark:border-zinc-800 shadow-md"
           : scrolled
-          ? "bg-white dark:bg-[#090d16] border-slate-200/90 dark:border-zinc-800 shadow-sm"
-          : "bg-white dark:bg-[#090d16] border-slate-200/80 dark:border-zinc-800/80 shadow-xs"
-      }`}
+            ? "bg-white dark:bg-[#090d16] border-slate-200/90 dark:border-zinc-800 shadow-sm"
+            : "bg-white dark:bg-[#090d16] border-slate-200/80 dark:border-zinc-800/80 shadow-xs"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand logo / position */}
@@ -59,15 +58,15 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2.5 group text-zinc-900 dark:text-zinc-100 font-bold tracking-tight hover:opacity-90 transition-opacity"
         >
-          <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:scale-105 transition-transform">
-            <Terminal className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:scale-105 transition-transform font-mono text-xs font-bold">
+            YT
           </div>
           <div className="flex flex-col">
             <span className="text-sm sm:text-base leading-none font-bold">
               Yosef Teshome
             </span>
             <span className="text-[10px] font-mono font-medium text-sky-600 dark:text-sky-400 leading-tight">
-              AI Backend Engineer
+              Full-Stack Engineer
             </span>
           </div>
         </Link>
@@ -83,11 +82,10 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                  isActive
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${isActive
                     ? "text-sky-600 dark:text-sky-400 bg-sky-500/10"
                     : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/50"
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
@@ -160,11 +158,10 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobileMenu}
-                  className={`px-4 py-3 text-base font-semibold rounded-xl transition-all border ${
-                    isActive
+                  className={`px-4 py-3 text-base font-semibold rounded-xl transition-all border ${isActive
                       ? "text-sky-700 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/20 border-sky-300 dark:border-sky-500/40 shadow-xs font-bold"
                       : "text-slate-800 dark:text-zinc-200 bg-white dark:bg-[#111827] border-slate-200/90 dark:border-zinc-800/80 shadow-xs hover:bg-slate-100 dark:hover:bg-[#1e293b] hover:text-sky-600 dark:hover:text-white"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>

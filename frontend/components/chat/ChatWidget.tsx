@@ -48,12 +48,12 @@ export function ChatWidget() {
 
       {/* Floating Chat Modal / Panel */}
       {isOpen && (
-        <div className="fixed z-50 inset-x-3 bottom-3 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[400px] flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="fixed z-[120] inset-x-3 bottom-3 sm:inset-auto sm:bottom-6 sm:right-6 sm:w-[400px] max-w-[calc(100vw-1.5rem)] flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div
             className={
               isMinimized
                 ? "flex flex-col w-full"
-                : "flex flex-col w-full h-[calc(100dvh-5rem)] max-h-[620px] sm:h-[600px]"
+                : "flex flex-col w-full h-[calc(100dvh-5.5rem)] max-h-[580px] sm:h-[580px] sm:max-h-[calc(100dvh-5.5rem)]"
             }
           >
             <ChatPanel

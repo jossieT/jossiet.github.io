@@ -821,7 +821,7 @@ flowchart TD
             "Swagger / OpenAPI",
             "Neon",
         ],
-        "featured": False,
+        "featured": True,
         "role": "Backend Engineer",
         "timeline": "In Development / MVP",
         "status": "In Development",

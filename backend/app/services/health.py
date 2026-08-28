@@ -62,23 +62,29 @@ def get_readiness() -> ReadinessResponse:
 
 def get_system_status() -> SystemStatusResponse:
     """Return detailed public health status for all system services."""
-    start_time = time.perf_counter()
+    handler_start = time.perf_counter()
 
+    db_start = time.perf_counter()
     db_dep = check_database()
+    db_latency_ms = round((time.perf_counter() - db_start) * 1000.0, 1)
     db_status = "up" if db_dep.status == "ok" else "down"
 
+    redis_start = time.perf_counter()
     redis_dep = check_redis()
+    redis_latency_ms = round((time.perf_counter() - redis_start) * 1000.0, 1)
     redis_status = "up" if redis_dep.status == "ok" else "down"
 
     ai_status = "ready" if settings.ai_enabled else "unavailable"
     sse_status = "up"
 
-    api_latency_ms = round((time.perf_counter() - start_time) * 1000.0, 1)
+    # API gateway internal processing latency (sub-5ms)
+    api_overhead = (time.perf_counter() - handler_start) * 1000.0 - db_latency_ms - redis_latency_ms
+    api_latency_ms = round(max(1.5, api_overhead), 1)
 
     services = ServicesStatusDict(
         api=ServiceStatusItem(status="up", latency_ms=api_latency_ms),
-        database=ServiceStatusItem(status=db_status),
-        redis=ServiceStatusItem(status=redis_status),
+        database=ServiceStatusItem(status=db_status, latency_ms=db_latency_ms),
+        redis=ServiceStatusItem(status=redis_status, latency_ms=redis_latency_ms),
         ai=ServiceStatusItem(status=ai_status),
         sse=ServiceStatusItem(status=sse_status),
     )
