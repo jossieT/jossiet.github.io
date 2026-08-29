@@ -58,7 +58,7 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2.5 group text-zinc-900 dark:text-zinc-100 font-bold tracking-tight hover:opacity-90 transition-opacity"
         >
-          <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:scale-105 transition-transform font-mono text-xs font-bold">
+          <div className="w-8 h-8 shrink-0 rounded-md bg-emerald-500/[0.08] dark:bg-emerald-500/[0.12] border border-emerald-600/20 dark:border-emerald-500/30 flex items-center justify-center text-emerald-700 dark:text-emerald-400 font-mono text-xs font-bold tracking-tight leading-none group-hover:border-emerald-600/40 dark:group-hover:border-emerald-400/50 group-hover:bg-emerald-500/[0.14] dark:group-hover:bg-emerald-500/20 transition-all duration-200 select-none">
             YT
           </div>
           <div className="flex flex-col">

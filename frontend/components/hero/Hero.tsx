@@ -35,7 +35,7 @@ export function Hero() {
 
             {/* Supporting Engineering Narrative */}
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl font-normal">
-              Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build production-grade web applications, asynchronous FastAPI &amp; NestJS microservices, hybrid RAG knowledge retrieval platforms with PostgreSQL <code className="px-1.5 py-0.5 rounded bg-zinc-200/80 dark:bg-zinc-800 text-xs font-mono text-sky-600 dark:text-sky-400">pgvector</code>, and autonomous AI agent tools containerized with Docker.
+              Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build reliable web platforms and AI-powered systems, from scalable backend services and modern web applications to RAG pipelines and intelligent agent systems.
             </p>
 
             {/* Structured Engineering Capabilities Matrix */}
