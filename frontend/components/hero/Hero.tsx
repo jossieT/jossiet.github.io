@@ -1,126 +1,107 @@
 import React from "react";
-import { ArrowRight, Sparkles, FileText, Code2, Cpu, Database, Cloud } from "lucide-react";
+import { ArrowRight, ArrowDown, Code2, Database, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
-import { Button } from "@/components/ui/Button";
 import { ArchitectureDiagram } from "@/components/hero/ArchitectureDiagram";
 
 export function Hero() {
   return (
-    <section className="relative pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/60">
+    <section className="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/60">
       {/* Background Subtle Technical Grid */}
-      <div className="absolute inset-0 bg-tech-grid opacity-50 dark:opacity-25 pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-tech-grid opacity-60 dark:opacity-30 pointer-events-none -z-10" />
 
       {/* Subtle Radial Ambient Depth Accent */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-sky-500/5 dark:bg-sky-500/10 blur-[130px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left Column: Positioning, Headline & Technical Narrative */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* Availability Status Badge */}
+          <div className="lg:col-span-7 space-y-7">
+            {/* Status Line */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
               <span>Available for Full-Stack &amp; AI Engineering Opportunities</span>
             </div>
 
-            {/* Primary Headline */}
-            <div className="space-y-3">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] xl:text-[3.15rem] font-bold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.12] text-balance">
-                Building resilient full-stack platforms and production AI systems.
+            {/* Primary Headline in Editorial Serif */}
+            <div className="space-y-2">
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.14] text-balance">
+                Building reliable web platforms, async backends, and AI retrieval systems.
               </h1>
-              <p className="text-sm sm:text-base font-mono font-medium text-sky-600 dark:text-sky-400">
-                Full-Stack Engineer &amp; AI Systems Developer
+              <p className="text-sm font-mono font-medium text-sky-600 dark:text-sky-400">
+                Full-Stack &amp; AI Systems Engineer · Addis Ababa
               </p>
             </div>
 
             {/* Supporting Engineering Narrative */}
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl font-normal">
-              Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build reliable web platforms and AI-powered systems, from scalable backend services and modern web applications to RAG pipelines and intelligent agent systems.
+              Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build production web platforms and AI-powered systems — specialized in high-throughput backend services (FastAPI, Python 3.12), pgvector hybrid retrieval pipelines, and containerized distributed architectures.
             </p>
 
-            {/* Structured Engineering Capabilities Matrix */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
-              <div className="p-3 rounded-xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white dark:bg-zinc-900/70 shadow-xs space-y-1">
-                <div className="flex items-center gap-2 font-mono font-bold text-zinc-900 dark:text-zinc-100">
-                  <Code2 className="w-3.5 h-3.5 text-sky-500 shrink-0" />
-                  <span>Full-Stack Applications</span>
+            {/* Grounded Engineering Proof Points (2 Defensible Metrics) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/50 space-y-1">
+                <div className="font-mono text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                  6 Projects
                 </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
-                  Next.js 15 App Router, React 19, TypeScript, Tailwind CSS, SSR/ISR.
+                <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
+                  Shipped to Production
+                </div>
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-tight">
+                  Full-stack platforms, AI retrieval systems, and containerized backend services — all deployed and live.
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white dark:bg-zinc-900/70 shadow-xs space-y-1">
-                <div className="flex items-center gap-2 font-mono font-bold text-zinc-900 dark:text-zinc-100">
-                  <Cpu className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-                  <span>AI &amp; RAG Systems</span>
+              <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/50 space-y-1">
+                <div className="font-mono text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                  ~1.5ms
                 </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
-                  Hybrid retrieval (BM25 + Vector), pgvector embeddings &amp; Agent tools.
-                </p>
-              </div>
-
-              <div className="p-3 rounded-xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white dark:bg-zinc-900/70 shadow-xs space-y-1">
-                <div className="flex items-center gap-2 font-mono font-bold text-zinc-900 dark:text-zinc-100">
-                  <Database className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>Backend &amp; Microservices</span>
+                <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
+                  Internal Gateway Overhead
                 </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
-                  FastAPI, Python 3.12, NestJS, Async SQLAlchemy, Redis Caching.
-                </p>
-              </div>
-
-              <div className="p-3 rounded-xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white dark:bg-zinc-900/70 shadow-xs space-y-1">
-                <div className="flex items-center gap-2 font-mono font-bold text-zinc-900 dark:text-zinc-100">
-                  <Cloud className="w-3.5 h-3.5 text-teal-500 shrink-0" />
-                  <span>Containerized Deployment</span>
-                </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
-                  Docker multi-stage builds, Linux environments, Git &amp; CI/CD automation.
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-tight">
+                  FastAPI async ASGI core latency on health and telemetry probes.
                 </p>
               </div>
             </div>
 
-            {/* Primary Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <Button
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <a
                 href="/projects"
-                size="lg"
-                icon={<ArrowRight className="w-4 h-4" />}
-                className="font-semibold shadow-md shadow-sky-600/20"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-600 hover:bg-sky-500 text-white shadow-md shadow-sky-600/20 active:translate-y-0.5 transition-all"
               >
-                Explore Projects
-              </Button>
-              <Button
+                <span>Explore Projects</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+
+              <a
                 href="/contact"
-                variant="outline"
-                size="lg"
-                icon={<Sparkles className="w-4 h-4 text-sky-500" />}
-                className="font-semibold"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold border border-zinc-300 dark:border-zinc-700 hover:border-sky-500 text-zinc-800 dark:text-zinc-200 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
-                Get in Touch
-              </Button>
-              <Button
+                <span>Get in touch</span>
+                <ArrowRight className="w-3.5 h-3.5 text-sky-500" />
+              </a>
+
+              <a
                 href="/resume"
-                external
-                variant="ghost"
-                size="lg"
-                icon={<FileText className="w-4 h-4 text-zinc-500" />}
-                className="font-mono text-xs font-semibold"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-zinc-600 dark:text-zinc-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors sm:ml-auto"
               >
-                CV / Resume
-              </Button>
+                <FileText className="w-3.5 h-3.5" />
+                <span>Resume / CV</span>
+              </a>
             </div>
 
-            {/* Direct Verified Profile Badges */}
-            <div className="flex flex-wrap items-center gap-5 pt-2 text-xs text-zinc-500 dark:text-zinc-400 border-t border-zinc-200/80 dark:border-zinc-800/80 pt-4">
+            {/* Direct Verified Links */}
+            <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400 border-t border-zinc-200 dark:border-zinc-800 pt-4">
               <a
                 href="https://github.com/jossieT"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-sky-600 dark:hover:text-sky-400 transition-colors font-mono font-medium"
+                className="flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-mono"
               >
-                <GithubIcon className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
+                <GithubIcon className="w-3.5 h-3.5" />
                 <span>github.com/jossieT</span>
               </a>
               <span className="text-zinc-300 dark:text-zinc-700 hidden sm:inline">•</span>
@@ -128,15 +109,15 @@ export function Hero() {
                 href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-sky-600 dark:hover:text-sky-400 transition-colors font-mono font-medium"
+                className="flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-mono"
               >
-                <LinkedinIcon className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
+                <LinkedinIcon className="w-3.5 h-3.5" />
                 <span>linkedin.com/in/yosef-teshome</span>
               </a>
             </div>
           </div>
 
-          {/* Right Column: Unified Interactive Architecture & Telemetry Console */}
+          {/* Right Column: Real-Time Runtime Telemetry Panel */}
           <div className="lg:col-span-5 w-full">
             <ArchitectureDiagram />
           </div>

@@ -12,9 +12,6 @@ import {
 interface StackCategory {
   title: string;
   icon: React.ComponentType<{ className?: string }>;
-  accentColor: string;
-  badgeStyle: string;
-  iconStyle: string;
   items: string[];
 }
 
@@ -22,80 +19,55 @@ const STACK_CATEGORIES: StackCategory[] = [
   {
     title: "Languages",
     icon: Code2,
-    accentColor: "text-amber-600 dark:text-amber-400",
-    iconStyle: "text-amber-500 bg-amber-500/10 border-amber-500/20",
-    badgeStyle:
-      "bg-amber-500/5 text-amber-900 dark:text-amber-200 border-amber-500/20 hover:border-amber-500/40 hover:bg-amber-500/10",
-    items: ["Python", "TypeScript", "JavaScript", "SQL"],
+    items: ["Python 3.12", "TypeScript", "JavaScript", "SQL"],
   },
   {
     title: "Backend & APIs",
     icon: Server,
-    accentColor: "text-sky-600 dark:text-sky-400",
-    iconStyle: "text-sky-500 bg-sky-500/10 border-sky-500/20",
-    badgeStyle:
-      "bg-sky-500/5 text-sky-900 dark:text-sky-200 border-sky-500/20 hover:border-sky-500/40 hover:bg-sky-500/10",
     items: [
       "FastAPI",
       "NestJS",
       "Node.js",
       "REST APIs",
-      "Pydantic",
-      "SQLAlchemy",
+      "Pydantic v2",
+      "Async SQLAlchemy",
       "Prisma",
     ],
   },
   {
-    title: "Frontend & Mobile",
-    icon: Layout,
-    accentColor: "text-violet-600 dark:text-violet-400",
-    iconStyle: "text-violet-500 bg-violet-500/10 border-violet-500/20",
-    badgeStyle:
-      "bg-violet-500/5 text-violet-900 dark:text-violet-200 border-violet-500/20 hover:border-violet-500/40 hover:bg-violet-500/10",
-    items: ["Next.js", "React", "Tailwind CSS", "Flutter / Dart"],
-  },
-  {
     title: "Data & AI Engineering",
     icon: Database,
-    accentColor: "text-emerald-600 dark:text-emerald-400",
-    iconStyle: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
-    badgeStyle:
-      "bg-emerald-500/5 text-emerald-900 dark:text-emerald-200 border-emerald-500/20 hover:border-emerald-500/40 hover:bg-emerald-500/10",
     items: [
-      "PostgreSQL",
-      "Redis",
+      "PostgreSQL 17",
       "pgvector",
+      "Redis 7",
       "RAG Systems",
-      "LLM Applications",
-      "AI Agents",
+      "Hybrid Search (BM25)",
+      "FAISS",
       "Embeddings",
-      "Vector Search",
     ],
   },
   {
-    title: "Cloud & Infrastructure",
+    title: "Frontend & Web",
+    icon: Layout,
+    items: ["Next.js (App Router)", "React 19", "Tailwind CSS", "TypeScript"],
+  },
+  {
+    title: "Cloud & Runtime",
     icon: Cloud,
-    accentColor: "text-cyan-600 dark:text-cyan-400",
-    iconStyle: "text-cyan-500 bg-cyan-500/10 border-cyan-500/20",
-    badgeStyle:
-      "bg-cyan-500/5 text-cyan-900 dark:text-cyan-200 border-cyan-500/20 hover:border-cyan-500/40 hover:bg-cyan-500/10",
     items: [
-      "Docker",
+      "Docker Multi-stage",
       "Kubernetes",
       "OpenShift",
-      "AWS",
-      "Linux",
+      "Linux Admin",
       "Nginx",
+      "Render",
     ],
   },
   {
-    title: "DevOps",
+    title: "Testing & DevOps",
     icon: GitBranch,
-    accentColor: "text-rose-600 dark:text-rose-400",
-    iconStyle: "text-rose-500 bg-rose-500/10 border-rose-500/20",
-    badgeStyle:
-      "bg-rose-500/5 text-rose-900 dark:text-rose-200 border-rose-500/20 hover:border-rose-500/40 hover:bg-rose-500/10",
-    items: ["Git", "GitHub Actions", "CI/CD"],
+    items: ["pytest", "mypy", "Git", "GitHub Actions", "CI/CD Pipelines"],
   },
 ];
 
@@ -103,14 +75,14 @@ export function TechStrip() {
   return (
     <section
       aria-labelledby="core-engineering-stack-title"
-      className="py-12 border-y border-zinc-200 dark:border-zinc-800/80 bg-slate-100/80 dark:bg-zinc-950/40 backdrop-blur-sm"
+      className="py-12 border-y border-zinc-200/80 dark:border-zinc-800/80 bg-slate-100/80 dark:bg-zinc-950/40 backdrop-blur-sm"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 dark:border-zinc-800/80 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-600 dark:text-sky-400">
-              <Terminal className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-md bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-700 dark:text-zinc-300">
+              <Terminal className="w-3.5 h-3.5" />
             </div>
             <div>
               <h2
@@ -120,12 +92,12 @@ export function TechStrip() {
                 Core Engineering Stack
               </h2>
               <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                Categorized production tools, frameworks, languages, and infrastructure
+                Production tools, frameworks, and infrastructure domains
               </p>
             </div>
           </div>
           <span className="text-[11px] font-mono text-zinc-400 dark:text-zinc-500 sm:self-center">
-            6 Specialized Domains
+            6 Specialized Areas
           </span>
         </div>
 
@@ -136,19 +108,15 @@ export function TechStrip() {
             return (
               <div
                 key={cat.title}
-                className="p-5 rounded-xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white dark:bg-zinc-900/60 shadow-xs hover:border-zinc-300 dark:hover:border-zinc-700/80 transition-colors flex flex-col justify-between space-y-4"
+                className="p-4 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 flex flex-col justify-between space-y-3"
               >
                 {/* Category Header */}
                 <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className={`w-7 h-7 rounded-lg border flex items-center justify-center ${cat.iconStyle}`}
-                    >
-                      <Icon className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 flex items-center justify-center text-zinc-700 dark:text-zinc-300">
+                      <Icon className="w-3 h-3" />
                     </div>
-                    <h3
-                      className={`text-xs font-mono font-bold uppercase tracking-wider ${cat.accentColor}`}
-                    >
+                    <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-800 dark:text-zinc-200">
                       {cat.title}
                     </h3>
                   </div>
@@ -162,7 +130,7 @@ export function TechStrip() {
                   {cat.items.map((tech) => (
                     <span
                       key={tech}
-                      className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-medium border transition-colors cursor-default ${cat.badgeStyle}`}
+                      className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 cursor-default"
                     >
                       {tech}
                     </span>

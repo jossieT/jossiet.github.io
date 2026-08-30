@@ -58,21 +58,21 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2.5 group text-zinc-900 dark:text-zinc-100 font-bold tracking-tight hover:opacity-90 transition-opacity"
         >
-          <div className="w-8 h-8 shrink-0 rounded-md bg-emerald-500/[0.08] dark:bg-emerald-500/[0.12] border border-emerald-600/20 dark:border-emerald-500/30 flex items-center justify-center text-emerald-700 dark:text-emerald-400 font-mono text-xs font-bold tracking-tight leading-none group-hover:border-emerald-600/40 dark:group-hover:border-emerald-400/50 group-hover:bg-emerald-500/[0.14] dark:group-hover:bg-emerald-500/20 transition-all duration-200 select-none">
+          <div className="w-8 h-8 shrink-0 rounded-md border border-zinc-300 dark:border-zinc-700 bg-transparent flex items-center justify-center text-zinc-900 dark:text-zinc-100 font-mono text-xs font-bold tracking-tight leading-none group-hover:border-zinc-500 dark:group-hover:border-zinc-400 transition-colors select-none">
             YT
           </div>
           <div className="flex flex-col">
             <span className="text-sm sm:text-base leading-none font-bold">
               Yosef Teshome
             </span>
-            <span className="text-[10px] font-mono font-medium text-sky-600 dark:text-sky-400 leading-tight">
-              Full-Stack Engineer
+            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 leading-tight mt-0.5">
+              Full-Stack &amp; AI Systems
             </span>
           </div>
         </Link>
 
         {/* Desktop Nav Items */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1.5">
           {NAV_ITEMS.map((item) => {
             const isActive =
               item.href === "/"
@@ -82,10 +82,11 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${isActive
-                    ? "text-sky-600 dark:text-sky-400 bg-sky-500/10"
-                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/50"
-                  }`}
+                className={`px-3 py-1 text-sm transition-colors ${
+                  isActive
+                    ? "text-zinc-900 dark:text-zinc-100 font-semibold border-b-2 border-amber-600 dark:border-amber-500 pb-0.5"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 font-normal"
+                }`}
               >
                 {item.label}
               </Link>
@@ -100,7 +101,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
-            className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+            className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
           >
             <GithubIcon className="w-4 h-4" />
           </a>
@@ -109,7 +110,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
-            className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+            className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
           >
             <LinkedinIcon className="w-4 h-4" />
           </a>
@@ -117,7 +118,7 @@ export function Navbar() {
             href="/resume"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-2.5 py-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-2.5 py-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
           >
             <FileText className="w-3.5 h-3.5" />
             CV
@@ -147,7 +148,7 @@ export function Navbar() {
       {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
         <div className="theme-mobile-menu lg:hidden fixed inset-0 top-16 bg-slate-50 dark:bg-[#090d16] z-[99] flex flex-col justify-between p-6 animate-in fade-in duration-200 border-t border-slate-200 dark:border-zinc-800 shadow-2xl overflow-y-auto">
-          <nav className="flex flex-col gap-2.5">
+          <nav className="flex flex-col gap-2">
             {NAV_ITEMS.map((item) => {
               const isActive =
                 item.href === "/"
@@ -158,10 +159,11 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobileMenu}
-                  className={`px-4 py-3 text-base font-semibold rounded-xl transition-all border ${isActive
-                      ? "text-sky-700 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/20 border-sky-300 dark:border-sky-500/40 shadow-xs font-bold"
-                      : "text-slate-800 dark:text-zinc-200 bg-white dark:bg-[#111827] border-slate-200/90 dark:border-zinc-800/80 shadow-xs hover:bg-slate-100 dark:hover:bg-[#1e293b] hover:text-sky-600 dark:hover:text-white"
-                    }`}
+                  className={`px-4 py-2.5 text-base rounded-lg transition-colors border ${
+                    isActive
+                      ? "text-zinc-900 dark:text-zinc-50 bg-zinc-100 dark:bg-zinc-800/80 border-zinc-300 dark:border-zinc-700 font-semibold"
+                      : "text-zinc-600 dark:text-zinc-300 bg-transparent border-transparent hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -175,7 +177,7 @@ export function Navbar() {
                 href="https://github.com/jossieT"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm font-semibold text-slate-800 dark:text-zinc-200 bg-white dark:bg-[#111827] border border-slate-200 dark:border-zinc-800 rounded-lg shadow-xs hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
               >
                 <GithubIcon className="w-4 h-4" />
                 GitHub
@@ -184,7 +186,7 @@ export function Navbar() {
                 href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm font-semibold text-slate-800 dark:text-zinc-200 bg-white dark:bg-[#111827] border border-slate-200 dark:border-zinc-800 rounded-lg shadow-xs hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
               >
                 <LinkedinIcon className="w-4 h-4" />
                 LinkedIn
@@ -195,7 +197,7 @@ export function Navbar() {
               href="/resume"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full text-center py-3 text-sm font-mono font-bold rounded-lg bg-sky-600 text-white hover:bg-sky-500 shadow-md shadow-sky-600/20 transition-all"
+              className="w-full text-center py-2.5 text-sm font-mono font-medium rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white transition-colors"
             >
               Download Resume / CV
             </a>
