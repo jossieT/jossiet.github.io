@@ -291,9 +291,8 @@ graph TD
             "Building real-world booking systems demands sophisticated domain-specific scheduling logic (e.g., time-slot calculation, concurrency) that extends far beyond simple CRUD operations.",
             "Effective availability management in a service business must account for diverse operational constraints, including staff availability, service durations, and dynamic resource allocation.",
             "A well-designed administrative dashboard, particularly one built with a modern frontend framework like React, is an essential component for any real-world business platform, providing critical control and visibility for operations.",
-            "Production systems inherently require a strong foundation in security (validation, authentication, rate limiting), reliability (error handling, logging), and maintainability from the outset.",
-        ],
-        "sort_order": 0,  # To make it the first project
+            ],
+        "sort_order": 1,
     },
     {
         "slug": "enterprise-ai-knowledge-platform",
@@ -558,6 +557,310 @@ graph TD
             "Streaming responses significantly improve user experience even when overall model synthesis takes 2-3 seconds.",
         ],
         "related_slugs": ["autonomous-ai-agent-orchestrator", "christian-digital-content-platform"],
+        "sort_order": 2,
+    },
+    {
+        "slug": "etbooking-solutions",
+        "title": "ETBooking Solutions",
+        "tagline": "Premium digital platform for custom booking and appointment solutions",
+        "summary": "A modern, bilingual enterprise website for ETBooking Solutions, showcasing custom booking and appointment management solutions for service-based businesses across Ethiopia.",
+        "category": "full-stack-web",
+        "category_label": "Full-Stack Web Platform",
+        "technologies": [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "Shadcn UI",
+            "Framer Motion",
+            "React Hook Form",
+            "Zod",
+            "Lucide React",
+        ],
+        "featured": True,
+        "role": "Full-Stack Developer",
+        "timeline": "Ongoing",
+        "status": "In Development",
+        "impact_metrics": [
+            "Bilingual digital presence supporting English and Amharic",
+            "Service-focused platform targeting multiple appointment-based industries",
+            "Localized for Ethiopian businesses with ETB pricing and Ethiopian phone formats",
+        ],
+        "github_url": "https://github.com/jossieT/etbooking-solutions",
+        "live_url": "https://etbooking-solutions.vercel.app/",
+        "overview": "ETBooking Solutions is a premium digital platform created for a company specializing in custom booking and appointment management systems for service-based businesses. The website acts as the company's primary digital presence, presenting its solutions, industry use cases, services, portfolio, pricing estimates, testimonials, FAQs, and consultation opportunities. The platform is designed around the needs of businesses such as car detailing services, car washes, barbershops, beauty salons, healthcare clinics, gyms, cleaning companies, professional service providers, educational institutions, and hospitality businesses.",
+        "problem": "Service-based businesses often rely on manual appointment management, phone calls, messaging applications, and fragmented workflows. ETBooking Solutions needed a professional digital presence that clearly communicated its booking-system expertise, demonstrated the industries it serves, explained its services, and made it easy for prospective customers to estimate pricing and request consultations. The platform also needed to reflect the Ethiopian market through localized currency, phone formats, language support, and business context.",
+        "solution": "Built a modern, responsive Next.js platform that positions ETBooking Solutions as a professional provider of custom booking and appointment-management systems. The website combines service and industry showcases with portfolio case studies, testimonials, consultation forms, FAQs, and a dynamic pricing calculator. The frontend uses a reusable component architecture with TypeScript, Tailwind CSS, Shadcn UI, and Framer Motion, while React Hook Form and Zod provide structured form handling and validation. English and Amharic localization, Ethiopian Birr support, responsive design, accessibility considerations, SEO metadata, structured data, and performance optimization make the platform suitable for both local and broader audiences.",
+        "architecture_diagram": None,
+        "architecture_mermaid": """
+graph TD
+    A[Visitor] --> B[Next.js Application]
+
+    B --> C[App Router]
+    B --> D[Reusable UI Components]
+    B --> E[Localized Content]
+    B --> F[Pricing Calculator]
+    B --> G[Contact & Consultation Forms]
+
+    D --> H[Shadcn UI]
+    D --> I[Tailwind CSS]
+    D --> J[Framer Motion]
+
+    G --> K[React Hook Form]
+    K --> L[Zod Validation]
+
+    B --> M[SEO & Metadata]
+    M --> N[Open Graph / Twitter Cards]
+    M --> O[Structured Data]
+    M --> P[Sitemap / Robots.txt]
+""",
+        "architecture_steps": [
+            {
+                "title": "Visitor Interaction",
+                "description": "Visitors access the ETBooking Solutions website through desktop and mobile browsers to explore services, industries, portfolio projects, pricing, testimonials, and consultation opportunities.",
+            },
+            {
+                "title": "Next.js Application",
+                "description": "The application is built with Next.js and the App Router, providing the foundation for page routing, rendering, metadata, and the overall web application structure.",
+            },
+            {
+                "title": "Reusable Component System",
+                "description": "The interface is organized around reusable layout, section, shared, and UI components to maintain consistency and simplify future development.",
+            },
+            {
+                "title": "Interactive User Experience",
+                "description": "Framer Motion provides polished animations and transitions, while Tailwind CSS and Shadcn UI provide the visual and interaction foundation.",
+            },
+            {
+                "title": "Forms & Validation",
+                "description": "Contact and consultation interactions use React Hook Form for form state management and Zod for schema-based client-side validation.",
+            },
+            {
+                "title": "Localization",
+                "description": "The platform supports English and Amharic content while incorporating Ethiopian-specific business requirements such as ETB currency and Ethiopian phone number formats.",
+            },
+            {
+                "title": "SEO & Discoverability",
+                "description": "Metadata, Open Graph, Twitter Cards, structured data, sitemap generation, and robots.txt support search visibility and social sharing.",
+            },
+        ],
+        "tech_stack_grouped": {
+            "frontend": [
+                {
+                    "name": "Next.js",
+                    "purpose": "Primary React framework powering the website and application routing.",
+                },
+                {
+                    "name": "React",
+                    "purpose": "Component-based UI development.",
+                },
+                {
+                    "name": "TypeScript",
+                    "purpose": "Type-safe application development.",
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "purpose": "Utility-first styling and responsive interface development.",
+                },
+                {
+                    "name": "Shadcn UI",
+                    "purpose": "Reusable and accessible UI components.",
+                },
+            ],
+            "animation": [
+                {
+                    "name": "Framer Motion",
+                    "purpose": "UI animations, transitions, and interaction effects.",
+                }
+            ],
+            "forms_validation": [
+                {
+                    "name": "React Hook Form",
+                    "purpose": "Form state management and submission handling.",
+                },
+                {
+                    "name": "Zod",
+                    "purpose": "Schema-based form validation.",
+                },
+            ],
+            "icons": [
+                {
+                    "name": "Lucide React",
+                    "purpose": "Consistent interface iconography.",
+                }
+            ],
+            "localization": [
+                {
+                    "name": "English",
+                    "purpose": "Primary supported interface language.",
+                },
+                {
+                    "name": "Amharic",
+                    "purpose": "Localized language support for Ethiopian users.",
+                },
+                {
+                    "name": "ETB",
+                    "purpose": "Ethiopian Birr support for pricing presentation.",
+                },
+            ],
+            "seo": [
+                {
+                    "name": "Next.js Metadata API",
+                    "purpose": "Page metadata and search-engine optimization.",
+                },
+                {
+                    "name": "Structured Data",
+                    "purpose": "Provides machine-readable information for search engines.",
+                },
+                {
+                    "name": "Sitemap",
+                    "purpose": "Helps search engines discover website pages.",
+                },
+                {
+                    "name": "Robots.txt",
+                    "purpose": "Controls crawler access and indexing behavior.",
+                },
+            ],
+            "infrastructure": [],
+            "deployment": [],
+        },
+        "key_features": [
+            {
+                "title": "Service & Solution Showcase",
+                "description": "Presents ETBooking Solutions' custom booking and appointment-management capabilities in a structured, professional format.",
+                "status": "Completed",
+            },
+            {
+                "title": "Multi-Industry Solutions",
+                "description": "Communicates booking-system use cases across car detailing, car wash, barbershop, beauty, healthcare, fitness, cleaning, education, hospitality, and professional services.",
+                "status": "Completed",
+            },
+            {
+                "title": "Dynamic Pricing Calculator",
+                "description": "Allows prospective customers to explore pricing estimates based on their potential solution requirements.",
+                "status": "Completed",
+            },
+            {
+                "title": "Bilingual Experience",
+                "description": "Provides English and Amharic language support for a broader Ethiopian audience.",
+                "status": "Completed",
+            },
+            {
+                "title": "Consultation & Contact Flows",
+                "description": "Provides structured contact and consultation-request experiences for potential customers.",
+                "status": "Completed",
+            },
+            {
+                "title": "Portfolio & Case Studies",
+                "description": "Showcases previous work and demonstrates the company's ability to build solutions for service-based businesses.",
+                "status": "Completed",
+            },
+            {
+                "title": "Responsive Premium UI",
+                "description": "Uses a responsive component architecture with Tailwind CSS, Shadcn UI, and Framer Motion to provide a polished experience across device sizes.",
+                "status": "Completed",
+            },
+            {
+                "title": "SEO & Performance Foundation",
+                "description": "Includes metadata, Open Graph support, structured data, sitemap generation, responsive design, accessibility considerations, and performance optimization.",
+                "status": "Completed",
+            },
+        ],
+        "engineering_decisions": [
+            {
+                "title": "Next.js Application Architecture",
+                "context": "The platform required a modern, performant web framework capable of supporting SEO, responsive pages, reusable components, and future expansion.",
+                "decision": "Selected Next.js with the App Router as the primary application framework.",
+                "outcome": "Provides a scalable foundation for the company's website while supporting modern rendering, routing, metadata, and future application features.",
+            },
+            {
+                "title": "TypeScript for Application Development",
+                "context": "The project contains reusable components, structured data, forms, and multiple interactive sections that benefit from stronger type safety.",
+                "decision": "Used TypeScript throughout the application.",
+                "outcome": "Improved maintainability, developer confidence, and consistency across components, data structures, and application logic.",
+            },
+            {
+                "title": "Reusable UI Architecture",
+                "context": "The website contains many repeated interface patterns across services, industries, portfolio items, FAQs, and other sections.",
+                "decision": "Organized the frontend into reusable layout, section, shared, and UI components.",
+                "outcome": "Reduced duplication and created a maintainable foundation for expanding the platform.",
+            },
+            {
+                "title": "Schema-Based Form Validation",
+                "context": "Contact and consultation forms require predictable and validated user input.",
+                "decision": "Combined React Hook Form with Zod validation.",
+                "outcome": "Created a structured and maintainable approach to handling interactive forms and validating submitted data.",
+            },
+            {
+                "title": "Ethiopian Market Localization",
+                "context": "The business targets service providers in Ethiopia and requires regionally appropriate presentation.",
+                "decision": "Added English and Amharic support together with Ethiopian Birr and Ethiopian phone-number formatting.",
+                "outcome": "Made the platform more relevant to its target market while retaining accessibility for English-speaking users.",
+            },
+        ],
+        "challenges": [
+            {
+                "title": "Communicating a Complex Service Offering",
+                "challenge": "ETBooking Solutions serves multiple industries and offers custom booking-system development, which can be difficult to communicate without overwhelming prospective customers.",
+                "solution": "Structured the website around clear service categories, industry solutions, portfolio examples, pricing estimates, FAQs, testimonials, and consultation flows.",
+                "impact": "Creates a clearer path for visitors to understand the company's offering and identify solutions relevant to their business.",
+            },
+            {
+                "title": "Balancing Premium Design with Usability",
+                "challenge": "The website needed a premium enterprise appearance while remaining easy to navigate and usable across different devices.",
+                "solution": "Built a reusable responsive component system using Tailwind CSS and Shadcn UI, with Framer Motion used selectively for interaction and visual polish.",
+                "impact": "Provides a consistent modern interface without sacrificing responsive behavior and usability.",
+            },
+            {
+                "title": "Serving a Local and Bilingual Audience",
+                "challenge": "The platform needed to communicate effectively with both English- and Amharic-speaking users while reflecting Ethiopian business requirements.",
+                "solution": "Implemented bilingual content alongside ETB pricing and Ethiopian phone-number formatting.",
+                "impact": "Improves accessibility and relevance for the intended Ethiopian market.",
+            },
+        ],
+        "security_reliability": [
+            {
+                "title": "Zod Input Validation",
+                "description": "Provides schema-based validation for structured user input submitted through forms.",
+                "icon_name": "CheckCircle2",
+            },
+            {
+                "title": "TypeScript Type Safety",
+                "description": "Reduces common development errors by providing static type checking across the application.",
+                "icon_name": "ShieldCheck",
+            },
+            {
+                "title": "Accessibility Considerations",
+                "description": "The project includes accessibility compliance as part of its development goals and UI implementation.",
+                "icon_name": "Accessibility",
+            },
+            {
+                "title": "SEO Foundation",
+                "description": "Metadata, structured data, sitemap generation, and robots.txt provide a structured foundation for search discoverability.",
+                "icon_name": "Search",
+            },
+            {
+                "title": "Responsive Design",
+                "description": "The interface is designed to work across desktop, tablet, and mobile screen sizes.",
+                "icon_name": "MonitorSmartphone",
+            },
+        ],
+        "results": [
+            "Established a professional digital presence for ETBooking Solutions.",
+            "Created a centralized platform for presenting booking and appointment-management solutions.",
+            "Added industry-specific positioning for multiple service-based business categories.",
+            "Implemented a dynamic pricing calculator for prospective customers.",
+            "Provided English and Amharic language support with Ethiopian market localization.",
+            "Built reusable frontend components for maintainability and future expansion.",
+            "Added a strong SEO foundation including metadata, structured data, sitemap, and robots.txt.",
+        ],
+        "lessons_learned": [
+            "A strong B2B product website needs to communicate the business problem and solution clearly rather than simply showcasing technical features.",
+            "Reusable component architecture becomes increasingly important when a website contains many content-driven sections and repeated UI patterns.",
+            "Localization is more than translating text; regional currency, phone formats, business context, and user expectations also matter.",
+            "Premium visual design should support information hierarchy and conversion rather than becoming the primary purpose of the interface.",
+            "Building the marketing foundation first creates a clear path toward future customer portals, booking demos, administrative systems, payments, analytics, and API integrations.",
+        ],
         "sort_order": 3,
     },
     {
@@ -800,7 +1103,7 @@ flowchart TD
             "Implementing evidence panels within the user interface is critical for building user trust and making generated answers inspectable and verifiable, addressing the 'black box' problem of LLMs.",
             "It is essential to understand and evaluate retrieval quality and generation quality as distinct problems, as improvements in one do not automatically guarantee improvements in the other.",
         ],
-        "sort_order": 2,  # This ensures it appears after Swift Addis (sort_order: 1)
+        "sort_order": 5,
     },
     {
         "slug": "christian-digital-content-platform",
@@ -821,7 +1124,7 @@ flowchart TD
             "Swagger / OpenAPI",
             "Neon",
         ],
-        "featured": True,
+        "featured": False,
         "role": "Backend Engineer",
         "timeline": "In Development / MVP",
         "status": "In Development",
@@ -1088,7 +1391,7 @@ graph TD
             "Designing authentication and authorization (JWT + RBAC) as core platform infrastructure from the outset, rather than an afterthought, significantly enhances security, consistency, and simplifies endpoint protection.",
             "Comprehensive API documentation (Swagger/OpenAPI) becomes increasingly vital as the number of backend resources and endpoints grows, facilitating seamless integration for frontend and third-party consumers.",
         ],
-        "sort_order": 1,
+        "sort_order": 4,
     },
     {
         "slug": "autonomous-ai-agent-orchestrator",
@@ -1301,7 +1604,7 @@ graph TD
             "Strict schema validation on LLM tool outputs is the single most effective way to eliminate agent runtime crashes.",
         ],
         "related_slugs": ["enterprise-ai-knowledge-platform", "intelligent-booking-engine"],
-        "sort_order": 4,
+        "sort_order": 6,
     },
 ]
 
@@ -1772,7 +2075,7 @@ def seed_projects(session) -> None:
             )
         )
         session.execute(stmt)
-    print(f"  ✓ {len(PROJECTS)} projects upserted")
+    print(f"  OK: {len(PROJECTS)} projects upserted")
 
 
 def seed_experience(session) -> None:
@@ -1791,7 +2094,7 @@ def seed_experience(session) -> None:
             )
         )
         session.execute(stmt)
-    print(f"  ✓ {len(EXPERIENCES)} experience entries upserted")
+    print(f"  OK: {len(EXPERIENCES)} experience entries upserted")
 
 
 def seed_skills(session) -> None:
@@ -1834,7 +2137,7 @@ def seed_services(session) -> None:
             )
         )
         session.execute(stmt)
-    print(f"  ✓ {len(SERVICES)} services upserted")
+    print(f"  OK: {len(SERVICES)} services upserted")
 
 
 def seed_articles(session) -> None:
@@ -1849,7 +2152,7 @@ def seed_articles(session) -> None:
             )
         )
         session.execute(stmt)
-    print(f"  ✓ {len(ARTICLES)} articles upserted")
+    print(f"  OK: {len(ARTICLES)} articles upserted")
 
 
 def main() -> None:
@@ -1862,10 +2165,10 @@ def main() -> None:
             seed_services(session)
             seed_articles(session)
             session.commit()
-            print("\n✅ Database seeded successfully!")
+            print("\n[SUCCESS] Database seeded successfully!")
         except Exception as e:
             session.rollback()
-            print(f"\n❌ Seed failed: {e}")
+            print(f"\n[FAILED] Seed failed: {e}")
             sys.exit(1)
 
 
