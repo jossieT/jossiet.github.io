@@ -84,7 +84,7 @@ export function Navbar() {
                 href={item.href}
                 className={`px-3 py-1 text-sm transition-colors ${
                   isActive
-                    ? "text-zinc-900 dark:text-zinc-100 font-semibold border-b-2 border-amber-600 dark:border-amber-500 pb-0.5"
+                    ? "text-sky-600 dark:text-sky-400 font-semibold border-b-2 border-sky-500 pb-0.5"
                     : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 font-normal"
                 }`}
               >

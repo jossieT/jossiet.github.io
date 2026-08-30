@@ -5,7 +5,7 @@ import { ArchitectureDiagram } from "@/components/hero/ArchitectureDiagram";
 
 export function Hero() {
   return (
-    <section className="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/60">
+    <section className="relative pt-8 pb-8 md:pt-10 md:pb-12 overflow-hidden border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/60">
       {/* Background Subtle Technical Grid */}
       <div className="absolute inset-0 bg-tech-grid opacity-60 dark:opacity-30 pointer-events-none -z-10" />
 
@@ -17,9 +17,9 @@ export function Hero() {
           {/* Left Column: Positioning, Headline & Technical Narrative */}
           <div className="lg:col-span-7 space-y-7">
             {/* Status Line */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-              <span>Available for Full-Stack &amp; AI Engineering Opportunities</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-mono border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 text-zinc-700 dark:text-zinc-300 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+              <span>Available for Full-Stack Engineering &amp; Applied AI roles</span>
             </div>
 
             {/* Primary Headline in Editorial Serif */}
@@ -34,20 +34,20 @@ export function Hero() {
 
             {/* Supporting Engineering Narrative */}
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl font-normal">
-              Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build production web platforms and AI-powered systems — specialized in high-throughput backend services (FastAPI, Python 3.12), pgvector hybrid retrieval pipelines, and containerized distributed architectures.
+              Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build full-stack web platforms and AI-powered systems - Next.js on the frontend, Python (FastAPI) and Node.js (NestJS) on the backend, with pgvector hybrid retrieval pipelines and containerized distributed architectures.
             </p>
 
             {/* Grounded Engineering Proof Points (2 Defensible Metrics) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/50 space-y-1">
                 <div className="font-mono text-xl font-bold text-zinc-900 dark:text-zinc-100">
-                  6 Projects
+                  10+ Projects
                 </div>
                 <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
-                  Shipped to Production
+                  Shipped &amp; In Development
                 </div>
                 <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-tight">
-                  Full-stack platforms, AI retrieval systems, and containerized backend services — all deployed and live.
+                  Production platforms, hybrid RAG knowledge systems, and containerized backend services.
                 </p>
               </div>
 
