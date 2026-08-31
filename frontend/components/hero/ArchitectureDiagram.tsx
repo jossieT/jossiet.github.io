@@ -333,7 +333,7 @@ export function ArchitectureDiagram() {
       <div className="p-3 min-h-[220px] flex flex-col justify-between">
         {/* TAB 0: Simple Visual Architecture Topology */}
         {activeTab === "topology" && (
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {/* Layer 1: Client Ingress */}
             <div
               onClick={() => setSelectedNode("client")}
@@ -364,8 +364,8 @@ export function ArchitectureDiagram() {
             </div>
 
             {/* Connector Arrow */}
-            <div className="flex justify-center items-center -my-1 text-zinc-400 dark:text-zinc-600">
-              <ArrowDown className="w-3 h-3" />
+            <div className="flex justify-center items-center py-0.5 text-zinc-300 dark:text-zinc-600">
+              <ArrowDown className="w-3.5 h-3.5" />
             </div>
 
             {/* Layer 2: Core Gateway */}
@@ -398,8 +398,8 @@ export function ArchitectureDiagram() {
             </div>
 
             {/* Connector Arrow */}
-            <div className="flex justify-center items-center -my-1 text-zinc-400 dark:text-zinc-600">
-              <ArrowDown className="w-3 h-3" />
+            <div className="flex justify-center items-center py-0.5 text-zinc-300 dark:text-zinc-600">
+              <ArrowDown className="w-3.5 h-3.5" />
             </div>
 
             {/* Layer 3: Tri-System Storage & AI Engine */}

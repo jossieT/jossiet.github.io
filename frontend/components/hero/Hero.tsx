@@ -15,7 +15,7 @@ export function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left Column: Positioning, Headline & Technical Narrative */}
-          <div className="lg:col-span-7 space-y-7">
+          <div className="lg:col-span-7 space-y-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             {/* Status Line */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-mono border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 text-zinc-700 dark:text-zinc-300 shadow-2xs">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
@@ -23,7 +23,7 @@ export function Hero() {
             </div>
 
             {/* Primary Headline in Editorial Serif */}
-            <div className="space-y-2">
+            <div className="space-y-2 text-center lg:text-left">
               <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.14] text-balance">
                 Building reliable web platforms, async backends, and AI retrieval systems.
               </h1>
@@ -33,12 +33,12 @@ export function Hero() {
             </div>
 
             {/* Supporting Engineering Narrative */}
-            <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl font-normal">
+            <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl font-normal text-center lg:text-left mx-auto lg:mx-0">
               Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build full-stack web platforms and AI-powered systems - Next.js on the frontend, Python (FastAPI) and Node.js (NestJS) on the backend, with pgvector hybrid retrieval pipelines and containerized distributed architectures.
             </p>
 
             {/* Grounded Engineering Proof Points (2 Defensible Metrics) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-left w-full">
               <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/50 space-y-1">
                 <div className="font-mono text-xl font-bold text-zinc-900 dark:text-zinc-100">
                   10+ Projects
@@ -65,7 +65,7 @@ export function Hero() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 w-full">
               <a
                 href="/projects"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-600 hover:bg-sky-500 text-white shadow-md shadow-sky-600/20 active:translate-y-0.5 transition-all"
@@ -86,7 +86,7 @@ export function Hero() {
                 href="/resume"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-zinc-600 dark:text-zinc-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors sm:ml-auto"
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-zinc-600 dark:text-zinc-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors lg:ml-auto"
               >
                 <FileText className="w-3.5 h-3.5" />
                 <span>Resume / CV</span>
@@ -94,7 +94,7 @@ export function Hero() {
             </div>
 
             {/* Direct Verified Links */}
-            <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400 border-t border-zinc-200 dark:border-zinc-800 pt-4">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-zinc-500 dark:text-zinc-400 border-t border-zinc-200 dark:border-zinc-800 pt-4 w-full">
               <a
                 href="https://github.com/jossieT"
                 target="_blank"
