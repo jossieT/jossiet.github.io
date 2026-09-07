@@ -29,7 +29,7 @@ export async function ExperienceTimeline() {
         </div>
 
         {/* Timeline List */}
-        <div className="relative pl-6 md:pl-8 border-l border-zinc-200 dark:border-zinc-800 space-y-12">
+        <div className="relative mx-auto max-w-5xl pl-6 md:pl-8 border-l border-zinc-200 dark:border-zinc-800 space-y-8">
           {experiences.map((exp) => (
             <div key={exp.slug} className="relative group">
               {/* Dot */}
@@ -41,7 +41,7 @@ export async function ExperienceTimeline() {
                 }`}
               />
 
-              <div className="bg-white dark:bg-zinc-900/80 rounded-xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-sm space-y-4">
+              <div className="bg-white dark:bg-zinc-900/80 rounded-xl border border-zinc-200 dark:border-zinc-800 p-4 shadow-sm space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
                     <div className="flex items-center gap-3">
@@ -75,7 +75,7 @@ export async function ExperienceTimeline() {
                   {exp.summary}
                 </p>
 
-                <ul className="space-y-2 text-xs text-zinc-700 dark:text-zinc-300">
+                <ul className="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
                   {exp.highlights.slice(0, 3).map((h, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-sky-500 shrink-0 mt-0.5" />
@@ -84,7 +84,7 @@ export async function ExperienceTimeline() {
                   ))}
                 </ul>
 
-                <div className="pt-2 flex flex-wrap gap-1.5">
+                <div className="pt-1 flex flex-wrap gap-1.5">
                   {exp.technologies.map((tech) => (
                     <Badge key={tech} variant="subtle" size="sm">
                       {tech}

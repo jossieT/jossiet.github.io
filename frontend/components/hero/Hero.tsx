@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowRight, ArrowDown, Code2, Database, FileText } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
 import { ArchitectureDiagram } from "@/components/hero/ArchitectureDiagram";
 
@@ -13,66 +14,35 @@ export function Hero() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-sky-500/5 dark:bg-sky-500/10 blur-[130px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-          {/* Left Column: Positioning, Headline & Technical Narrative */}
-          <div className="lg:col-span-7 space-y-7 flex flex-col items-center lg:items-start text-center lg:text-left">
-            {/* Status Line */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-mono border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 text-zinc-700 dark:text-zinc-300 shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-              <span>Available for Full-Stack Engineering &amp; Applied AI roles</span>
+        <div className="relative grid items-end gap-14 lg:grid-cols-12 lg:gap-8">
+          {/* Editorial hero composition: the runtime panel is intentionally hidden for now. */}
+          <div className="space-y-9 text-center lg:col-span-8 lg:text-left">
+            <div className="flex items-center justify-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-400 lg:justify-start">
+              <span className="h-px w-8 bg-sky-500" />
+              <span>Full-Stack Engineer / AI Systems Developer</span>
             </div>
 
-            {/* Primary Headline in Editorial Serif */}
-            <div className="space-y-2 text-center lg:text-left">
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.14] text-balance">
-                Building reliable web platforms, async backends, and AI retrieval systems.
+            <div className="space-y-5">
+              <h1 className="max-w-4xl font-serif text-3xl font-semibold leading-[1.08] tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-4xl md:text-5xl lg:text-6xl">
+                Building resilient full-stack platforms and production AI systems.
               </h1>
-              <p className="text-sm font-mono font-medium text-sky-600 dark:text-sky-400">
-                Full-Stack &amp; AI Systems Engineer · Addis Ababa
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
+                Available for Full-Stack Engineering &amp; Applied AI roles · Addis Ababa
               </p>
             </div>
 
-            {/* Supporting Engineering Narrative */}
-            <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl font-normal text-center lg:text-left mx-auto lg:mx-0">
-              Hi, I&apos;m <strong className="text-zinc-900 dark:text-zinc-100 font-semibold">Yosef Teshome</strong>. I design and build full-stack web platforms and AI-powered systems - Next.js on the frontend, Python (FastAPI) and Node.js (NestJS) on the backend, with pgvector hybrid retrieval pipelines and containerized distributed architectures.
+            <p className="mx-auto max-w-2xl text-base leading-8 text-zinc-600 dark:text-zinc-300 sm:text-lg lg:mx-0">
+              Hi, I&apos;m <strong className="font-semibold text-zinc-900 dark:text-zinc-100">Yosef Teshome</strong>. I design and build production-grade web applications, asynchronous FastAPI &amp; NestJS microservices, hybrid RAG knowledge retrieval platforms with PostgreSQL pgvector, and autonomous AI agent tools containerized with Docker.
             </p>
 
-            {/* Grounded Engineering Proof Points (2 Defensible Metrics) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-left w-full">
-              <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/50 space-y-1">
-                <div className="font-mono text-xl font-bold text-zinc-900 dark:text-zinc-100">
-                  10+ Projects
-                </div>
-                <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
-                  Shipped &amp; In Development
-                </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-tight">
-                  Production platforms, hybrid RAG knowledge systems, and containerized backend services.
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/50 space-y-1">
-                <div className="font-mono text-xl font-bold text-zinc-900 dark:text-zinc-100">
-                  ~1.5ms
-                </div>
-                <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
-                  Internal Gateway Overhead
-                </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-tight">
-                  FastAPI async ASGI core latency on health and telemetry probes.
-                </p>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 w-full">
-              <a
+            <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+              <Link
                 href="/projects"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-600 hover:bg-sky-500 text-white shadow-md shadow-sky-600/20 active:translate-y-0.5 transition-all"
               >
                 <span>Explore Projects</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
               <a
                 href="/contact"
@@ -93,32 +63,33 @@ export function Hero() {
               </a>
             </div>
 
-            {/* Direct Verified Links */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-zinc-500 dark:text-zinc-400 border-t border-zinc-200 dark:border-zinc-800 pt-4 w-full">
-              <a
-                href="https://github.com/jossieT"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-mono"
-              >
-                <GithubIcon className="w-3.5 h-3.5" />
-                <span>github.com/jossieT</span>
-              </a>
-              <span className="text-zinc-300 dark:text-zinc-700 hidden sm:inline">•</span>
-              <a
-                href="https://www.linkedin.com/in/yosef-teshome-96516b188/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-mono"
-              >
-                <LinkedinIcon className="w-3.5 h-3.5" />
-                <span>linkedin.com/in/yosef-teshome</span>
-              </a>
+          </div>
+
+          <div className="relative min-h-[18rem] border-l border-zinc-300 pl-7 dark:border-zinc-700 lg:col-span-4 lg:mb-2 lg:pl-9">
+            <div className="absolute left-[-1px] top-10 h-24 w-px bg-sky-500" />
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500">A working principle</p>
+            <p className="mt-7 font-serif text-5xl font-semibold leading-[0.9] tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-6xl">Systems<br />that<br /><span className="text-sky-600 dark:text-sky-400">hold.</span></p>
+            <div className="absolute bottom-0 left-7 right-0 border-t border-zinc-200 pt-4 dark:border-zinc-800 lg:left-9">
+              <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">
+                <span className="text-sky-600 dark:text-sky-400">01</span><span>Understand the system</span>
+                <span className="text-sky-600 dark:text-sky-400">02</span><span>Design for failure</span>
+                <span className="text-sky-600 dark:text-sky-400">03</span><span>Make it useful</span>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Real-Time Runtime Telemetry Panel */}
-          <div className="lg:col-span-5 w-full">
+          <div className="flex flex-wrap items-center justify-center gap-4 border-t border-zinc-200 pt-4 text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400 lg:col-span-8 lg:justify-start">
+            <a href="https://github.com/jossieT" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-mono transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
+              <GithubIcon className="h-3.5 w-3.5" /><span>github.com/jossieT</span>
+            </a>
+            <span className="hidden text-zinc-300 dark:text-zinc-700 sm:inline">•</span>
+            <a href="https://www.linkedin.com/in/yosef-teshome-96516b188/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-mono transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
+              <LinkedinIcon className="h-3.5 w-3.5" /><span>linkedin.com/in/yosef-teshome</span>
+            </a>
+          </div>
+
+          {/* Keep the runtime component and its API/SSE behavior available for a future home. */}
+          <div className="hidden" aria-hidden="true">
             <ArchitectureDiagram />
           </div>
         </div>
