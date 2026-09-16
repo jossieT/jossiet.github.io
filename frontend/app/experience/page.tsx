@@ -5,6 +5,8 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Professional Experience — Yosef Teshome",
   description:

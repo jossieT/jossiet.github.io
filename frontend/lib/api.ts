@@ -44,7 +44,7 @@ export const API_BASE_URL = (
 
 // --- Tunables ------------------------------------------------------------
 const FETCH_TIMEOUT_MS = 6000;
-const ISR_REVALIDATE_SECONDS = 10;
+export const DEFAULT_REVALIDATE_SECONDS = 3600; // 1 hour ISR cache
 const DEFAULT_PAGE_SIZE = 12;
 
 /** Result of a low-level JSON request. HTTP errors never throw here. */
@@ -67,7 +67,7 @@ async function requestJson<T>(
   try {
     const response = await fetch(`${API_BASE_URL}${path}`, {
       headers: { Accept: "application/json" },
-      next: { revalidate: ISR_REVALIDATE_SECONDS },
+      next: { revalidate: DEFAULT_REVALIDATE_SECONDS },
       signal: options?.signal ?? controller.signal,
       ...options,
     });
@@ -103,21 +103,21 @@ function asArray<T>(value: unknown, path: string): T[] {
   return [];
 }
 
-function emptyPage<T>(page: number): Page<T> {
-  return { items: [], total: 0, page, page_size: DEFAULT_PAGE_SIZE, pages: 0 };
+function emptyPage<T>(page: number, pageSize: number = DEFAULT_PAGE_SIZE): Page<T> {
+  return { items: [], total: 0, page, page_size: pageSize, pages: 0 };
 }
 
 /**
  * Runtime guard: paginated endpoints must always yield `{ items: [...] }`.
  * Mirrors the FastAPI Page[T] envelope shape.
  */
-function asPage<T>(value: unknown, path: string, page: number): Page<T> {
+function asPage<T>(value: unknown, path: string, page: number, pageSize: number = DEFAULT_PAGE_SIZE): Page<T> {
   const items = (value as { items?: unknown } | null)?.items;
   if (Array.isArray(items)) return value as Page<T>;
   console.warn(
     `[api] GET ${path}: expected a paginated object with an items array but received ${describeValue(value)} — using an empty page.`
   );
-  return emptyPage<T>(page);
+  return emptyPage<T>(page, pageSize);
 }
 
 /** Collection endpoints: ALWAYS resolve to an array — never null, never throws. */
@@ -133,15 +133,15 @@ async function fetchCollection<T>(path: string): Promise<T[]> {
 }
 
 /** Paginated endpoints: ALWAYS resolve to a valid Page<T> — never null, never throws. */
-async function fetchPage<T>(path: string, page: number): Promise<Page<T>> {
+async function fetchPage<T>(path: string, page: number, pageSize: number = DEFAULT_PAGE_SIZE): Promise<Page<T>> {
   const result = await requestJson<unknown>(path);
   if (!result.ok) {
     console.warn(
       `[api] GET ${path} failed (status ${result.status}) — rendering fallback content.`
     );
-    return emptyPage<T>(page);
+    return emptyPage<T>(page, pageSize);
   }
-  return asPage<T>(result.data, path, page);
+  return asPage<T>(result.data, path, page, pageSize);
 }
 
 /**
@@ -166,11 +166,21 @@ export async function getHealth(): Promise<HealthResponse> {
 }
 
 // Projects
-export async function getProjects(category?: string, page: number = 1): Promise<Page<Project>> {
+export async function getProjects(
+  category?: string,
+  page: number = 1,
+  pageSize: number = DEFAULT_PAGE_SIZE
+): Promise<Page<Project>> {
   const query = new URLSearchParams();
   if (category && category !== "all") query.set("category", category);
   query.set("page", page.toString());
-  return fetchPage<Project>(`/api/v1/projects?${query.toString()}`, page);
+  if (pageSize !== DEFAULT_PAGE_SIZE) query.set("page_size", pageSize.toString());
+  return fetchPage<Project>(`/api/v1/projects?${query.toString()}`, page, pageSize);
+}
+
+export async function getAllProjects(): Promise<Project[]> {
+  const pageData = await getProjects(undefined, 1, 50);
+  return pageData.items;
 }
 
 export function getFeaturedProjects(): Promise<Project[]> {
@@ -197,8 +207,16 @@ export function getServices(): Promise<ServiceItem[]> {
 }
 
 // Articles
-export async function getArticles(page: number = 1): Promise<Page<Article>> {
-  return fetchPage<Article>(`/api/v1/articles?page=${page}`, page);
+export async function getArticles(page: number = 1, pageSize: number = DEFAULT_PAGE_SIZE): Promise<Page<Article>> {
+  const query = new URLSearchParams();
+  query.set("page", page.toString());
+  if (pageSize !== DEFAULT_PAGE_SIZE) query.set("page_size", pageSize.toString());
+  return fetchPage<Article>(`/api/v1/articles?${query.toString()}`, page, pageSize);
+}
+
+export async function getAllArticles(): Promise<Article[]> {
+  const pageData = await getArticles(1, 50);
+  return pageData.items;
 }
 
 export function getFeaturedArticles(): Promise<Article[]> {

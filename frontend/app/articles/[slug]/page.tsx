@@ -2,9 +2,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
-import { getArticle, getArticles } from "@/lib/api";
+import { getArticle, getAllArticles } from "@/lib/api";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -12,8 +15,8 @@ interface PageProps {
 
 export async function generateStaticParams() {
   try {
-    const pageData = await getArticles(1);
-    return pageData.items.map((article) => ({
+    const articles = await getAllArticles();
+    return articles.map((article) => ({
       slug: article.slug,
     }));
   } catch {

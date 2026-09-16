@@ -14,7 +14,7 @@ import {
 import { GithubIcon } from "@/components/ui/Icons";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { getProject, getProjects } from "@/lib/api";
+import { getProject, getAllProjects } from "@/lib/api";
 import { CaseStudyStickyNav } from "@/components/projects/CaseStudyStickyNav";
 import { ArchitectureVisualizer } from "@/components/projects/ArchitectureVisualizer";
 import { TechStackBreakdown } from "@/components/projects/TechStackBreakdown";
@@ -22,14 +22,17 @@ import { ChallengesAndSolutions } from "@/components/projects/ChallengesAndSolut
 import { SecurityReliabilitySection } from "@/components/projects/SecurityReliabilitySection";
 import { ProjectNavigationFooter } from "@/components/projects/ProjectNavigationFooter";
 
+export const revalidate = 3600;
+export const dynamicParams = true;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
   try {
-    const pageData = await getProjects(undefined, 1);
-    return pageData.items.map((project) => ({
+    const projects = await getAllProjects();
+    return projects.map((project) => ({
       slug: project.slug,
     }));
   } catch {

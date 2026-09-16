@@ -5,6 +5,7 @@ import { ExperienceTimeline } from "@/components/home/ExperienceTimeline";
 import { TechnicalExpertise } from "@/components/home/TechnicalExpertise";
 import { EngineeringApproach } from "@/components/home/EngineeringApproach";
 import { CallToAction } from "@/components/home/CallToAction";
+export const revalidate = 3600;
 
 export default function Home() {
   return (

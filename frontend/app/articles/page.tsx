@@ -1,7 +1,9 @@
 import { Metadata } from "next";
-import { getArticles } from "@/lib/api";
+import { getAllArticles } from "@/lib/api";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ArticleCard } from "@/components/articles/ArticleCard";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Technical Writing & Engineering Insights — Yosef Teshome",
@@ -10,8 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ArticlesPage() {
-  const pageData = await getArticles(1);
-  const articles = pageData?.items || [];
+  const articles = await getAllArticles();
 
   return (
     <div className="py-16 md:py-24 space-y-12">

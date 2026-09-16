@@ -294,271 +294,246 @@ graph TD
             ],
         "sort_order": 1,
     },
+
     {
-        "slug": "enterprise-ai-knowledge-platform",
-        "title": "Enterprise AI Knowledge Platform (RAG)",
-        "tagline": "Production RAG platform with hybrid search & granular access control",
-        "summary": (
-            "A high-throughput RAG system enabling real-time semantic document search across "
-            "internal repositories with pgvector, BM25 hybrid ranking, and document-level RBAC."
-        ),
-        "category": "ai-engineering",
-        "category_label": "AI & RAG Engineering",
+        "slug": "telegram-medical-data-warehouse",
+        "title": "Medical Data Warehouse (Telegram ELT)",
+        "tagline": "Scalable Telegram ELT pipeline, Star Schema data warehouse, and Dagster orchestration for medical channel intelligence",
+        "summary": "A robust ELT data pipeline designed to scrape, store, and analyze Telegram data from Ethiopian medical business channels using Telethon, PostgreSQL, dbt, and Dagster with YOLO-based image enrichment.",
+        "category": "data-engineering",
+        "category_label": "Data Engineering",
         "technologies": [
-            "Python 3.12",
-            "FastAPI",
-            "PostgreSQL 17",
-            "pgvector",
-            "Redis",
-            "Docker",
-            "LlamaIndex",
-            "OpenAI API",
-            "Tailwind CSS",
+            "Python 3.10+",
+            "Telethon",
+            "PostgreSQL 15",
+            "dbt",
+            "Dagster",
+            "Docker & Compose",
+            "YOLO",
+            "Star Schema",
+            "SQL",
         ],
         "featured": True,
-        "role": "Lead AI Backend Engineer",
-        "timeline": "3 Months",
-        "status": "In Production",
+        "role": "Data Engineer / Pipeline Architect",
+        "timeline": "Completed",
+        "status": "Completed",
         "impact_metrics": [
-            "Sub-400ms end-to-end retrieval latency",
-            "94.2% semantic precision score",
-            "Zero data leak across role partitions",
+            "Automated extraction from Ethiopian medical Telegram channels with partitioned raw data lake storage",
+            "Star Schema data warehouse modeling with dbt (Facts & Dimensions) and automated data integrity tests",
+            "Dagster orchestration for end-to-end execution, retries, YOLO object detection enrichment, and automated mart rebuilds",
         ],
-        "github_url": "https://github.com/jossieT",
+        "github_url": "https://github.com/jossieT/telegram-medical-data-warehouse",
         "live_url": None,
-        "overview": (
-            "The Enterprise AI Knowledge Platform was engineered to solve knowledge fragmentation "
-            "across multi-department enterprise repositories. By pairing PostgreSQL 17's pgvector extension "
-            "with BM25 lexical keyword matching through Reciprocal Rank Fusion (RRF), the system delivers "
-            "precise, source-attributed responses while strictly enforcing document-level role-based access controls."
-        ),
-        "problem": (
-            "Internal technical teams spent excessive time manually cross-referencing dispersed architectural specs, "
-            "incident postmortems, and compliance protocols. Standard vector-only RAG pipelines frequently produced "
-            "false positives on exact technical terms (error codes, internal acronyms) and lacked granular data permission boundaries."
-        ),
-        "solution": (
-            "Architected an asynchronous FastAPI backend integrating a dual-stage retrieval engine: semantic dense "
-            "embeddings (OpenAI text-embedding-3-small) indexed via HNSW in pgvector, combined with PostgreSQL full-text tsvector "
-            "search. Injected row-level security tokens into SQL execution contexts to guarantee that generated contexts only contain "
-            "passages authorized for the querying user."
-        ),
-        "architecture_mermaid": (
-            "flowchart TD\n"
-            "    subgraph Ingestion [Ingestion Pipeline]\n"
-            "        Doc[Raw Docs / Markdown] --> Chunk[Semantic Markdown Splitter]\n"
-            "        Chunk --> Embed[Embedding Generator: text-embedding-3-small]\n"
-            "        Embed --> PG[(PostgreSQL 17 + pgvector)]\n"
-            "    end\n"
-            "    subgraph Query [Real-Time Retrieval & Generation]\n"
-            "        User((User Query)) --> API[FastAPI Async Endpoint]\n"
-            "        API --> Auth{JWT & RBAC Check}\n"
-            "        Auth --> Cache{Redis Query Cache}\n"
-            "        Cache -- Hit --> StreamOut[SSE Token Stream]\n"
-            "        Cache -- Miss --> Hybrid[Hybrid Search Engine]\n"
-            "        Hybrid -->|HNSW Vector Sim| PG\n"
-            "        Hybrid -->|BM25 Lexical tsvector| PG\n"
-            "        PG --> RRF[Reciprocal Rank Fusion]\n"
-            "        RRF --> LLM[LLM Synthesis with Citation Prompt]\n"
-            "        LLM --> StreamOut\n"
-            "    end"
-        ),
+        "overview": "The Medical Data Warehouse project is a robust, production-grade ELT (Extract, Load, Transform) pipeline designed to extract, ingest, transform, and analyze public Telegram data from Ethiopian medical business channels. By combining Telethon for automated scraping, local partitioned raw data lakes, PostgreSQL in Docker, dbt for Star Schema dimensional modeling, Dagster for workflow orchestration, and YOLO for media enrichment, the platform turns unstructured social messaging feeds into structured analytical intelligence.",
+        "problem": "Medical businesses and pharmacies in Ethiopia frequently use public Telegram channels to share inventory, product updates, and business communications. However, this data is completely unstructured, distributed across thousands of message feeds, and mixed with image attachments. Without an automated ELT pipeline, tracking trends, auditing product availability, analyzing engagement metrics, and deriving actionable healthcare insights at scale is virtually impossible.",
+        "solution": "Architected and built an end-to-end ELT system that extracts raw messages and images using Python and Telethon, stores payloads in a partitioned raw data lake, ingests them into PostgreSQL via a robust data loader, transforms the raw data into an analytical Star Schema (fct_messages, dim_channels, dim_dates) using dbt, enriches images with YOLO object detection, and orchestrates the entire lifecycle with Dagster for automated scheduling, retries, and monitoring.",
+        "architecture_diagram": None,
+        "architecture_mermaid": """
+graph TD
+    A[Telegram Medical Channels] -->|Telethon Scraper| B[Local Raw Data Lake]
+    B -->|Partitioned JSON & Images| C[Database Loader]
+    C -->|Raw Ingestion| D[(PostgreSQL 15 Data Warehouse)]
+    D -->|dbt Staging Models| E[dbt Transformations]
+    E -->|Star Schema Marts| F[Fact & Dimension Tables\nfct_messages, dim_channels, dim_dates]
+    F -->|Image Payloads| G[YOLO Image Enrichment]
+    G -->|Enriched Detections| F
+    H[Dagster Orchestrator] -.->|Manages & Schedules| A
+    H -.->|Triggers| C
+    H -.->|Executes| E
+    H -.->|Coordinates| G
+""",
         "architecture_steps": [
             {
-                "title": "Document Ingestion & Context-Aware Chunking",
-                "description": (
-                    "Hierarchical markdown parser segments documents along semantic heading boundaries with dynamic 15% overlap, "
-                    "preventing fragment truncation and generating 1536-dimensional embeddings."
-                ),
+                "title": "Telegram Data Extraction",
+                "description": "Python and Telethon scrape message text, metadata, view counts, and image assets from targeted Ethiopian medical channels.",
             },
             {
-                "title": "Hybrid Vector + Lexical Search",
-                "description": (
-                    "Executes parallel queries: pgvector cosine distance over HNSW indexes and PostgreSQL tsvector/tsquery "
-                    "lexical search, combining candidate scores using Reciprocal Rank Fusion (RRF)."
-                ),
+                "title": "Raw Data Lake Storage",
+                "description": "Saves original API responses as raw JSON files partitioned by date and downloads raw images locally to preserve original payload fidelity.",
             },
             {
-                "title": "Security Scope & RBAC Filtering",
-                "description": (
-                    "Enforces tenant and department security scopes directly in the SQL WHERE clause, mathematically guaranteeing "
-                    "unauthorized records never reach the context window."
-                ),
+                "title": "PostgreSQL Ingestion",
+                "description": "A dedicated loader script validates and ingests raw JSON data into the raw staging tables of a containerized PostgreSQL 15 database.",
             },
             {
-                "title": "Grounded LLM Generation & Citation Streaming",
-                "description": (
-                    "Constructs a grounded system prompt with strict citation constraints and streams synthesized tokens to the client "
-                    "via FastAPI Server-Sent Events (SSE)."
-                ),
+                "title": "dbt Star Schema Modeling",
+                "description": "dbt compiles and executes SQL transformations converting raw records into analytical fact (fct_messages) and dimension (dim_channels, dim_dates) tables.",
+            },
+            {
+                "title": "YOLO Media Enrichment",
+                "description": "Computer vision model inspects medical channel images for detected objects and enriches fact tables with visual intelligence.",
+            },
+            {
+                "title": "Dagster Orchestration",
+                "description": "Dagster manages dependency graphs (scrape_telegram_data -> load_raw_to_postgres -> run_dbt_transformations -> run_yolo_enrichment), providing retries, logs, and a unified execution dashboard.",
+            },
+            {
+                "title": "Data Quality Testing & Docs",
+                "description": "Automated dbt tests enforce uniqueness, non-negative views, and date validation while generating interactive schema documentation.",
             },
         ],
         "tech_stack_grouped": {
-            "frontend": [
+            "scraping_extraction": [
                 {
-                    "name": "Next.js & React",
-                    "purpose": "Interactive query explorer with streaming markdown renderer",
+                    "name": "Telethon",
+                    "purpose": "Asynchronous Telegram client library for extracting messages and media from channels.",
                 },
                 {
-                    "name": "Tailwind CSS",
-                    "purpose": "High-contrast technical dark mode UI with citation badges",
-                },
-            ],
-            "backend": [
-                {
-                    "name": "FastAPI",
-                    "purpose": "High-concurrency async REST API and Server-Sent Events streaming",
-                },
-                {
-                    "name": "Python 3.12",
-                    "purpose": "Async runtime powering document ingestion and retrieval logic",
-                },
-                {
-                    "name": "LlamaIndex",
-                    "purpose": "Document parsing, node management, and prompt assembly framework",
+                    "name": "Python 3.10+",
+                    "purpose": "Core scripting language for scraping, ingestion, and pipeline logic.",
                 },
             ],
-            "database": [
+            "database_warehouse": [
                 {
-                    "name": "PostgreSQL 17",
-                    "purpose": "Primary ACID transactional database and document metadata store",
+                    "name": "PostgreSQL 15",
+                    "purpose": "Relational data warehouse hosting raw schemas, staging models, and dimensional marts.",
                 },
-                {
-                    "name": "pgvector",
-                    "purpose": "In-database vector embeddings with HNSW indexing for sub-50ms search",
-                },
-                {
-                    "name": "Redis",
-                    "purpose": "Embedding cache and frequent query synthesis response caching",
-                },
-            ],
-            "infrastructure": [
                 {
                     "name": "Docker & Compose",
-                    "purpose": "Reproducible multi-container local and staging environments",
-                },
-                {
-                    "name": "JWT / OAuth2",
-                    "purpose": "Stateless claims-based authentication and department role mapping",
+                    "purpose": "Containerized database environment running on isolated port 5433.",
                 },
             ],
-            "ai": [
+            "transformation_modeling": [
                 {
-                    "name": "text-embedding-3-small",
-                    "purpose": "Dense semantic vector representations (1536 dims)",
-                },
-                {
-                    "name": "GPT-4o Mini / Claude",
-                    "purpose": "Context-grounded synthesis with structured source citation",
-                },
+                    "name": "dbt (data build tool)",
+                    "purpose": "Modular SQL transformations, Star Schema modeling, automated testing, and documentation.",
+                }
             ],
-            "deployment": [
+            "orchestration": [
                 {
-                    "name": "Uvicorn & Gunicorn",
-                    "purpose": "ASGI process manager with asynchronous worker loops",
-                },
+                    "name": "Dagster",
+                    "purpose": "Data pipeline orchestration, dependency tracking, automated retries, and run monitoring.",
+                }
+            ],
+            "ai_enrichment": [
                 {
-                    "name": "Linux Container Host",
-                    "purpose": "Optimized containerized production workload execution",
-                },
+                    "name": "YOLO",
+                    "purpose": "Object detection model for extracting insights and entity metadata from channel images.",
+                }
+            ],
+            "devops_ci": [
+                {
+                    "name": "GitHub Actions",
+                    "purpose": "Automated linting (flake8), unit testing, and dbt model compilation.",
+                }
             ],
         },
         "key_features": [
             {
-                "title": "Hybrid BM25 + Vector Retrieval",
-                "description": "Combines dense semantic understanding with exact lexical matching to eliminate technical acronym blind spots.",
+                "title": "Telegram Channel Scraper",
+                "description": "Extracts full historical and real-time message payloads and image assets from Ethiopian medical Telegram channels.",
                 "status": "Completed",
             },
             {
-                "title": "PostgreSQL pgvector HNSW Indexing",
-                "description": "Leverages Hierarchical Navigable Small World (HNSW) graphs inside PostgreSQL, avoiding standalone vector cluster overhead.",
+                "title": "Partitioned Raw Data Lake",
+                "description": "Stores raw API responses in date-partitioned JSON files and raw image folders to allow full replayability.",
                 "status": "Completed",
             },
             {
-                "title": "Document-Level RBAC Filtering",
-                "description": "Enforces authorization at the database query level, preventing data leakage across department access tiers.",
+                "title": "dbt Star Schema Transformations",
+                "description": "Implements fct_messages, dim_channels, and dim_dates tables for high-performance analytical queries.",
                 "status": "Completed",
             },
             {
-                "title": "Redis Response & Embedding Caching",
-                "description": "Caches identical semantic query vectors and answer tokens to achieve sub-50ms cache hits on common inquiries.",
+                "title": "YOLO Image Enrichment",
+                "description": "Runs visual detection models across downloaded channel images to identify medical supplies and product imagery.",
                 "status": "Completed",
             },
             {
-                "title": "Automated Confidence & Citation Scoring",
-                "description": "Computes similarity distance thresholds and generates verifiable inline document citation footnotes.",
+                "title": "Dagster Pipeline Orchestration",
+                "description": "Visual DAG execution, scheduled pipeline runs, failure handling, and end-to-end operational observability.",
                 "status": "Completed",
             },
             {
-                "title": "Multi-Format Ingestion Connectors (PDF, Confluence)",
-                "description": "Scheduled background workers to ingest binary PDFs, Word docs, and API documentation continuously.",
-                "status": "Planned",
+                "title": "Automated Data Integrity Tests",
+                "description": "Custom and built-in dbt tests checking for duplicate messages, future date anomalies, and non-negative metric values.",
+                "status": "Completed",
             },
         ],
         "engineering_decisions": [
             {
-                "title": "PostgreSQL pgvector over Standalone Vector DB",
-                "context": "Needed vector search capabilities without introducing cluster synchronization latency or duplicate authorization logic.",
-                "decision": "Selected pgvector within PostgreSQL 17 to keep relational SQL data, access roles, and embeddings in one ACID store.",
-                "outcome": "Simplified backup and restore procedures, guaranteed transaction consistency, and cut cloud hosting overhead by 60%.",
+                "title": "Decoupling Extraction from Database Loading",
+                "context": "Extracting from Telegram API is rate-limited and network-dependent, while database loading requires schema consistency.",
+                "decision": "Separated Telethon scraping from Postgres ingestion via a raw JSON/image data lake stage.",
+                "outcome": "Allowed safe offline re-ingestion, simplified debugging, and insulated database operations from Telegram network fluctuations.",
             },
             {
-                "title": "Server-Sent Events (SSE) vs WebSockets for Streaming",
-                "context": "Waiting for complete LLM responses caused high perceived latency (3-4 seconds before first text visible).",
-                "decision": "Implemented unidirectional SSE over HTTP/2 instead of bi-directional WebSocket connection management.",
-                "outcome": "Reduced time-to-first-token to under 250ms with automatic HTTP reconnect handling and lower connection state overhead.",
+                "title": "Star Schema Modeling with dbt",
+                "context": "Unstructured JSON payloads are inefficient and difficult for analysts and dashboards to query directly.",
+                "decision": "Utilized dbt to structure the warehouse into facts (fct_messages) and dimensions (dim_channels, dim_dates).",
+                "outcome": "Enabled modular SQL transformations, rapid analytics querying, automated lineage generation, and built-in data tests.",
             },
             {
-                "title": "Reciprocal Rank Fusion (RRF) for Search Merging",
-                "context": "Raw vector cosine scores and BM25 relevance scores exist on different numerical scales, making naive addition ineffective.",
-                "decision": "Applied RRF algorithm with rank constant k=60 to merge ranking lists without score calibration dependencies.",
-                "outcome": "Improved top-3 retrieval precision from 81% (vector-only) to 94.2% (hybrid RRF).",
+                "title": "Dagster for Unified Orchestration",
+                "context": "Pipeline stages (scrape -> load -> transform -> enrich) have strict dependencies and require retry policies.",
+                "decision": "Orchestrated all pipeline assets and jobs using Dagster instead of simple cron scripts.",
+                "outcome": "Delivered end-to-end observability, dependency tracking, UI-driven run management, and automated scheduling.",
+            },
+            {
+                "title": "Dockerized Database Configuration",
+                "context": "Need for a reproducible PostgreSQL environment that does not collide with local database instances.",
+                "decision": "Configured PostgreSQL 15 via Docker Compose with dedicated mapping to port 5433.",
+                "outcome": "Guaranteed zero environment conflicts, straightforward onboarding, and consistent local-to-production parity.",
             },
         ],
         "challenges": [
             {
-                "title": "Vector Search Hallucinations on Exact Technical Terms",
-                "challenge": "Pure vector similarity frequently missed exact error codes (e.g. 'ERR_SOCKET_TIMEOUT_104') because embeddings map semantic concepts rather than literal characters.",
-                "solution": "Integrated PostgreSQL full-text search with customized tsvector dictionaries and combined rankings using Reciprocal Rank Fusion.",
-                "impact": "Eliminated technical term retrieval failures, ensuring 100% recall on specific system error identifiers.",
+                "title": "Rate Limits and Telegram Session Management",
+                "challenge": "Telegram API applies strict rate limits and requires secure credential management across authentication sessions.",
+                "solution": "Implemented resilient scraping logic with Telethon handling session files, backoff delays, and selective batch extraction.",
+                "impact": "Prevented account throttling and ensured stable extraction across configured medical channels.",
             },
             {
-                "title": "Multi-Tenant Authorization Leakage Risks",
-                "challenge": "Filtering documents post-retrieval in Python application memory often resulted in empty context windows when top candidates were filtered out.",
-                "solution": "Pushed user role access arrays directly into the SQL WHERE clause before vector similarity ordering.",
-                "impact": "Guaranteed 100% security boundary enforcement while preserving high top-k context density.",
+                "title": "Handling Unstructured and Missing Data",
+                "challenge": "Telegram posts exhibit variable structures, missing fields, forwarded content, and non-standard timestamps.",
+                "solution": "Built a schema validation loader step alongside dbt staging models that normalize and cast heterogeneous data types.",
+                "impact": "Achieved clean dimensional tables without losing original payload context in the raw data lake.",
+            },
+            {
+                "title": "Coordinating Multi-Stage Pipeline Dependencies",
+                "challenge": "Computer vision YOLO enrichment requires downloaded image assets and completed dbt staging models before finalizing marts.",
+                "solution": "Defined a rigorous Dagster asset dependency graph ensuring deterministic step execution and automated mart rebuilds.",
+                "impact": "Eliminated race conditions and guaranteed data consistency across all warehouse tables.",
             },
         ],
         "security_reliability": [
             {
-                "title": "Granular Access Boundary Enforcement",
-                "description": "Row-level security scopes ensure vector search queries only scan documents the requesting user's JWT grants access to.",
-                "icon_name": "Shield",
-            },
-            {
-                "title": "Strict Prompt Sandboxing & Injection Mitigation",
-                "description": "Retrieved context passages are sanitized and delimited using structured XML tags with explicit instruction-override guardrails.",
+                "title": "Isolated Environment Configuration",
+                "description": "Telegram credentials, API hashes, and database passwords are kept strictly isolated in uncommitted .env files.",
                 "icon_name": "Lock",
             },
             {
-                "title": "Rate Limiting & Token Quotas",
-                "description": "Redis token-bucket rate limiters prevent API abuse and control downstream LLM generation expenses per client tenant.",
-                "icon_name": "Zap",
+                "title": "dbt Data Quality Assertions",
+                "description": "Automated dbt test suite verifying uniqueness, non-negative view counts, and future date constraints.",
+                "icon_name": "CheckCircle2",
+            },
+            {
+                "title": "CI/CD Validation Pipeline",
+                "description": "GitHub Actions workflow running flake8 linting, Python unit tests, and dbt compilation on every pull request.",
+                "icon_name": "Shield",
+            },
+            {
+                "title": "Docker Container Isolation",
+                "description": "Containerized PostgreSQL 15 database running on custom port 5433 to eliminate port collisions.",
+                "icon_name": "Database",
             },
         ],
         "results": [
-            "Delivered sub-400ms average retrieval latency across enterprise document corpuses exceeding 50,000 pages.",
-            "Attained 94.2% top-3 retrieval precision score on domain-specific technical documentation benchmarks.",
-            "Zero recorded cross-department authorization bypasses during automated security boundary penetration tests.",
+            "Automated scraping and transformation pipeline processing Ethiopian medical Telegram feeds.",
+            "Production-ready Star Schema data warehouse with automated fact and dimension models via dbt.",
+            "End-to-end Dagster orchestration with full pipeline visualization, retries, and scheduled execution.",
+            "Integrated YOLO computer vision enrichment for extracted medical media and product imagery.",
+            "Comprehensive dbt test suite and CI workflow enforcing 100% data integrity on every build.",
         ],
         "lessons_learned": [
-            "Fixed-character chunking destroys tabular and structured code semantics; layout-aware section parsing is essential for high RAG accuracy.",
-            "Hybrid search is mandatory for technical domains where users query specific entity identifiers and error strings.",
-            "Streaming responses significantly improve user experience even when overall model synthesis takes 2-3 seconds.",
+            "Maintaining raw payload data lakes before relational ingestion is crucial for ELT flexibility and pipeline idempotency.",
+            "dbt transforms complex raw messaging logs into clean, analyst-friendly dimensional models while maintaining lineage.",
+            "Orchestrators like Dagster provide critical observability and retry resilience that standalone scripts cannot match.",
         ],
-        "related_slugs": ["autonomous-ai-agent-orchestrator", "christian-digital-content-platform"],
         "sort_order": 2,
+        "related_slugs": ["rag-complaint-chatbot", "swift-addis-car-detailing-platform"],
     },
+
     {
         "slug": "etbooking-solutions",
         "title": "ETBooking Solutions",
@@ -861,7 +836,7 @@ graph TD
             "Premium visual design should support information hierarchy and conversion rather than becoming the primary purpose of the interface.",
             "Building the marketing foundation first creates a clear path toward future customer portals, booking demos, administrative systems, payments, analytics, and API integrations.",
         ],
-        "sort_order": 3,
+        "sort_order": 4,
     },
     {
         "slug": "rag-complaint-chatbot",
@@ -878,7 +853,7 @@ graph TD
             "FLAN-T5",
             "Gradio",
         ],
-        "featured": False,  # Assuming not featured unless explicitly stated to be visible on homepage
+        "featured": True,
         "role": "AI/ML Engineer",
         "timeline": "Completed Research Project",
         "status": "Completed",  # Using "Completed" as per instructions, as "Research Project" is not a direct status type in schema
@@ -1103,7 +1078,8 @@ flowchart TD
             "Implementing evidence panels within the user interface is critical for building user trust and making generated answers inspectable and verifiable, addressing the 'black box' problem of LLMs.",
             "It is essential to understand and evaluate retrieval quality and generation quality as distinct problems, as improvements in one do not automatically guarantee improvements in the other.",
         ],
-        "sort_order": 5,
+        "sort_order": 3,
+        "related_slugs": ["telegram-medical-data-warehouse", "swift-addis-car-detailing-platform"],
     },
     {
         "slug": "christian-digital-content-platform",
@@ -1391,220 +1367,7 @@ graph TD
             "Designing authentication and authorization (JWT + RBAC) as core platform infrastructure from the outset, rather than an afterthought, significantly enhances security, consistency, and simplifies endpoint protection.",
             "Comprehensive API documentation (Swagger/OpenAPI) becomes increasingly vital as the number of backend resources and endpoints grows, facilitating seamless integration for frontend and third-party consumers.",
         ],
-        "sort_order": 4,
-    },
-    {
-        "slug": "autonomous-ai-agent-orchestrator",
-        "title": "Autonomous AI Agent Workflow Orchestrator",
-        "tagline": "Multi-tool agent framework for enterprise API task automation",
-        "summary": (
-            "An autonomous agent execution platform that parses natural language operational goals "
-            "into structured, deterministic multi-step API tool execution plans."
-        ),
-        "category": "automation",
-        "category_label": "AI & Automation",
-        "technologies": [
-            "Python 3.12",
-            "FastAPI",
-            "LLM Function Calling",
-            "LangChain",
-            "PostgreSQL",
-            "Docker",
-            "JSON Schema",
-        ],
-        "featured": False,
-        "role": "AI Platform Engineer",
-        "timeline": "2 Months",
-        "status": "Active Development",
-        "impact_metrics": [
-            "88% reduction in manual multi-system lookup tasks",
-            "Automated fallback recovery on API timeout",
-        ],
-        "github_url": "https://github.com/jossieT",
-        "live_url": None,
-        "overview": (
-            "An agentic framework designed to bridge natural language operational requests with strict backend REST APIs. "
-            "The orchestrator decomposes complex goals into typed tool invocations, dynamically reflects on execution errors, "
-            "and maintains a transparent PostgreSQL audit log of every reasoning node."
-        ),
-        "problem": (
-            "DevOps and operations engineers spent hours manually chaining commands across separate internal systems (user registries, "
-            "billing portals, cloud infrastructure telemetry) to diagnose customer issues and execute repetitive maintenance routines."
-        ),
-        "solution": (
-            "Engineered an autonomous agent execution engine in Python/FastAPI using strict JSON schema tool validation, stateful "
-            "execution graph tracking, and automatic self-correcting error recovery loops."
-        ),
-        "architecture_mermaid": (
-            "flowchart TD\n"
-            "    subgraph UserInput [Goal Definition]\n"
-            "        Goal[Natural Language Goal] --> Agent[Orchestrator Agent]\n"
-            "    end\n"
-            "    subgraph PlanningLoop [Reasoning & Tool Loop]\n"
-            "        Agent --> Plan[Structured Plan Decomposition]\n"
-            "        Plan --> ToolSelect{Select Tool & Generate Args}\n"
-            "        ToolSelect --> Validate[Pydantic JSON Schema Validation]\n"
-            "        Validate -- Valid --> Exec[Execute Sandboxed API Tool]\n"
-            "        Validate -- Invalid --> Correct[Self-Correction Prompt Loop]\n"
-            "        Correct --> ToolSelect\n"
-            "        Exec --> Reflect{Evaluate Tool Output}\n"
-            "        Reflect -- Next Step Needed --> ToolSelect\n"
-            "        Reflect -- Goal Complete --> Final[Synthesize Final Result]\n"
-            "    end\n"
-            "    subgraph Telemetry [Audit & Safety]\n"
-            "        Exec --> Audit[(PostgreSQL Step Audit Log)]\n"
-            "        Reflect --> Guard[Iteration Limit & Budget Guardrail]\n"
-            "    end"
-        ),
-        "architecture_steps": [
-            {
-                "title": "Natural Language Goal Decomposition",
-                "description": "LLM parses high-level operational intent and breaks it into an ordered dependency graph of tool execution steps.",
-            },
-            {
-                "title": "Strict Schema Validation & Tool Invocation",
-                "description": "Validates generated arguments against Pydantic v2 schemas before dispatching real REST or system commands.",
-            },
-            {
-                "title": "Output Reflection & Error Self-Healing",
-                "description": "Inspects returned API responses; if an endpoint errors, the agent feeds the error context back into the LLM to select an alternative strategy.",
-            },
-            {
-                "title": "Step Audit Logging & Final Synthesis",
-                "description": "Persists token usage, execution timestamps, tool inputs, and structured outcomes to PostgreSQL for security review.",
-            },
-        ],
-        "tech_stack_grouped": {
-            "frontend": [
-                {
-                    "name": "React / Next.js",
-                    "purpose": "Interactive agent trace explorer showing step-by-step reasoning nodes",
-                },
-                {
-                    "name": "Framer Motion",
-                    "purpose": "Smooth node expansion and animated state transitions during execution",
-                },
-            ],
-            "backend": [
-                {
-                    "name": "FastAPI",
-                    "purpose": "Async backend hosting tool registry and agent execution runners",
-                },
-                {
-                    "name": "Python 3.12",
-                    "purpose": "Core agent state machine, reflection loops, and tool sandboxing",
-                },
-                {
-                    "name": "LangChain / Custom Graph",
-                    "purpose": "Agent state management and tool execution orchestration",
-                },
-            ],
-            "database": [
-                {
-                    "name": "PostgreSQL 17",
-                    "purpose": "Persistent storage for agent execution traces, tool logs, and token budgets",
-                },
-            ],
-            "infrastructure": [
-                {
-                    "name": "Docker",
-                    "purpose": "Sandboxed container execution environment for system tool commands",
-                },
-                {
-                    "name": "JSON Schema / Pydantic",
-                    "purpose": "Strict validation layer ensuring typed model tool parameters",
-                },
-            ],
-            "ai": [
-                {
-                    "name": "GPT-4o / Claude 3.5 Sonnet",
-                    "purpose": "Function calling and dynamic error reflection reasoning",
-                },
-            ],
-        },
-        "key_features": [
-            {
-                "title": "Strict JSON Schema Function Calling",
-                "description": "Enforces strict type and value constraints on LLM tool arguments prior to any backend execution.",
-                "status": "Completed",
-            },
-            {
-                "title": "Dynamic Self-Healing Error Loops",
-                "description": "Catches API timeouts or 4xx errors and automatically re-prompts the model with error trace context to pivot strategies.",
-                "status": "Completed",
-            },
-            {
-                "title": "Comprehensive Execution Telemetry",
-                "description": "Logs token costs, latency, tool arguments, and output snapshots for every step to PostgreSQL.",
-                "status": "Completed",
-            },
-            {
-                "title": "Configurable Safety Guardrails",
-                "description": "Enforces maximum iteration limits (e.g. max 10 steps) and token budgets to prevent runaway execution loops.",
-                "status": "Completed",
-            },
-            {
-                "title": "Human-in-the-Loop Approval for Destructive Tools",
-                "description": "Pauses agent execution and requests operator confirmation before executing database modifications or server restarts.",
-                "status": "Planned",
-            },
-        ],
-        "engineering_decisions": [
-            {
-                "title": "Pydantic Schema Validation for Function Calling",
-                "context": "Unvalidated LLM tool calling caused runtime TypeErrors when models produced hallucinated parameter names.",
-                "decision": "Wrapped every tool in a Pydantic model with pre-execution validation before dispatching actual requests.",
-                "outcome": "Achieved 99.4% tool invocation reliability with instant client-side feedback on schema mismatches.",
-            },
-            {
-                "title": "Stateful Step Logging in PostgreSQL",
-                "context": "Enterprise operators needed full transparency to verify why an agent took a specific operational decision.",
-                "decision": "Designed a relational trace schema storing prompt tokens, raw tool inputs, and output responses per execution step.",
-                "outcome": "Provided complete audit compliance and enabled post-incident debugging of agent reasoning trajectories.",
-            },
-        ],
-        "challenges": [
-            {
-                "title": "Infinite Loop Prevention on Repetitive Failures",
-                "challenge": "When an API persistently failed, early agent iterations repeatedly re-tried the exact same failed arguments.",
-                "solution": "Introduced a loop detection heuristic that tracks repeated tool signatures and forces the agent to try alternative tools or abort.",
-                "impact": "Completely eliminated token budget waste from infinite retry loops.",
-            },
-            {
-                "title": "Sandboxing System-Level Tool Invocations",
-                "challenge": "Executing shell and database tools posed security risks if prompts attempted command injection.",
-                "solution": "Constrained all tool implementations to parameterized API calls and restricted Docker sandbox boundaries.",
-                "impact": "Prevented unauthorized command injection while retaining powerful automation capabilities.",
-            },
-        ],
-        "security_reliability": [
-            {
-                "title": "Execution Sandbox & Isolation",
-                "description": "All tool actions execute within isolated network scopes with read-only database roles by default.",
-                "icon_name": "Shield",
-            },
-            {
-                "title": "Iteration & Token Budget Guardrails",
-                "description": "Hard iteration caps and per-task token limits terminate execution if a task exceeds its allocated boundary.",
-                "icon_name": "Sliders",
-            },
-            {
-                "title": "Immutable Step Audit Trail",
-                "description": "Every prompt, reasoning thought, and tool result is logged to PostgreSQL with immutable created_at timestamps.",
-                "icon_name": "FileText",
-            },
-        ],
-        "results": [
-            "Achieved 88% reduction in manual multi-system lookup time for routine operational troubleshooting workflows.",
-            "Attained 99.4% tool invocation reliability through pre-execution Pydantic schema validation.",
-            "Provided full audit trace visibility across all multi-step autonomous workflows.",
-        ],
-        "lessons_learned": [
-            "Autonomous agents must always have hard iteration caps and timeout guardrails to prevent infinite loop token waste.",
-            "Strict schema validation on LLM tool outputs is the single most effective way to eliminate agent runtime crashes.",
-        ],
-        "related_slugs": ["enterprise-ai-knowledge-platform", "intelligent-booking-engine"],
-        "sort_order": 6,
+        "sort_order": 5,
     },
 ]
 
@@ -1719,7 +1482,7 @@ SKILL_CATEGORIES = [
         "title": "AI Engineering & RAG",
         "description": "Production RAG systems, vector embeddings, agent orchestration, and tool integration.",
         "icon_name": "Cpu",
-        "sort_order": 0,
+        "sort_order": 2,
         "skills": [
             {"name": "LLM Orchestration", "level": "Expert", "is_core": True, "sort_order": 0},
             {"name": "RAG Architecture", "level": "Expert", "is_core": True, "sort_order": 1},
@@ -1755,20 +1518,17 @@ SKILL_CATEGORIES = [
         "title": "Backend & Systems",
         "description": "High-performance Python backends, async architectures, and RESTful API engineering.",
         "icon_name": "Server",
-        "sort_order": 1,
+        "sort_order": 0,
         "skills": [
             {"name": "Python 3.12", "level": "Expert", "is_core": True, "sort_order": 0},
             {"name": "FastAPI", "level": "Expert", "is_core": True, "sort_order": 1},
             {"name": "Pydantic v2", "level": "Expert", "is_core": True, "sort_order": 2},
             {"name": "SQLAlchemy 2.x (Async)", "level": "Expert", "is_core": True, "sort_order": 3},
             {"name": "REST API Design", "level": "Expert", "is_core": True, "sort_order": 4},
-            {
-                "name": "TypeScript & Node.js",
-                "level": "Proficient",
-                "is_core": False,
-                "sort_order": 5,
-            },
-            {"name": "NestJS", "level": "Proficient", "is_core": False, "sort_order": 6},
+            {"name": "Node.js", "level": "Proficient", "is_core": False, "sort_order": 5},
+            {"name": "Express", "level": "Proficient", "is_core": False, "sort_order": 6},
+            {"name": "TypeScript", "level": "Proficient", "is_core": False, "sort_order": 7},
+            {"name": "NestJS", "level": "Proficient", "is_core": False, "sort_order": 8},
         ],
     },
     {
@@ -1776,7 +1536,7 @@ SKILL_CATEGORIES = [
         "title": "Cloud & Infrastructure",
         "description": "Containerization, cluster orchestration, CI/CD pipelines, and cloud platform delivery.",
         "icon_name": "Cloud",
-        "sort_order": 2,
+        "sort_order": 4,
         "skills": [
             {
                 "name": "Docker & Docker Compose",
@@ -1817,7 +1577,7 @@ SKILL_CATEGORIES = [
         "title": "Frontend & UI",
         "description": "Modern component architectures, type-safe layouts, and sleek responsive design.",
         "icon_name": "Layout",
-        "sort_order": 4,
+        "sort_order": 1,
         "skills": [
             {"name": "Next.js (App Router)", "level": "Advanced", "is_core": True, "sort_order": 0},
             {"name": "React 19", "level": "Advanced", "is_core": True, "sort_order": 1},

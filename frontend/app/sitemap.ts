@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getProjects, getArticles } from "@/lib/api";
+import { getAllProjects, getAllArticles } from "@/lib/api";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yosefteshome.dev";
@@ -23,8 +23,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let articleRoutes: MetadataRoute.Sitemap = [];
 
   try {
-    const projectsData = await getProjects(undefined, 1);
-    projectRoutes = projectsData.items.map((p) => ({
+    const projects = await getAllProjects();
+    projectRoutes = projects.map((p) => ({
       url: `${baseUrl}/projects/${p.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
@@ -33,8 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   } catch {}
 
   try {
-    const articlesData = await getArticles(1);
-    articleRoutes = articlesData.items.map((a) => ({
+    const articles = await getAllArticles();
+    articleRoutes = articles.map((a) => ({
       url: `${baseUrl}/articles/${a.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,

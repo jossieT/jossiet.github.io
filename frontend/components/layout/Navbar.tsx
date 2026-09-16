@@ -61,14 +61,9 @@ export function Navbar() {
           <div className="w-8 h-8 shrink-0 rounded-md border border-zinc-300 dark:border-zinc-700 bg-transparent flex items-center justify-center text-zinc-900 dark:text-zinc-100 font-mono text-xs font-bold tracking-tight leading-none group-hover:border-zinc-500 dark:group-hover:border-zinc-400 transition-colors select-none">
             YT
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm sm:text-base leading-none font-bold">
-              Yosef Teshome
-            </span>
-            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 leading-tight mt-0.5">
-              Full-Stack &amp; AI Systems
-            </span>
-          </div>
+          <span className="text-sm sm:text-base leading-none font-bold">
+            Yosef Teshome
+          </span>
         </Link>
 
         {/* Desktop Nav Items */}

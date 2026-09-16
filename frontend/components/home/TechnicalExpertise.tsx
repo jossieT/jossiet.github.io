@@ -46,7 +46,7 @@ export async function TechnicalExpertise() {
                     {cat.title}
                   </h3>
                   <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                    {cat.skills.length} verified skills
+                    {cat.skills.length} skills
                   </span>
                 </div>
               </div>
@@ -64,11 +64,6 @@ export async function TechnicalExpertise() {
                     className="hover:scale-105 transition-transform"
                   >
                     {skill.name}
-                    {skill.isCore && (
-                      <span className="ml-1 text-[9px] font-bold text-sky-600 dark:text-sky-400">
-                        ★
-                      </span>
-                    )}
                   </Badge>
                 ))}
               </div>

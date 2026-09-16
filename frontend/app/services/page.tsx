@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "What I Build — Technical Services & Solutions",
   description:
