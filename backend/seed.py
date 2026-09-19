@@ -1595,91 +1595,81 @@ SERVICES = [
     {
         "slug": "ai-rag-knowledge-platforms",
         "title": "AI & RAG Knowledge Platforms",
-        "category": "ai-applications",
+        "category": "ai-systems",
         "description": (
-            "Design and deploy production-grade RAG systems that query complex document corpuses "
-            "with precision, citations, and role-based access control."
+            "Build grounded AI knowledge systems that combine semantic and lexical retrieval for accurate, citation-aware answers."
         ),
         "deliverables": [
-            "Custom vector embedding pipelines (pgvector)",
-            "Hybrid search (BM25 lexical + vector semantic ranking)",
-            "Document security & permission filtering at database level",
-            "Streaming SSE response endpoints with inline citations",
-            "Evaluation benchmarks for retrieval precision & hallucination guardrails",
+            "RAG & pgvector",
+            "Hybrid BM25 + semantic search",
+            "Citations & access control",
         ],
         "technologies": [
             "Python",
             "FastAPI",
             "PostgreSQL",
-            "pgvector",
-            "Redis",
-            "LlamaIndex",
-            "Docker",
         ],
         "icon_name": "BrainCircuit",
         "sort_order": 0,
     },
     {
-        "slug": "ai-agent-workflow-automation",
-        "title": "AI Agent & Workflow Automation",
-        "category": "ai-automation",
+        "slug": "full-stack-software-development",
+        "title": "Full-Stack Software Development",
+        "category": "full-stack",
         "description": (
-            "Build autonomous AI agent workflows that interact with your internal APIs, databases, "
-            "and third-party tools to automate complex multi-step processes."
+            "Build complete web applications from responsive interfaces and APIs to databases, authentication, and deployment."
         ),
         "deliverables": [
-            "Structured function calling & JSON schema validation",
-            "Multi-step agent state machines with self-healing retry logic",
-            "Secure API tool sandboxing and parameter sanitization",
-            "Step-by-step audit logging and cost tracking dashboards",
+            "Next.js / React applications",
+            "FastAPI / NestJS / Node.js APIs",
+            "PostgreSQL / MongoDB & authentication",
         ],
-        "technologies": ["Python", "FastAPI", "JSON Schema", "LangChain", "Redis", "PostgreSQL"],
-        "icon_name": "Bot",
+        "technologies": [
+            "Next.js",
+            "React",
+            "FastAPI",
+            "NestJS",
+        ],
+        "icon_name": "Layers",
         "sort_order": 1,
     },
     {
-        "slug": "high-performance-backend-engineering",
-        "title": "High-Performance Backend Engineering",
-        "category": "backend-systems",
+        "slug": "backend-engineering",
+        "title": "Backend Engineering",
+        "category": "backend-engineering",
         "description": (
-            "Architect clean, robust, and asynchronous RESTful backend microservices capable of "
-            "handling high concurrency with sub-50ms query latencies."
+            "Design robust asynchronous APIs and backend services built for concurrency, security, and maintainability."
         ),
         "deliverables": [
-            "FastAPI microservices with strict Pydantic v2 validation",
-            "SQLAlchemy 2.x async ORM and PostgreSQL schema design",
-            "Redis multi-level caching strategies and rate limiting",
-            "JWT authentication, RBAC, and granular API rate control",
-            "Automated Alembic database migration setups",
+            "FastAPI & asynchronous Python",
+            "PostgreSQL & SQLAlchemy",
+            "Redis, JWT & RBAC",
         ],
         "technologies": [
             "Python",
             "FastAPI",
             "PostgreSQL",
-            "SQLAlchemy",
-            "Redis",
-            "Pydantic",
-            "Docker",
         ],
         "icon_name": "Server",
         "sort_order": 2,
     },
     {
-        "slug": "cloud-native-infrastructure-platforms",
-        "title": "Cloud-Native Infrastructure & Platforms",
+        "slug": "cloud-native-platforms",
+        "title": "Cloud-Native Platforms",
         "category": "cloud-native",
         "description": (
-            "Containerize and orchestrate your backend microservices for seamless production deployment "
-            "across Docker, Kubernetes, OpenShift, and AWS."
+            "Containerize and deploy production backend services with reproducible infrastructure and automated delivery."
         ),
         "deliverables": [
-            "Multi-stage optimized Docker containerization",
-            "Kubernetes & OpenShift deployment manifests",
-            "Automated GitHub Actions CI/CD build & test pipelines",
-            "Production health check, liveness, and readiness probes",
-            "Environment isolation & configuration security",
+            "Docker & multi-stage builds",
+            "Kubernetes / OpenShift",
+            "GitHub Actions CI/CD",
         ],
-        "technologies": ["Docker", "Kubernetes", "OpenShift", "Linux", "AWS", "GitHub Actions"],
+        "technologies": [
+            "Docker",
+            "Kubernetes",
+            "OpenShift",
+        ],
         "icon_name": "CloudContainer",
         "sort_order": 3,
     },
@@ -1887,6 +1877,8 @@ def seed_skills(session) -> None:
 
 def seed_services(session) -> None:
     print("Seeding services...")
+    valid_slugs = [s["slug"] for s in SERVICES]
+    session.execute(Service.__table__.delete().where(~Service.slug.in_(valid_slugs)))
     for data in SERVICES:
         stmt = (
             pg_insert(Service)

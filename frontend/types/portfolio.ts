@@ -119,7 +119,7 @@ export interface SkillCategory {
 export interface ServiceItem {
   slug: string;
   title: string;
-  category: "ai-applications" | "ai-automation" | "backend-systems" | "cloud-native";
+  category: string;
   description: string;
   deliverables: string[];
   technologies: string[];
