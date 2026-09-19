@@ -229,13 +229,23 @@ class GeminiLLMClient(BaseLLMClient):
     ) -> LLMTurnResponse:
         # Fallback to streaming content if direct turn is called without tools
         res = ""
-        async for chunk in self.generate_stream(
-            system_instruction=system_instruction,
-            messages=messages,
-            max_tokens=max_tokens,
-        ):
-            res += chunk
-        return LLMTurnResponse(content=res)
+        try:
+            async for chunk in self.generate_stream(
+                system_instruction=system_instruction,
+                messages=messages,
+                max_tokens=max_tokens,
+            ):
+                res += chunk
+            return LLMTurnResponse(content=res)
+        except Exception as e:
+            logger.error("Gemini API generate_turn error: %s", e)
+            if "503" in str(e) or "high demand" in str(e).lower() or "UNAVAILABLE" in str(e):
+                return LLMTurnResponse(
+                    content="The Google Gemini service is currently experiencing high demand. Please try again in a moment, or switch to OpenRouter (LLM_PROVIDER=openrouter)."
+                )
+            return LLMTurnResponse(
+                content="I encountered a temporary error connecting to the AI model. Please try again."
+            )
 
     async def generate_stream(
         self,
@@ -272,10 +282,17 @@ class GeminiLLMClient(BaseLLMClient):
                 config=config,
             )
 
-        stream = await anyio.to_thread.run_sync(_sync_stream)
-        for chunk in stream:
-            if chunk.text:
-                yield chunk.text
+        try:
+            stream = await anyio.to_thread.run_sync(_sync_stream)
+            for chunk in stream:
+                if chunk.text:
+                    yield chunk.text
+        except Exception as e:
+            logger.error("Gemini API stream generation error: %s", e)
+            if "503" in str(e) or "high demand" in str(e).lower() or "UNAVAILABLE" in str(e):
+                yield "The Gemini model is currently experiencing high demand. Please try again in a few moments, or switch to OpenRouter in your .env settings (LLM_PROVIDER=openrouter)."
+            else:
+                yield "I encountered a temporary error while generating the response. Please try again."
 
 
 class MockLLMClient(BaseLLMClient):
@@ -419,13 +436,25 @@ def get_llm_client() -> BaseLLMClient:
     provider = settings.llm_provider.lower().strip()
     api_key = settings.llm_api_key.strip()
 
-    if provider == "openrouter" and api_key:
+    # Auto-detect OpenRouter by API key prefix or explicit provider
+    if api_key and (provider == "openrouter" or api_key.startswith("sk-or")):
+        model = settings.llm_model.strip()
+        # If model is bare (e.g. "gemini-2.0-flash"), OpenRouter expects "google/gemini-2.0-flash-001" or similar
+        if "/" not in model:
+            if "gemini" in model.lower():
+                model = f"google/{model}"
+            elif "llama" in model.lower():
+                model = f"meta-llama/{model}"
+            elif "gpt" in model.lower():
+                model = f"openai/{model}"
+            elif "claude" in model.lower():
+                model = f"anthropic/{model}"
         return OpenRouterLLMClient(
             api_key=api_key,
-            model=settings.llm_model,
+            model=model,
         )
 
-    if provider == "gemini" and api_key:
+    if (provider == "gemini" or not provider) and api_key and not api_key.startswith("sk-or"):
         return GeminiLLMClient(
             api_key=api_key,
             model=settings.llm_model,

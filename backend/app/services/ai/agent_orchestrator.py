@@ -235,8 +235,19 @@ class AgentOrchestrator:
         except Exception as exc:
             logger.exception("Error in AgentOrchestrator run: %s", exc)
             metrics.complete(source_count=len(collected_sources), success=False, error=str(exc))
-            err_data = json.dumps(
-                {"error": "An error occurred while generating the agent response."}
-            )
+            err_str = str(exc)
+            if "503" in err_str or "high demand" in err_str.lower() or "UNAVAILABLE" in err_str:
+                user_friendly_msg = (
+                    "The upstream AI provider is currently experiencing temporary high demand. "
+                    "Please try again in a few moments."
+                )
+            elif "401" in err_str or "auth" in err_str.lower() or "api_key" in err_str.lower():
+                user_friendly_msg = (
+                    "AI authentication error. Please verify your LLM_API_KEY in the backend configuration."
+                )
+            else:
+                user_friendly_msg = "An error occurred while generating the agent response. Please try again."
+
+            err_data = json.dumps({"error": user_friendly_msg})
             yield f"data: {err_data}\n\n"
             yield "data: [DONE]\n\n"

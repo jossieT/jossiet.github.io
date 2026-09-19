@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
-import { ArchitectureDiagram } from "@/components/hero/ArchitectureDiagram";
 
 export function Hero() {
   return (
@@ -88,10 +87,7 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Keep the runtime component and its API/SSE behavior available for a future home. */}
-          <div className="hidden" aria-hidden="true">
-            <ArchitectureDiagram />
-          </div>
+
         </div>
       </div>
     </section>

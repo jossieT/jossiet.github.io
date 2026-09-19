@@ -162,14 +162,14 @@ def get_embedding_service() -> BaseEmbeddingService:
     provider = (settings.embedding_provider or settings.llm_provider).lower().strip()
     api_key = settings.effective_embedding_api_key.strip()
 
-    if provider == "openrouter" and api_key:
+    if api_key and (provider == "openrouter" or api_key.startswith("sk-or")):
         return OpenRouterEmbeddingService(
             api_key=api_key,
             model="openai/text-embedding-3-small",
             dimension=settings.embedding_dim,
         )
 
-    if provider == "gemini" and api_key and not api_key.startswith("sk-or"):
+    if (provider == "gemini" or not provider) and api_key and not api_key.startswith("sk-or"):
         return GeminiEmbeddingService(
             api_key=api_key,
             model=settings.embedding_model,

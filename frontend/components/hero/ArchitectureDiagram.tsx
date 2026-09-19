@@ -6,17 +6,13 @@ import {
   Database,
   Layers,
   Cpu,
-  Terminal,
   Activity,
   ArrowDown,
-  ArrowRight,
   Code2,
-  Box,
   Radio,
-  CheckCircle2,
 } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
-import type { PublicActivityEvent, ActivityType } from "@/types/activity";
+import type { PublicActivityEvent } from "@/types/activity";
 
 interface ServiceStatus {
   status: "up" | "ready" | "degraded" | "down" | "unavailable";
@@ -35,70 +31,6 @@ interface SystemStatusData {
   timestamp: string;
 }
 
-interface TopologyNode {
-  id: string;
-  title: string;
-  subtitle: string;
-  tech: string;
-  badge: string;
-  color: string;
-  border: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const TOPOLOGY_NODES: Record<string, TopologyNode> = {
-  client: {
-    id: "client",
-    title: "Client & Ingress Layer",
-    subtitle: "Next.js 15 App Router + React 19",
-    tech: "TypeScript · Tailwind CSS · SSR/ISR",
-    badge: "Frontend Client",
-    color: "text-sky-600 dark:text-sky-400 bg-sky-500/10",
-    border: "border-sky-500/30 hover:border-sky-500",
-    icon: Code2,
-  },
-  gateway: {
-    id: "gateway",
-    title: "FastAPI Core Gateway",
-    subtitle: "High-Concurrency Async REST & SSE",
-    tech: "Python 3.12 · Pydantic v2 · AsyncIO",
-    badge: "ASGI Core Gateway",
-    color: "text-sky-600 dark:text-sky-400 bg-sky-500/10",
-    border: "border-sky-500/30 hover:border-sky-500",
-    icon: Server,
-  },
-  database: {
-    id: "database",
-    title: "PostgreSQL 17 + pgvector",
-    subtitle: "Relational & Vector Storage",
-    tech: "pgvector · SQLAlchemy · Async Pool",
-    badge: "Vector DB",
-    color: "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10",
-    border: "border-emerald-500/30 hover:border-emerald-500",
-    icon: Database,
-  },
-  redis: {
-    id: "redis",
-    title: "Redis 7 In-Memory Tier",
-    subtitle: "Cache & Rate Limiting",
-    tech: "Key-Value TTL · Pub/Sub Broker",
-    badge: "In-Memory Cache",
-    color: "text-amber-600 dark:text-amber-400 bg-amber-500/10",
-    border: "border-amber-500/30 hover:border-amber-500",
-    icon: Layers,
-  },
-  ai: {
-    id: "ai",
-    title: "AI Agent & RAG Pipeline",
-    subtitle: "Hybrid Knowledge Retrieval",
-    tech: "BM25 + Dense Search · Tool Execution",
-    badge: "RAG Engine",
-    color: "text-indigo-600 dark:text-indigo-400 bg-indigo-500/10",
-    border: "border-indigo-500/30 hover:border-indigo-500",
-    icon: Cpu,
-  },
-};
-
 export function ArchitectureDiagram() {
   const [activeTab, setActiveTab] = useState<"topology" | "services" | "logs" | "latency">("topology");
   const [connectionStatus, setConnectionStatus] = useState<"connecting" | "connected" | "disconnected">("connecting");
@@ -110,14 +42,13 @@ export function ArchitectureDiagram() {
 
   // Health data state
   const [healthData, setHealthData] = useState<SystemStatusData | null>(null);
-  const [healthLoading, setHealthLoading] = useState<boolean>(false);
-  const [healthError, setHealthError] = useState<boolean>(false);
 
   const terminalContainerRef = useRef<HTMLDivElement | null>(null);
-  const lastProbeTimeRef = useRef<number>(Date.now());
+  const lastProbeTimeRef = useRef<number>(0);
 
   // Increment seconds since last probe every second
   useEffect(() => {
+    lastProbeTimeRef.current = Date.now();
     const timer = setInterval(() => {
       const diff = Math.floor((Date.now() - lastProbeTimeRef.current) / 1000);
       setSecondsAgo(diff >= 0 ? diff : 0);
@@ -128,7 +59,6 @@ export function ArchitectureDiagram() {
   // Fetch health data — measures browser RTT (full network round-trip)
   const fetchHealthStatus = useCallback(async () => {
     try {
-      setHealthLoading(true);
       const t0 = performance.now();
       const res = await fetch(`${API_BASE_URL}/api/v1/health/status`, {
         cache: "no-store",
@@ -137,7 +67,6 @@ export function ArchitectureDiagram() {
       if (!res.ok) throw new Error("Health check failed");
       const json: SystemStatusData = await res.json();
       setHealthData(json);
-      setHealthError(false);
 
       lastProbeTimeRef.current = Date.now();
       setSecondsAgo(0);
@@ -153,13 +82,11 @@ export function ArchitectureDiagram() {
         })
       );
     } catch {
-      setHealthError(true);
-    } finally {
-      setHealthLoading(false);
+      // Degrade gracefully
     }
   }, []);
 
-  // SSE Stream Listener
+  // SSE Stream Listener & Health Poller
   useEffect(() => {
     let eventSource: EventSource | null = null;
 
@@ -191,12 +118,18 @@ export function ArchitectureDiagram() {
     };
 
     connect();
-    fetchHealthStatus();
+
+    const timer = setTimeout(() => {
+      void fetchHealthStatus();
+    }, 0);
 
     // Re-poll health every 30s
-    const healthPollInterval = setInterval(fetchHealthStatus, 30_000);
+    const healthPollInterval = setInterval(() => {
+      void fetchHealthStatus();
+    }, 30_000);
 
     return () => {
+      clearTimeout(timer);
       if (eventSource) eventSource.close();
       clearInterval(healthPollInterval);
     };
